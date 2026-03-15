@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYPTech - Quotation Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="../logo.png" alt="AYPTech" class="logo">
+            <h1>Quotation Maker</h1>
+        </header>
+
+        <div class="quotation-form">
+            <div style="background: rgba(234, 221, 202, 0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; border: 1px solid #CD7F32;">
+                <p style="color: #000000; margin: 0;">✅ <strong>Auto-Save Enabled</strong> - Your data is automatically saved as you type!</p>
+            </div>
+            <div class="section">
+                <h2>Client Details</h2>
+                <div class="form-grid">
+                    <input type="text" id="clientName" placeholder="Client Name *" required>
+                    <input type="text" id="clientCompany" placeholder="Company Name">
+                    <input type="email" id="clientEmail" placeholder="Email *" required>
+                    <input type="tel" id="clientPhone" placeholder="Phone Number">
+                    <textarea id="clientAddress" placeholder="Address" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Quotation Details</h2>
+                <div class="form-grid">
+                    <input type="text" id="quotationNumber" placeholder="Quotation Number *" value="QT-001" required>
+                    <input type="date" id="quotationDate" required>
+                    <input type="date" id="validUntil" placeholder="Valid Until">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Services / Items</h2>
+                <div class="items-container" id="itemsContainer">
+                    <div class="item-row">
+                        <input type="text" class="item-name" placeholder="Service/Item Name *" required>
+                        <textarea class="item-description" placeholder="Description" rows="2"></textarea>
+                        <input type="number" class="item-quantity" placeholder="Qty" value="1" min="1">
+                        <input type="number" class="item-price" placeholder="Price (₹)" min="0" step="0.01">
+                        <div class="item-amount">₹0.00</div>
+                        <button class="btn-remove" onclick="removeItem(this)">×</button>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="addItem()">+ Add Item</button>
+            </div>
+
+            <div class="section">
+                <h2>Additional Details</h2>
+                <div class="form-grid">
+                    <input type="number" id="discount" placeholder="Discount (%)" min="0" max="100" value="0">
+                    <input type="number" id="tax" placeholder="Tax/GST (%)" min="0" max="100" value="18">
+                    <textarea id="terms" placeholder="Terms & Conditions" rows="3">1. Payment terms: 50% advance, 50% on completion
+2. Validity: 30 days from quotation date
+3. Prices are subject to change without notice</textarea>
+                    <textarea id="notes" placeholder="Additional Notes" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount (<span id="discountPercent">0</span>%):</span>
+                    <span id="discountAmount">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax/GST (<span id="taxPercent">18</span>%):</span>
+                    <span id="taxAmount">₹0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Amount:</span>
+                    <span id="totalAmount">₹0.00</span>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn-primary" onclick="downloadAsHTML()">📄 Download PDF</button>
+                <button class="btn-secondary" onclick="printQuotation()">🖨️ Quick Print</button>
+                <button class="btn-secondary" onclick="previewQuotation()">👁️ Preview</button>
+                <button class="btn-secondary" onclick="testFill()">🧪 Test Fill</button>
+                <button class="btn-secondary" onclick="resetForm()">🔄 Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePreview()">&times;</span>
+            <div id="previewContent"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script src="print.js"></script>
+</body>
+</html>
