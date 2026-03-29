@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Google Sheets Integration - AYP Tech</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px; margin: 2rem auto; padding: 2rem;">
+        <h1 style="text-align: center; margin-bottom: 2rem;">Test Google Sheets Integration</h1>
+        
+        <div class="test-status" id="testStatus" style="margin-bottom: 2rem; padding: 1rem; border-radius: 10px; text-align: center;">
+            <p>Ready to test the integration...</p>
+        </div>
+
+        <form class="contact-form-main glass-card" id="testForm">
+            <h3>Test Contact Form</h3>
+            <p>Fill out this form to test if data is being sent to Google Sheets</p>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" value="Test" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" value="User" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" value="test@example.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" value="1234567890" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="company">Company Name</label>
+                <input type="text" id="company" name="company" value="Test Company">
+            </div>
+            
+            <div class="form-group">
+                <label for="industry">Industry *</label>
+                <select id="industry" name="industry" required>
+                    <option value="testing" selected>Testing</option>
+                    <option value="telecalling">Telecalling / Call Center</option>
+                    <option value="finance">Finance / Lending</option>
+                    <option value="startup">Startup</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="service">Primary Interest *</label>
+                <select id="service" name="service" required>
+                    <option value="test-service" selected>Test Service</option>
+                    <option value="business-automation">Business Process Automation</option>
+                    <option value="ai-solutions">AI Solutions & Analytics</option>
+                    <option value="crm-systems">CRM & Customer Management</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="teamSize">Team Size</label>
+                <select id="teamSize" name="teamSize">
+                    <option value="1-10" selected>1-10 employees</option>
+                    <option value="11-50">11-50 employees</option>
+                    <option value="51-200">51-200 employees</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="budget">Monthly Budget Range</label>
+                <select id="budget" name="budget">
+                    <option value="under-25k" selected>Under ₹25,000</option>
+                    <option value="25k-50k">₹25,000 - ₹50,000</option>
+                    <option value="50k-100k">₹50,000 - ₹1,00,000</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="timeline">When do you want to start?</label>
+                <select id="timeline" name="timeline">
+                    <option value="immediately" selected>Immediately</option>
+                    <option value="1-month">Within 1 month</option>
+                    <option value="3-months">Within 3 months</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Tell us about your business goals and challenges *</label>
+                <textarea id="message" name="message" rows="4" required>This is a test submission to verify Google Sheets integration is working properly.</textarea>
+            </div>
+            
+            <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="newsletter" value="yes" checked>
+                    <span class="checkmark"></span>
+                    Subscribe to our newsletter for technology tips and industry insights
+                </label>
+            </div>
+            
+            <button type="submit" class="btn-primary large">
+                <i class="fas fa-paper-plane"></i>
+                Test Form Submission
+            </button>
+            
+            <div class="form-guarantee">
+                <i class="fas fa-shield-alt"></i>
+                <span>This is a test form - data will be sent to Google Sheets</span>
+            </div>
+        </form>
+
+        <div class="test-instructions" style="margin-top: 2rem; padding: 1.5rem; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+            <h4>Testing Instructions:</h4>
+            <ol>
+                <li>Click the "Test Form Submission" button above</li>
+                <li>Check your Google Sheet: <a href="https://docs.google.com/spreadsheets/d/1NgFigw0HWoZ1ELPwCA3ZTrqJLMEAppQEZP7kd4nvxco/edit" target="_blank" style="color: #6366f1;">Open Google Sheet</a></li>
+                <li>Look for a new row with the test data</li>
+                <li>Check your email (contact@ayptech.com) for the notification</li>
+                <li>If successful, the integration is working!</li>
+            </ol>
+        </div>
+
+        <div class="api-test" style="margin-top: 2rem;">
+            <h4>API Status Test:</h4>
+            <button onclick="testAPI()" class="btn-secondary">Test API Connection</button>
+            <div id="apiResult" style="margin-top: 1rem; padding: 1rem; border-radius: 5px; display: none;"></div>
+        </div>
+    </div>
+
+    <script src="google-sheets-integration.js"></script>
+    <script>
+        // Additional test functions
+        async function testAPI() {
+            const resultDiv = document.getElementById('apiResult');
+            const testUrl = 'https://script.google.com/macros/s/AKfycbz1kbtTskP-DTDhgDV9vUdt5NfnC4rZt0uc32BsWKFX4rs9lMqdfuz0xMGmcTPSapaNMQ/exec';
+            
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Testing API connection...';
+            resultDiv.style.background = 'rgba(99, 102, 241, 0.1)';
+            
+            try {
+                const response = await fetch(testUrl);
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultDiv.innerHTML = '<i class="fas fa-check-circle"></i> API is working! ' + data.message;
+                    resultDiv.style.background = 'rgba(16, 185, 129, 0.1)';
+                    resultDiv.style.color = '#10b981';
+                } else {
+                    throw new Error(data.message || 'Unknown error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> API Error: ' + error.message;
+                resultDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                resultDiv.style.color = '#ef4444';
+            }
+        }
+
+        // Update test status
+        function updateTestStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('testStatus');
+            const colors = {
+                info: 'rgba(99, 102, 241, 0.1)',
+                success: 'rgba(16, 185, 129, 0.1)',
+                error: 'rgba(239, 68, 68, 0.1)'
+            };
+            
+            statusDiv.innerHTML = `<p>${message}</p>`;
+            statusDiv.style.background = colors[type];
+        }
+
+        // Override the form submission to show test status
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('testForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    updateTestStatus('Form submitted! Check your Google Sheet and email for results.', 'info');
+                });
+            }
+        });
+
+        // Test on page load
+        window.addEventListener('load', function() {
+            updateTestStatus('Integration script loaded. Ready to test!', 'success');
+        });
+    </script>
+</body>
+</html>

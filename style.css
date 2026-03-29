@@ -2436,3 +2436,382 @@ body {
         font-size: 1.1rem;
     }
 }
+/* Three.js Background Styles */
+
+#three-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+#three-background canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(10, 10, 15, 0.3) 0%,
+        rgba(10, 10, 15, 0.7) 70%,
+        rgba(10, 10, 15, 0.9) 100%
+    );
+    z-index: 2;
+}
+
+/* Enhanced Hero Section for Three.js */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 3;
+}
+
+/* Enhanced Glassmorphism Effects */
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 
+        0 12px 40px rgba(99, 102, 241, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced Neon Effects */
+.neon-text {
+    text-shadow: 
+        0 0 5px rgba(0, 212, 255, 0.5),
+        0 0 10px rgba(0, 212, 255, 0.5),
+        0 0 15px rgba(0, 212, 255, 0.5),
+        0 0 20px rgba(0, 212, 255, 0.5);
+    animation: neonPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+    from {
+        text-shadow: 
+            0 0 5px rgba(0, 212, 255, 0.5),
+            0 0 10px rgba(0, 212, 255, 0.5),
+            0 0 15px rgba(0, 212, 255, 0.5),
+            0 0 20px rgba(0, 212, 255, 0.5);
+    }
+    to {
+        text-shadow: 
+            0 0 10px rgba(0, 212, 255, 0.8),
+            0 0 20px rgba(0, 212, 255, 0.8),
+            0 0 30px rgba(0, 212, 255, 0.8),
+            0 0 40px rgba(0, 212, 255, 0.8);
+    }
+}
+
+/* Enhanced Button Effects */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 4px 15px rgba(99, 102, 241, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 25px rgba(99, 102, 241, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced Service Cards */
+.service-card {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(99, 102, 241, 0.1) 0%,
+        rgba(139, 92, 246, 0.1) 50%,
+        rgba(0, 212, 255, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: rgba(0, 212, 255, 0.5);
+}
+
+.service-icon {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotateY(180deg);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+}
+
+/* Enhanced Case Study Cards */
+.case-study-card {
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+}
+
+.case-study-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(179, 71, 217, 0.1),
+        transparent
+    );
+    transition: left 0.6s ease;
+}
+
+.case-study-card:hover::after {
+    left: 100%;
+}
+
+.case-study-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(179, 71, 217, 0.5);
+    box-shadow: 0 15px 40px rgba(179, 71, 217, 0.3);
+}
+
+/* Metric Number Animation */
+.metric-number {
+    position: relative;
+    display: inline-block;
+}
+
+.metric-number::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #00d4ff, #b347d9);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.case-study-card:hover .metric-number::after {
+    transform: scaleX(1);
+}
+
+/* Enhanced Scroll Animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.animate-on-scroll.slide-up {
+    animation: slideInUp 0.8s ease-out;
+}
+
+.animate-on-scroll.slide-left {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-on-scroll.slide-right {
+    animation: slideInRight 0.8s ease-out;
+}
+
+/* Enhanced Loading States */
+.loading-shimmer {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Performance Optimizations */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .neon-text {
+        animation: none;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-1px);
+    }
+    
+    #three-background {
+        display: none;
+    }
+    
+    .hero-overlay {
+        background: var(--dark-bg);
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .neon-text {
+        text-shadow: none;
+        color: #ffffff;
+    }
+}
+
+/* Mobile Optimizations for Three.js */
+@media (max-width: 768px) {
+    #three-background {
+        display: none; /* Disable on mobile for performance */
+    }
+    
+    .hero-overlay {
+        background: radial-gradient(
+            ellipse at center,
+            rgba(99, 102, 241, 0.1) 0%,
+            var(--dark-bg) 70%
+        );
+    }
+    
+    .service-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .case-study-card:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Print Styles */
+@media print {
+    #three-background,
+    .hero-overlay,
+    .floating-elements {
+        display: none;
+    }
+    
+    .glass-card {
+        background: white;
+        border: 1px solid #ccc;
+        color: black;
+    }
+}
