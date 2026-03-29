@@ -21,8 +21,19 @@ const NEWSLETTER_SHEET_NAME = 'Newsletter Subscriptions';
  */
 function doPost(e) {
   try {
+    console.log('Received POST request');
+    console.log('Content type:', e.postData?.type);
+    console.log('Raw data:', e.postData?.contents);
+    
     // Parse the request data
-    const data = JSON.parse(e.postData.contents);
+    let data;
+    if (e.postData && e.postData.contents) {
+      data = JSON.parse(e.postData.contents);
+    } else {
+      throw new Error('No data received');
+    }
+    
+    console.log('Parsed data:', data);
     
     // Determine which sheet to use based on source
     if (data.source === 'Newsletter') {
@@ -36,7 +47,7 @@ function doPost(e) {
     return ContentService
       .createTextOutput(JSON.stringify({
         status: 'error',
-        message: 'Failed to process request'
+        message: 'Failed to process request: ' + error.message
       }))
       .setMimeType(ContentService.MimeType.JSON);
   }
@@ -47,6 +58,8 @@ function doPost(e) {
  */
 function handleContactSubmission(data) {
   try {
+    console.log('Handling contact submission:', data);
+    
     const sheet = getOrCreateSheet(CONTACT_SHEET_NAME, [
       'Timestamp',
       'First Name',
@@ -66,28 +79,41 @@ function handleContactSubmission(data) {
       'Status'
     ]);
     
-    // Add the data to the sheet
-    sheet.appendRow([
-      data.timestamp,
-      data.firstName,
-      data.lastName,
-      data.email,
-      data.phone,
-      data.company,
-      data.industry,
-      data.service,
-      data.teamSize,
-      data.budget,
-      data.timeline,
-      data.message,
-      data.newsletter,
-      data.source,
-      data.page,
+    // Prepare the row data
+    const rowData = [
+      data.timestamp || new Date().toISOString(),
+      data.firstName || '',
+      data.lastName || '',
+      data.email || '',
+      data.phone || '',
+      data.company || '',
+      data.industry || '',
+      data.service || '',
+      data.teamSize || '',
+      data.budget || '',
+      data.timeline || '',
+      data.message || '',
+      data.newsletter || 'no',
+      data.source || 'Contact Form',
+      data.page || '',
       'New'
-    ]);
+    ];
+    
+    console.log('Adding row:', rowData);
+    
+    // Add the data to the sheet
+    sheet.appendRow(rowData);
+    
+    console.log('Row added successfully');
     
     // Send notification email to admin (optional)
-    sendAdminNotification(data);
+    try {
+      sendAdminNotification(data);
+      console.log('Admin notification sent');
+    } catch (emailError) {
+      console.error('Failed to send admin notification:', emailError);
+      // Don't fail the whole request if email fails
+    }
     
     return ContentService
       .createTextOutput(JSON.stringify({
@@ -101,7 +127,7 @@ function handleContactSubmission(data) {
     return ContentService
       .createTextOutput(JSON.stringify({
         status: 'error',
-        message: 'Failed to submit contact form'
+        message: 'Failed to submit contact form: ' + error.message
       }))
       .setMimeType(ContentService.MimeType.JSON);
   }

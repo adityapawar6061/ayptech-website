@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Form Test - AYP Tech</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #6366f1; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .debug-log { background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; max-height: 300px; overflow-y: auto; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Debug Form Test</h1>
+    
+    <div class="debug-log" id="debugLog">
+        <strong>Debug Log:</strong><br>
+        <span class="info">Page loaded. Ready to test...</span><br>
+    </div>
+
+    <form id="testForm">
+        <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" value="Test User" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" value="test@example.com" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" value="1234567890">
+        </div>
+        
+        <div class="form-group">
+            <label for="service">Service Interest *</label>
+            <select id="service" name="service" required>
+                <option value="test-service">Test Service</option>
+                <option value="business-automation">Business Automation</option>
+                <option value="ai-solutions">AI Solutions</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="4" required>This is a debug test message.</textarea>
+        </div>
+        
+        <button type="submit" id="submitBtn">Send Test Message</button>
+    </form>
+
+    <script>
+        const debugLog = document.getElementById('debugLog');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz1kbtTskP-DTDhgDV9vUdt5NfnC4rZt0uc32BsWKFX4rs9lMqdfuz0xMGmcTPSapaNMQ/exec';
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.innerHTML += `<span class="${type}">[${timestamp}] ${message}</span><br>`;
+            debugLog.scrollTop = debugLog.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            
+            log('Form submission started', 'info');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Collect form data
+                const formData = new FormData(this);
+                const data = {
+                    timestamp: new Date().toISOString(),
+                    firstName: formData.get('name')?.split(' ')[0] || '',
+                    lastName: formData.get('name')?.split(' ').slice(1).join(' ') || '',
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    company: '',
+                    industry: '',
+                    service: formData.get('service'),
+                    teamSize: '',
+                    budget: '',
+                    timeline: '',
+                    message: formData.get('message'),
+                    newsletter: 'no',
+                    source: 'Debug Test Form',
+                    page: window.location.pathname
+                };
+                
+                log('Data prepared: ' + JSON.stringify(data, null, 2), 'info');
+                
+                // Send to Google Sheets
+                log('Sending request to: ' + scriptURL, 'info');
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                log(`Response status: ${response.status} ${response.statusText}`, 'info');
+                
+                const responseText = await response.text();
+                log('Raw response: ' + responseText, 'info');
+                
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                    log('Parsed response: ' + JSON.stringify(result, null, 2), 'info');
+                } catch (parseError) {
+                    log('Failed to parse response as JSON: ' + parseError.message, 'error');
+                    throw new Error('Invalid response from server: ' + responseText);
+                }
+                
+                if (result.status === 'success') {
+                    log('✅ SUCCESS: ' + result.message, 'success');
+                    submitBtn.textContent = '✅ Success!';
+                    submitBtn.style.background = '#10b981';
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                    
+                } else {
+                    throw new Error(result.message || 'Unknown error occurred');
+                }
+                
+            } catch (error) {
+                log('❌ ERROR: ' + error.message, 'error');
+                submitBtn.textContent = '❌ Error';
+                submitBtn.style.background = '#ef4444';
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
+        });
+        
+        // Test API connection on load
+        window.addEventListener('load', async function() {
+            log('Testing API connection...', 'info');
+            
+            try {
+                const response = await fetch(scriptURL);
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    log('✅ API Connection: ' + data.message, 'success');
+                } else {
+                    log('⚠️ API Response: ' + data.message, 'error');
+                }
+            } catch (error) {
+                log('❌ API Connection Failed: ' + error.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

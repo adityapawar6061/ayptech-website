@@ -45,32 +45,46 @@ class GoogleSheetsIntegration {
             const formData = new FormData(form);
             const data = {
                 timestamp: new Date().toISOString(),
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
+                firstName: formData.get('firstName') || formData.get('name')?.split(' ')[0] || '',
+                lastName: formData.get('lastName') || formData.get('name')?.split(' ').slice(1).join(' ') || '',
                 email: formData.get('email'),
                 phone: formData.get('phone'),
-                company: formData.get('company'),
-                industry: formData.get('industry'),
+                company: formData.get('company') || '',
+                industry: formData.get('industry') || '',
                 service: formData.get('service'),
-                teamSize: formData.get('teamSize'),
-                budget: formData.get('budget'),
-                timeline: formData.get('timeline'),
+                teamSize: formData.get('teamSize') || '',
+                budget: formData.get('budget') || '',
+                timeline: formData.get('timeline') || '',
                 message: formData.get('message'),
                 newsletter: formData.get('newsletter') || 'no',
                 source: 'Contact Form',
                 page: window.location.pathname
             };
 
+            console.log('Sending data:', data); // Debug log
+
             // Send to Google Sheets
             const response = await fetch(this.scriptURL, {
                 method: 'POST',
-                body: JSON.stringify(data),
                 headers: {
-                    'Content-Type': 'application/json',
-                }
+                    'Content-Type': 'text/plain',
+                },
+                body: JSON.stringify(data)
             });
 
-            if (response.ok) {
+            console.log('Response status:', response.status); // Debug log
+            const responseText = await response.text();
+            console.log('Response text:', responseText); // Debug log
+            
+            let result;
+            try {
+                result = JSON.parse(responseText);
+            } catch (parseError) {
+                console.error('Failed to parse response:', parseError);
+                throw new Error('Invalid response from server');
+            }
+
+            if (result.status === 'success') {
                 // Success
                 this.showSuccess(form, submitBtn, originalText);
                 form.reset();
@@ -79,12 +93,12 @@ class GoogleSheetsIntegration {
                 this.sendConfirmationEmail(data.email, data.firstName);
                 
             } else {
-                throw new Error('Network response was not ok');
+                throw new Error(result.message || 'Unknown error occurred');
             }
 
         } catch (error) {
             console.error('Error:', error);
-            this.showError(submitBtn, originalText);
+            this.showError(submitBtn, originalText, error.message);
         }
 
         form.classList.remove('loading');
@@ -155,7 +169,7 @@ class GoogleSheetsIntegration {
         this.showNotification('Message sent successfully! We\'ll get back to you within 2 hours.', 'success');
     }
 
-    showError(submitBtn, originalText) {
+    showError(submitBtn, originalText, errorMessage = 'Unknown error') {
         submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error - Try Again';
         submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
         
@@ -165,7 +179,7 @@ class GoogleSheetsIntegration {
             submitBtn.style.background = '';
         }, 3000);
         
-        this.showNotification('Failed to send message. Please try again or call us directly.', 'error');
+        this.showNotification(`Failed to send message: ${errorMessage}. Please try again or call us directly.`, 'error');
     }
 
     showNotification(message, type = 'info') {
