@@ -15,10 +15,12 @@ class GoogleSheetsIntegration {
     }
 
     setupContactForm() {
-        const contactForm = document.querySelector('.contact-form-main');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => this.handleContactSubmission(e));
-        }
+        const contactForms = document.querySelectorAll('.contact-form-main, .contact-form');
+        contactForms.forEach(form => {
+            if (form) {
+                form.addEventListener('submit', (e) => this.handleContactSubmission(e));
+            }
+        });
     }
 
     setupNewsletterForm() {
@@ -41,21 +43,33 @@ class GoogleSheetsIntegration {
         form.classList.add('loading');
 
         try {
-            // Collect form data
+            // Collect form data with better field mapping
             const formData = new FormData(form);
+            
+            // Handle different form structures
+            let firstName = formData.get('firstName') || '';
+            let lastName = formData.get('lastName') || '';
+            
+            // If no firstName/lastName, try to split 'name' field
+            if (!firstName && !lastName && formData.get('name')) {
+                const nameParts = formData.get('name').trim().split(' ');
+                firstName = nameParts[0] || '';
+                lastName = nameParts.slice(1).join(' ') || '';
+            }
+            
             const data = {
                 timestamp: new Date().toISOString(),
-                firstName: formData.get('firstName') || formData.get('name')?.split(' ')[0] || '',
-                lastName: formData.get('lastName') || formData.get('name')?.split(' ').slice(1).join(' ') || '',
-                email: formData.get('email'),
-                phone: formData.get('phone'),
+                firstName: firstName,
+                lastName: lastName,
+                email: formData.get('email') || '',
+                phone: formData.get('phone') || '',
                 company: formData.get('company') || '',
                 industry: formData.get('industry') || '',
-                service: formData.get('service'),
+                service: formData.get('service') || '',
                 teamSize: formData.get('teamSize') || '',
                 budget: formData.get('budget') || '',
                 timeline: formData.get('timeline') || '',
-                message: formData.get('message'),
+                message: formData.get('message') || '',
                 newsletter: formData.get('newsletter') || 'no',
                 source: 'Contact Form',
                 page: window.location.pathname
