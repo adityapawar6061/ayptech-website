@@ -1,560 +1,1434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AYP Tech - We Turn Non-Tech Businesses Into Tech-Powered Companies</title>
-    <meta name="description" content="AYP Tech helps startups and traditional businesses grow faster by integrating automation, AI, and digital systems. Complete technology partner for non-tech businesses.">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AYP Tech — Automation & AI for Indian Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FFF7D1;
+    --bg-warm: #FFECC8;
+    --bg-founder: #FFD09B;
+    --primary: #4F46E5;
+    --primary-light: #EEF2FF;
+    --text: #0F0F0F;
+    --muted: #6B7280;
+    --line: #E5E7EB;
+    --highlight: #FDE68A;
+    --white: #ffffff;
+    --font-display: 'Bricolage Grotesque', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-signature: 'Playfair Display', serif;
+    --max-w: 1200px;
+    --section-pad: 120px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor.hover { width: 28px; height: 28px; background: rgba(79,70,229,0.3); }
+
+  /* NAVBAR */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 20px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.3s ease;
+  }
+  .navbar.scrolled {
+    background: rgba(255,247,209,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 1px 0 var(--line);
+    padding: 14px 40px;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .logo {
+    height: 32px;
+    width: auto;
+  }
+  .brand-text {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-cta {
+    background: var(--primary);
+    color: white; border: none; padding: 10px 22px;
+    border-radius: 100px; font-size: 14px; font-weight: 500;
+    cursor: none; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    font-family: var(--font-body);
+  }
+  .nav-cta:hover { background: #3730a3; transform: translateY(-1px); }
+  .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
+  .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); display: block; transition: all 0.3s; }
+
+  /* MOBILE NAV OVERLAY */
+  .mobile-nav {
+    position: fixed; inset: 0; background: var(--bg);
+    z-index: 999; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 32px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .mobile-nav.open { opacity: 1; pointer-events: all; }
+  .mobile-nav a {
+    font-family: var(--font-display); font-size: 36px; font-weight: 700;
+    color: var(--text); text-decoration: none;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 40px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-inner {
+    max-width: var(--max-w);
+    margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--primary-light); color: var(--primary);
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+  .eyebrow-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: pulse 2s infinite; }
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -2.5px; color: var(--text);
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.7s ease forwards 0.25s;
+  }
+  .hero-h1 .word-highlight {
+    position: relative; display: inline-block;
+    color: var(--text);
+  }
+  .hero-h1 .word-highlight svg.underline {
+    position: absolute; bottom: -6px; left: 0; width: 100%;
+    overflow: visible;
+  }
+  .hero-h1 .word-highlight svg.underline path {
+    stroke: var(--highlight); stroke-width: 8;
+    fill: none; stroke-linecap: round;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLine 0.8s ease forwards 1s;
+  }
+  .hero-sub {
+    font-size: 18px; color: var(--muted); line-height: 1.6;
+    max-width: 440px; margin-bottom: 36px;
+    opacity: 0; animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+  .hero-ctarow {
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s ease forwards 0.55s;
+  }
+  .btn-primary {
+    background: var(--primary); color: white;
+    padding: 14px 28px; border-radius: 100px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.2s; cursor: none;
+  }
+  .btn-primary:hover { background: #3730a3; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,70,229,0.25); }
+  .btn-ghost {
+    color: var(--text); font-size: 15px; font-weight: 500;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.2s; cursor: none;
+  }
+  .btn-ghost:hover { gap: 10px; }
+  .hero-scroll-hint {
+    font-size: 13px; color: var(--muted); margin-top: 48px;
+    display: flex; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 0.7s ease forwards 0.7s;
+    cursor: none;
+  }
+  .hero-scroll-hint span { color: var(--primary); font-weight: 500; }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative; height: 480px; display: flex; align-items: center; justify-content: center;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+    opacity: 0.6;
+  }
+  .shape-ring {
+    width: 280px; height: 280px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    position: relative;
+    animation: rotateSlow 20s linear infinite;
+  }
+  .shape-ring::before {
+    content: '';
+    width: 200px; height: 200px;
+    border: 1.5px dashed var(--line);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    animation: rotateSlow 12s linear infinite reverse;
+  }
+  .shape-dot {
+    width: 12px; height: 12px; background: var(--primary);
+    border-radius: 50%;
+    position: absolute;
+  }
+  .shape-dot:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+  .shape-dot:nth-child(2) { bottom: 0; left: 50%; transform: translateX(-50%); }
+  .shape-dot:nth-child(3) { left: 0; top: 50%; transform: translateY(-50%); }
+  .shape-dot:nth-child(4) { right: 0; top: 50%; transform: translateY(-50%); }
+  .shape-center {
+    position: absolute;
+    width: 80px; height: 80px;
+    background: var(--primary);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-family: var(--font-display); font-weight: 800; font-size: 22px;
+    box-shadow: 0 20px 60px rgba(79,70,229,0.35);
+    animation: floatY 3s ease-in-out infinite;
+  }
+  .metric-float {
+    position: absolute;
+    background: white; border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    font-size: 13px; font-weight: 500;
+    white-space: nowrap;
+  }
+  .metric-float .val { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--primary); display: block; }
+  .mf1 { top: 60px; right: 40px; animation: floatY 4s ease-in-out infinite 0.5s; }
+  .mf2 { bottom: 80px; left: 20px; animation: floatY 3.5s ease-in-out infinite 1s; }
+  .mf3 { bottom: 40px; right: 60px; animation: floatY 4.5s ease-in-out infinite; }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--text); overflow: hidden;
+    padding: 14px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    opacity: 0; animation: fadeUp 0.5s ease forwards 0.9s;
+  }
+  .ticker-track {
+    display: flex; gap: 0;
+    animation: tickerScroll 35s linear infinite;
+    width: max-content;
+  }
+  .ticker-item {
+    color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 400;
+    padding: 0 40px;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+  }
+  .ticker-item .up { color: #4ade80; font-weight: 600; }
+  .ticker-sep { color: rgba(255,255,255,0.2); }
+
+  /* SECTION COMMONS */
+  section { padding: var(--section-pad) 40px; }
+  .container { max-width: var(--max-w); margin: 0 auto; }
+  .section-label {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--primary); font-weight: 600; margin-bottom: 16px;
+  }
+  .section-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 800; letter-spacing: -1.5px; line-height: 1.1;
+    color: var(--text); margin-bottom: 20px;
+  }
+  .section-lead {
+    font-size: 18px; color: var(--muted); line-height: 1.65;
+    max-width: 560px;
+  }
+
+  /* REVEAL ANIMATION */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* PROBLEM SECTION */
+  .problem {
+    background: var(--bg-warm);
+    padding: var(--section-pad) 40px;
+  }
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px; margin-top: 64px;
+  }
+  .pain-card {
+    padding: 40px 36px;
+    background: var(--bg-warm);
+    border: 1px solid rgba(0,0,0,0.06);
+    position: relative; overflow: hidden;
+  }
+  .pain-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--primary); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.4s ease;
+  }
+  .pain-card:hover::before { transform: scaleX(1); }
+  .pain-loss {
+    font-family: var(--font-display); font-size: 52px; font-weight: 800;
+    color: var(--primary); letter-spacing: -2px; display: block; margin-bottom: 12px;
+  }
+  .pain-title { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+  .pain-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+  .problem-cta {
+    margin-top: 60px; display: flex; align-items: center; gap: 16px;
+  }
+  .problem-stat {
+    background: white; border-radius: 12px;
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .problem-stat .big { font-family: var(--font-display); font-weight: 800; font-size: 32px; color: var(--primary); }
+  .problem-stat .sm { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 16px; overflow: hidden;
+    margin-top: 64px;
+  }
+  .svc-card {
+    padding: 48px 44px;
+    background: var(--bg);
+    transition: all 0.25s;
+    position: relative;
+  }
+  .svc-card:hover { background: var(--white); }
+  .svc-card:hover .svc-arrow { opacity: 1; transform: translateX(0); }
+  .svc-icon {
+    width: 44px; height: 44px; margin-bottom: 24px;
+    color: var(--primary);
+  }
+  .svc-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 20px; margin-bottom: 12px; letter-spacing: -0.3px;
+  }
+  .svc-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+  .svc-arrow {
+    font-size: 13px; color: var(--primary); font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+    opacity: 0; transform: translateX(-8px); transition: all 0.25s;
+    cursor: none;
+  }
+
+  /* PROCESS */
+  .process { overflow: hidden; }
+  .process-header { margin-bottom: 72px; }
+  .process-track {
+    display: flex; gap: 0; position: relative;
+    padding-bottom: 40px;
+  }
+  .process-line-svg {
+    position: absolute; top: 28px; left: 0; width: 100%; height: 2px; pointer-events: none;
+  }
+  .process-step {
+    flex: 1; padding: 0 24px; position: relative;
+    min-width: 200px;
+  }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--primary); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 18px;
+    margin-bottom: 24px; position: relative; z-index: 1;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 16px; margin-bottom: 10px; letter-spacing: -0.2px;
+  }
+  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* CASE STUDIES */
+  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 64px; }
+  .case-card {
+    border: 1px solid var(--line); border-radius: 20px;
+    overflow: hidden; background: white;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .case-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+  .case-card-body { padding: 44px; }
+  .case-tags { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .tag {
+    background: var(--primary-light); color: var(--primary);
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  }
+  .case-result {
+    font-family: var(--font-display); font-size: 64px; font-weight: 800;
+    color: var(--primary); letter-spacing: -3px; line-height: 1;
+    margin-bottom: 8px;
+  }
+  .case-result-label { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+  .case-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin-bottom: 12px; letter-spacing: -0.3px; }
+  .case-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .case-divider { height: 1px; background: var(--line); margin: 28px 0; }
+  .case-company { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+  /* BEFORE/AFTER SLIDER */
+  .ba-wrap {
+    position: relative; width: 100%; height: 340px;
+    background: var(--bg); overflow: hidden; cursor: col-resize;
+    border-top: 1px solid var(--line);
+  }
+  .ba-side {
+    position: absolute; top: 0; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 32px; overflow: hidden;
+  }
+  .ba-before { left: 0; background: #FEF2F2; width: 100%; }
+  .ba-after { right: 0; background: #F0FDF4; width: 100%; clip-path: inset(0 100% 0 0); transition: clip-path 0s; }
+  .ba-handle {
+    position: absolute; top: 0; height: 100%; width: 2px;
+    background: var(--primary); left: 50%;
+    cursor: col-resize; z-index: 10;
+  }
+  .ba-handle::before {
+    content: '◀▶';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--primary); color: white;
+    padding: 8px 12px; border-radius: 100px;
+    font-size: 11px; white-space: nowrap; letter-spacing: 2px;
+  }
+  .ba-label {
+    position: absolute; top: 16px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px;
+  }
+  .ba-before-lbl { left: 16px; background: #FCA5A5; color: #7f1d1d; }
+  .ba-after-lbl { right: 16px; background: #86efac; color: #14532d; }
+  .ba-flow {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono); font-size: 11px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .flow-box {
+    padding: 8px 14px; border-radius: 8px; font-weight: 500;
+    border: 1.5px solid; white-space: nowrap;
+  }
+  .before-box { border-color: #f87171; color: #ef4444; background: white; }
+  .after-box { border-color: #4ade80; color: #16a34a; background: white; }
+  .flow-arr-bad { color: #f87171; font-size: 16px; }
+  .flow-arr-good { color: #4ade80; font-size: 16px; }
+
+  /* CALCULATOR */
+  .calc-section { background: var(--primary); padding: var(--section-pad) 40px; }
+  .calc-inner {
+    max-width: 780px; margin: 0 auto;
+    text-align: center;
+  }
+  .calc-inner .section-label { color: rgba(255,255,255,0.6); }
+  .calc-inner .section-h2 { color: white; }
+  .calc-card {
+    background: white; border-radius: 24px;
+    padding: 48px; margin-top: 48px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+  }
+  .calc-sliders { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .calc-slider-group label {
+    display: flex; justify-content: space-between;
+    font-size: 14px; font-weight: 600; margin-bottom: 12px;
+  }
+  .calc-slider-group label span { color: var(--primary); }
+  input[type=range] {
+    width: 100%; height: 4px;
+    -webkit-appearance: none; appearance: none;
+    background: var(--line); border-radius: 2px; outline: none;
+    cursor: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%; background: var(--primary);
+    cursor: none; box-shadow: 0 2px 8px rgba(79,70,229,0.3);
+  }
+  .calc-output { text-align: center; padding: 32px; background: var(--bg); border-radius: 16px; }
+  .calc-output .loss-label { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+  .calc-output .loss-num {
+    font-family: var(--font-display); font-size: 56px; font-weight: 800;
+    color: var(--primary); letter-spacing: -2px;
+  }
+  .calc-output .loss-sub { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .calc-cta { margin-top: 32px; }
+  .calc-cta-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
+
+  /* HONEST SECTION */
+  .honest {
+    padding: var(--section-pad) 40px;
+    text-align: center;
+  }
+  .honest-inner { max-width: 640px; margin: 0 auto; }
+  .honest-title {
+    font-family: var(--font-display); font-size: 40px;
+    font-weight: 800; letter-spacing: -1px; margin-bottom: 40px;
+  }
+  .honest-list {
+    list-style: none; text-align: left;
+    border: 1px solid var(--line); border-radius: 16px;
+    overflow: hidden;
+  }
+  .honest-list li {
+    padding: 20px 28px;
+    font-family: var(--font-mono); font-size: 14px;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 14px;
+    line-height: 1.5;
+  }
+  .honest-list li:last-child { border-bottom: none; }
+  .honest-list li .x { color: var(--primary); font-weight: 700; font-size: 16px; }
+
+  /* SCROLL REVEAL PROBLEMS */
+  .problems-reveal { background: var(--bg-warm); padding: var(--section-pad) 40px; }
+  .problem-list { max-width: 720px; margin: 48px auto 0; }
+  .problem-item {
+    padding: 24px 0; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 20px;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.5s ease;
+  }
+  .problem-item.vis { opacity: 1; transform: translateX(0); }
+  .problem-item.solved .prob-text { text-decoration: line-through; color: var(--muted); }
+  .prob-icon { font-size: 20px; flex-shrink: 0; }
+  .prob-text { font-size: 18px; font-weight: 500; transition: all 0.4s; }
+  .prob-solution { margin-left: auto; font-size: 13px; color: #16a34a; font-weight: 600; opacity: 0; transition: opacity 0.4s 0.3s; }
+  .problem-item.solved .prob-solution { opacity: 1; }
+
+  /* FOUNDERS */
+  .founders { background: var(--bg-founder); padding: var(--section-pad) 40px; }
+  .founders-inner {
+    max-width: var(--max-w); margin: 0 auto;
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center;
+  }
+  .founders-note .note-text {
+    font-size: 19px; line-height: 1.75; color: var(--text);
+    margin-bottom: 32px;
+  }
+  .founders-note .note-text strong { color: var(--primary); }
+  .founders-sig {
+    font-family: var(--font-signature); font-style: italic;
+    font-size: 26px; color: var(--text); margin-bottom: 8px;
+  }
+  .founders-names-sub { font-size: 13px; color: var(--muted); }
+  .founders-visual {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .founder-card {
+    background: white; border-radius: 16px; padding: 24px;
+    display: flex; align-items: center; gap: 20px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+  .founder-avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--primary-light); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 18px; color: var(--primary);
+    flex-shrink: 0;
+  }
+  .founder-info .name { font-weight: 700; font-size: 15px; }
+  .founder-info .role { font-size: 13px; color: var(--muted); }
+
+  /* TESTIMONIALS */
+  .testi { padding: var(--section-pad) 40px; }
+  .testi-track {
+    display: flex; gap: 24px;
+    overflow-x: auto; padding: 24px 0;
+    scrollbar-width: none; cursor: grab;
+    -webkit-overflow-scrolling: touch;
+  }
+  .testi-track::-webkit-scrollbar { display: none; }
+  .testi-track.grabbing { cursor: grabbing; }
+  .testi-card {
+    min-width: 380px; max-width: 380px;
+    border: 1px solid var(--line); border-radius: 20px;
+    padding: 36px; background: white; flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .testi-card:hover { transform: translateY(-4px); }
+  .testi-quote-mark {
+    font-family: var(--font-display); font-size: 80px; font-weight: 800;
+    color: var(--primary-light); line-height: 0.7; margin-bottom: 20px;
+    display: block;
+  }
+  .testi-text { font-size: 16px; line-height: 1.7; color: var(--text); margin-bottom: 28px; }
+  .testi-author { font-weight: 700; font-size: 14px; }
+  .testi-role { font-size: 13px; color: var(--muted); }
+  .testi-city { font-size: 12px; color: var(--primary); font-weight: 500; margin-top: 4px; }
+
+  /* FINAL CTA */
+  .final-cta {
+    padding: 160px 40px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(79,70,229,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .final-cta .section-h2 { font-size: clamp(40px, 5vw, 70px); margin-bottom: 16px; }
+  .final-cta .section-lead { margin: 0 auto 48px; text-align: center; max-width: 480px; }
+  .final-phone { font-size: 15px; color: var(--muted); margin-top: 20px; }
+
+  /* FOOTER */
+  footer {
+    padding: 60px 40px 40px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-inner {
+    max-width: var(--max-w); margin: 0 auto;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
+  }
+  .footer-brand .logo { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--text); margin-bottom: 12px; }
+  .footer-brand .logo span { color: var(--primary); }
+  .footer-brand .tagline { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 240px; }
+  .footer-col h4 { font-size: 13px; font-weight: 700; margin-bottom: 16px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--text); }
+  .footer-bottom {
+    max-width: var(--max-w); margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  @keyframes drawLine {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes counterUp {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+    .founders-inner { grid-template-columns: 1fr; gap: 48px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    :root { --section-pad: 72px; }
+    .navbar { padding: 16px 24px; }
+    .navbar.scrolled { padding: 12px 24px; }
+    .hero { padding: 100px 24px 60px; }
+    .nav-links { display: none; }
+    .mobile-menu-toggle { display: flex; }
+    .services-grid { grid-template-columns: 1fr; }
+    .calc-sliders { grid-template-columns: 1fr; gap: 28px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    .process-track { overflow-x: auto; padding-bottom: 20px; }
+    .testi-card { min-width: 300px; }
+  }
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <img src="logo.png" alt="AYP Tech" class="logo">
-                <span class="brand-text">AYP Tech</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="#case-studies">Case Studies</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="nav-cta">
-                <a href="contact.html" class="btn-primary">Get Free Consultation</a>
-            </div>
-            <div class="mobile-menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="services.html" onclick="closeMobileNav()">Services</a>
+  <a href="casestudies.html" onclick="closeMobileNav()">Case Studies</a>
+  <a href="#process" onclick="closeMobileNav()">Process</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="contact.html" class="btn-primary" onclick="closeMobileNav()">Book a Call</a>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <img src="logo.png" alt="AYP Tech" class="logo">
+    <span class="brand-text">AYP Tech</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="casestudies.html">Case Studies</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Book a Call</a>
+  <div class="mobile-menu-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        3x productivity for a Pune telecalling company
+      </div>
+      <h1 class="hero-h1">
+        We automate<br>the work that's<br><span class="word-highlight">killing<svg class="underline" viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M4,14 Q50,4 100,12 Q150,20 196,10" /></svg></span> your team
+      </h1>
+      <p class="hero-sub">
+        AYP Tech builds custom automation, AI systems, and software for Indian startups and SMEs — so you can focus on what actually matters.
+      </p>
+      <div class="hero-ctarow">
+        <a href="contact.html" class="btn-primary">Book Free Strategy Call ↗</a>
+        <a href="#work" class="btn-ghost">See our work <span>→</span></a>
+      </div>
+      <div class="hero-scroll-hint">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        <span>Scroll to see</span> what we built for a Pune company last month →
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-grid"></div>
+      <div class="shape-ring">
+        <span class="shape-dot"></span>
+        <span class="shape-dot"></span>
+        <span class="shape-dot"></span>
+        <span class="shape-dot"></span>
+        <div class="shape-center">AI</div>
+      </div>
+      <div class="metric-float mf1">
+        <span class="val" data-count="47">0</span>
+        Businesses automated in 2024
+      </div>
+      <div class="metric-float mf2">
+        <span class="val" data-count="83" data-suffix="%">0%</span>
+        Avg ops efficiency gain
+      </div>
+      <div class="metric-float mf3">
+        <span class="val" data-count="14">0</span>
+        Days avg. project launch
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE TICKER -->
+<div class="ticker-wrap reveal">
+  <div class="ticker-track" id="ticker">
+    <div class="ticker-item">Telecalling CRM &nbsp;·&nbsp; <span class="up">3× productivity ↑</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">Finance ops automation &nbsp;·&nbsp; <span class="up">80% manual work eliminated ↑</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">Startup MVP launch &nbsp;·&nbsp; <span class="up">14 days ✓</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">Pune logistics firm &nbsp;·&nbsp; <span class="up">₹3.2L/month recovered ↑</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">Healthcare data pipeline &nbsp;·&nbsp; <span class="up">6 hrs/day saved ✓</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">E-commerce backend &nbsp;·&nbsp; <span class="up">Built in 3 weeks ✓</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item">Telecalling CRM &nbsp;·&nbsp; <span class="up">3× productivity ↑</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">Finance ops automation &nbsp;·&nbsp; <span class="up">80% manual work eliminated ↑</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">Startup MVP launch &nbsp;·&nbsp; <span class="up">14 days ✓</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">Pune logistics firm &nbsp;·&nbsp; <span class="up">₹3.2L/month recovered ↑</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">Healthcare data pipeline &nbsp;·&nbsp; <span class="up">6 hrs/day saved ✓</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+    <div class="ticker-item">E-commerce backend &nbsp;·&nbsp; <span class="up">Built in 3 weeks ✓</span></div>
+    <div class="ticker-item ticker-sep">|</div>
+  </div>
+</div>
+
+<!-- PROBLEM SECTION -->
+<section class="problem">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">The real cost of doing nothing</div>
+      <h2 class="section-h2">Every month you wait,<br>it costs you.</h2>
+      <p class="section-lead">The average Indian SME loses ₹2.4L/month to manual processes. Most don't even know it.</p>
+    </div>
+    <div class="problem-grid reveal">
+      <div class="pain-card">
+        <span class="pain-loss">₹84K</span>
+        <div class="pain-title">Lost to repetitive data entry</div>
+        <p class="pain-desc">Your team spends 3–4 hours daily copying data between spreadsheets, email, and WhatsApp. That's 80 hours of salary — gone.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-loss">₹1.1L</span>
+        <div class="pain-title">Leads that fall through the cracks</div>
+        <p class="pain-desc">No system = no follow-up. Every inquiry that doesn't get a response in 4 hours is a lead you've already lost to a faster competitor.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-loss">₹62K</span>
+        <div class="pain-title">Ops delays and miscommunication</div>
+        <p class="pain-desc">Without automated workflows, approvals get stuck, invoices get delayed, and your team wastes hours chasing status updates.</p>
+      </div>
+    </div>
+    <div class="problem-cta reveal">
+      <div class="problem-stat">
+        <div class="big">₹2.4L</div>
+        <div class="sm">Avg monthly loss<br>for Indian SMEs</div>
+      </div>
+      <a href="contact.html" class="btn-primary">Here's what we do about it →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SCROLL REVEAL PROBLEMS → SOLUTIONS -->
+<section class="problems-reveal" id="scroll-problems">
+  <div class="container">
+    <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto;">
+      <div class="section-label">Sound familiar?</div>
+      <h2 class="section-h2">We eliminate your problems.</h2>
+    </div>
+    <div class="problem-list">
+      <div class="problem-item" data-delay="0">
+        <span class="prob-icon">📋</span>
+        <span class="prob-text">Manual data entry eating your team's day</span>
+        <span class="prob-solution">✓ Automated</span>
+      </div>
+      <div class="problem-item" data-delay="150">
+        <span class="prob-icon">📞</span>
+        <span class="prob-text">Leads slipping through with no follow-up system</span>
+        <span class="prob-solution">✓ CRM Built</span>
+      </div>
+      <div class="problem-item" data-delay="300">
+        <span class="prob-icon">🔀</span>
+        <span class="prob-text">Siloed tools that don't talk to each other</span>
+        <span class="prob-solution">✓ Integrated</span>
+      </div>
+      <div class="problem-item" data-delay="450">
+        <span class="prob-icon">📊</span>
+        <span class="prob-text">No visibility into what's actually happening</span>
+        <span class="prob-solution">✓ Dashboard Live</span>
+      </div>
+      <div class="problem-item" data-delay="600">
+        <span class="prob-icon">🤝</span>
+        <span class="prob-text">Vendors who disappear after delivery</span>
+        <span class="prob-solution">✓ We Don't</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">What we build</div>
+      <h2 class="section-h2">Built for Indian founders.<br>Designed for how your business actually works.</h2>
+    </div>
+    <div class="services-grid reveal">
+      <div class="svc-card">
+        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="8" y="8" width="12" height="12" rx="2"/>
+          <rect x="24" y="8" width="12" height="12" rx="2"/>
+          <rect x="8" y="24" width="12" height="12" rx="2"/>
+          <rect x="24" y="24" width="12" height="12" rx="2"/>
+          <path d="M14 20v4M30 20v4M20 14h4M20 30h4"/>
+        </svg>
+        <div class="svc-title">Business Process Automation</div>
+        <p class="svc-desc">We map your ops and eliminate the repetitive parts. Lead routing, invoice generation, report creation, data sync — automated end-to-end.</p>
+        <div class="svc-arrow">Learn more <span>→</span></div>
+      </div>
+      <div class="svc-card">
+        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="22" cy="22" r="12"/>
+          <path d="M22 10V8M22 36v-2M34 22h2M8 22h2"/>
+          <circle cx="22" cy="22" r="4"/>
+          <path d="M26.5 17.5l1.5-1.5M16 28l1.5-1.5M26.5 26.5l1.5 1.5M16 16l1.5 1.5"/>
+        </svg>
+        <div class="svc-title">AI Integration & Custom AI Agents</div>
+        <p class="svc-desc">From AI-powered WhatsApp bots to intelligent document processors — we build AI that works inside your existing workflow, not beside it.</p>
+        <div class="svc-arrow">Learn more <span>→</span></div>
+      </div>
+      <div class="svc-card">
+        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="6" y="10" width="32" height="22" rx="3"/>
+          <path d="M14 32h16M22 32v4"/>
+          <path d="M12 18h8M12 22h12M12 26h6"/>
+        </svg>
+        <div class="svc-title">CRM & Lead Management Systems</div>
+        <p class="svc-desc">Custom CRMs that track every touchpoint, auto-assign follow-ups, and give your sales team visibility that off-the-shelf tools never can.</p>
+        <div class="svc-arrow">Learn more <span>→</span></div>
+      </div>
+      <div class="svc-card">
+        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="10" y="6" width="18" height="26" rx="2"/>
+          <rect x="16" y="30" width="18" height="8" rx="2"/>
+          <path d="M14 12h10M14 16h10M14 20h6"/>
+          <path d="M20 30v-2"/>
+        </svg>
+        <div class="svc-title">Custom Software & Web Apps</div>
+        <p class="svc-desc">Full-stack web apps, internal tools, and client-facing portals — built fast, built clean, with long-term maintainability in mind.</p>
+        <div class="svc-arrow">Learn more <span>→</span></div>
+      </div>
+      <div class="svc-card">
+        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 30 L16 22 L22 28 L30 18 L36 24"/>
+          <rect x="6" y="8" width="32" height="28" rx="3"/>
+        </svg>
+        <div class="svc-title">Analytics & Business Intelligence</div>
+        <p class="svc-desc">Live dashboards that pull from all your tools — Google Sheets, WhatsApp, Tally, your CRM — into one place your team can actually use.</p>
+        <div class="svc-arrow">Learn more <span>→</span></div>
+      </div>
+      <div class="svc-card">
+        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="14" cy="14" r="6"/>
+          <circle cx="30" cy="14" r="6"/>
+          <circle cx="22" cy="32" r="6"/>
+          <path d="M20 14h-0M24 14h-0"/>
+          <path d="M16.5 19 L19 26M27.5 19 L25 26"/>
+        </svg>
+        <div class="svc-title">Team Onboarding & Training Systems</div>
+        <p class="svc-desc">Internal wikis, onboarding flows, and knowledge bases that make new hires productive in days, not months — built to your processes.</p>
+        <div class="svc-arrow">Learn more <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="process-header reveal">
+      <div class="section-label">How we work</div>
+      <h2 class="section-h2">From first call<br>to live system.</h2>
+      <p class="section-lead">We move fast. Our average project goes from strategy call to deployed product in under 3 weeks.</p>
+    </div>
+    <div class="process-track reveal">
+      <svg class="process-line-svg" id="processLine">
+        <line x1="28" y1="28" x2="100%" y2="28" stroke="#E5E7EB" stroke-width="2" stroke-dasharray="8 6"/>
+      </svg>
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Discovery Call</div>
+        <p class="step-desc">30-min strategy session. We diagnose your ops bottlenecks and identify the highest-ROI automation first.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Audit & Proposal</div>
+        <p class="step-desc">We map your current workflow and send a detailed scope, timeline, and fixed-price quote. No surprises.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Build Sprint</div>
+        <p class="step-desc">Agile development with weekly check-ins. You see progress every 5 days — never waiting months for a "big reveal."</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Launch & Train</div>
+        <p class="step-desc">Live deployment + team training. We don't hand over a ZIP file — we walk your team through every feature.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">05</div>
+        <div class="step-title">Support & Grow</div>
+        <p class="step-desc">3 months of included support post-launch. Then a retainer if you want us to keep building with you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="work">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Real results, real businesses</div>
+      <h2 class="section-h2">One real thing beats<br>ten vague claims.</h2>
+    </div>
+    <div class="case-grid reveal">
+      <div class="case-card">
+        <div class="case-card-body">
+          <div class="case-tags"><span class="tag">AI</span><span class="tag">CRM</span><span class="tag">Automation</span></div>
+          <div class="case-result">3×</div>
+          <div class="case-result-label">Telecaller productivity — same team, same hours</div>
+          <div class="case-title">Pune Telecalling Company</div>
+          <p class="case-desc">The client had 12 agents manually logging calls in Excel. We built an AI-assisted CRM that auto-logs calls, transcribes summaries, and routes follow-ups. In 6 weeks, they tripled output without hiring a single person.</p>
+          <div class="case-divider"></div>
+          <div class="case-company">📍 Pune, Maharashtra — Finance Sector</div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-bg">
-            <div class="tech-grid"></div>
-            <div class="floating-elements">
-                <div class="floating-element"></div>
-                <div class="floating-element"></div>
-                <div class="floating-element"></div>
+        <!-- BEFORE/AFTER SLIDER -->
+        <div class="ba-wrap" id="baWrap">
+          <div class="ba-side ba-before">
+            <span class="ba-label ba-before-lbl">BEFORE</span>
+            <div class="ba-flow">
+              <div class="flow-box before-box">Call ends</div>
+              <span class="flow-arr-bad">→</span>
+              <div class="flow-box before-box">Agent types notes</div>
+              <span class="flow-arr-bad">→</span>
+              <div class="flow-box before-box">Copy to Excel</div>
+              <span class="flow-arr-bad">→</span>
+              <div class="flow-box before-box">Manager reviews manually</div>
+              <span class="flow-arr-bad">→</span>
+              <div class="flow-box before-box">Follow-up missed</div>
             </div>
+          </div>
+          <div class="ba-side ba-after">
+            <span class="ba-label ba-after-lbl">AFTER</span>
+            <div class="ba-flow">
+              <div class="flow-box after-box">Call ends</div>
+              <span class="flow-arr-good">→</span>
+              <div class="flow-box after-box">AI transcribes</div>
+              <span class="flow-arr-good">→</span>
+              <div class="flow-box after-box">CRM auto-logs</div>
+              <span class="flow-arr-good">→</span>
+              <div class="flow-box after-box">Follow-up scheduled</div>
+              <span class="flow-arr-good">→</span>
+              <div class="flow-box after-box">Deal closed</div>
+            </div>
+          </div>
+          <div class="ba-handle" id="baHandle"></div>
         </div>
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    We Turn <span class="gradient-text">Non-Tech Businesses</span> 
-                    Into <span class="neon-text">Tech-Powered Companies</span>
-                </h1>
-                <p class="hero-subtitle">
-                    AYP Tech helps startups and traditional businesses grow faster by integrating 
-                    automation, AI, and digital systems.
-                </p>
-                <div class="hero-buttons">
-                    <a href="contact.html" class="btn-primary">
-                        <i class="fas fa-rocket"></i>
-                        Get Free Consultation
-                    </a>
-                    <a href="#services" class="btn-secondary">
-                        <i class="fas fa-play"></i>
-                        Explore Services
-                    </a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">200+</span>
-                        <span class="stat-label">Businesses Transformed</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">3x</span>
-                        <span class="stat-label">Average Growth</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">14</span>
-                        <span class="stat-label">Days Implementation</span>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card-body">
+          <div class="case-tags"><span class="tag">Automation</span><span class="tag">Dashboard</span></div>
+          <div class="case-result">80%</div>
+          <div class="case-result-label">Manual operations eliminated</div>
+          <div class="case-title">Logistics & Finance Ops Automation</div>
+          <p class="case-desc">A Pune logistics firm was drowning in manual invoice reconciliation, approval chains over WhatsApp, and no real-time visibility. We automated the entire ops pipeline — from purchase orders to payment confirmation. 6 man-hours per day, reclaimed.</p>
+          <div class="case-divider"></div>
+          <div class="case-company">📍 Pune, Maharashtra — Logistics</div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- What We Do Section -->
-    <section id="what-we-do" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What We Do</h2>
-                <p class="section-subtitle">Complete technology solutions for modern business growth</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card glass-card">
-                    <div class="service-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Business Automation</h3>
-                    <p>Streamline operations with intelligent automation systems that reduce manual work and increase efficiency.</p>
-                    <div class="card-glow"></div>
-                </div>
-                <div class="service-card glass-card">
-                    <div class="service-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI Solutions</h3>
-                    <p>Implement cutting-edge AI tools to enhance decision-making and customer experiences.</p>
-                    <div class="card-glow"></div>
-                </div>
-                <div class="service-card glass-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>CRM & Custom Dashboards</h3>
-                    <p>Build powerful customer management systems with real-time analytics and insights.</p>
-                    <div class="card-glow"></div>
-                </div>
-                <div class="service-card glass-card">
-                    <div class="service-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <h3>Telecalling Systems</h3>
-                    <p>Advanced telecalling platforms with AI-powered lead scoring and automated follow-ups.</p>
-                    <div class="card-glow"></div>
-                </div>
-                <div class="service-card glass-card">
-                    <div class="service-icon">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h3>Marketing Automation</h3>
-                    <p>Automated marketing campaigns that nurture leads and drive conversions 24/7.</p>
-                    <div class="card-glow"></div>
-                </div>
-                <div class="service-card glass-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Website & App Development</h3>
-                    <p>Modern, responsive websites and mobile apps that engage customers and drive growth.</p>
-                    <div class="card-glow"></div>
-                </div>
-                <div class="service-card glass-card">
-                    <div class="service-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Technology Consulting</h3>
-                    <p>End-to-end digital transformation strategies that scale your business exponentially.</p>
-                    <div class="card-glow"></div>
-                </div>
-            </div>
+<!-- COST CALCULATOR -->
+<section class="calc-section" id="calculator">
+  <div class="calc-inner">
+    <div class="section-label reveal" style="color:rgba(255,255,255,0.6)">Interactive</div>
+    <h2 class="section-h2 reveal" style="color:white;">How much is manual<br>work costing you?</h2>
+    <div class="calc-card reveal">
+      <div class="calc-sliders">
+        <div class="calc-slider-group">
+          <label>Team size <span id="teamVal">10</span> people</label>
+          <input type="range" id="teamSlider" min="2" max="100" value="10">
         </div>
-    </section>
-
-    <!-- Who We Help Section -->
-    <section id="who-we-help" class="section dark-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Who We Help</h2>
-                <p class="section-subtitle">Empowering diverse industries with technology solutions</p>
-            </div>
-            <div class="industries-grid">
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Companies Needing Automation</h3>
-                    <p>Businesses with repetitive processes, manual workflows, and operational inefficiencies looking to scale through technology.</p>
-                    <ul class="industry-features">
-                        <li>Process optimization</li>
-                        <li>Workflow automation</li>
-                        <li>Efficiency improvements</li>
-                    </ul>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Telecalling Companies</h3>
-                    <p>AI-powered dialing systems, lead management, and performance analytics for maximum productivity.</p>
-                    <ul class="industry-features">
-                        <li>Automated lead scoring</li>
-                        <li>Call recording & analysis</li>
-                        <li>Performance dashboards</li>
-                    </ul>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <h3>Loan / Finance Companies</h3>
-                    <p>Secure CRM systems, automated approval workflows, and compliance management tools.</p>
-                    <ul class="industry-features">
-                        <li>Document automation</li>
-                        <li>Risk assessment tools</li>
-                        <li>Compliance tracking</li>
-                    </ul>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <h3>Small Businesses</h3>
-                    <p>Affordable tech solutions that compete with enterprise-level systems at startup budgets.</p>
-                    <ul class="industry-features">
-                        <li>Inventory management</li>
-                        <li>Customer tracking</li>
-                        <li>Sales automation</li>
-                    </ul>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3>Startups</h3>
-                    <p>Rapid MVP development, scalable architecture, and growth-focused technology stacks.</p>
-                    <ul class="industry-features">
-                        <li>MVP development</li>
-                        <li>Scalable systems</li>
-                        <li>Growth analytics</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="calc-slider-group">
+          <label>Manual hours/week <span id="hoursVal">15</span> hrs</label>
+          <input type="range" id="hoursSlider" min="2" max="60" value="15">
         </div>
-    </section>
+      </div>
+      <div class="calc-output">
+        <div class="loss-label">You're losing approximately</div>
+        <div class="loss-num" id="lossNum">₹0</div>
+        <div class="loss-sub">per month in staff time spent on automatable tasks</div>
+      </div>
+      <div class="calc-cta">
+        <a href="contact.html" class="btn-primary" style="display:inline-flex;">We can recover most of that. Let's talk. →</a>
+        <div class="calc-cta-note">Free 30-minute strategy call. No commitment.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Our Process Section -->
-    <section id="process" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Process</h2>
-                <p class="section-subtitle">From idea to implementation in 5 strategic steps</p>
-            </div>
-            <div class="process-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-number">01</div>
-                    <div class="timeline-content">
-                        <h3>Understand Your Business</h3>
-                        <p>Deep dive into your operations, challenges, and growth goals to identify the perfect tech opportunities.</p>
-                    </div>
-                    <div class="timeline-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-number">02</div>
-                    <div class="timeline-content">
-                        <h3>Identify Tech Opportunities</h3>
-                        <p>Map out automation possibilities and technology integrations that will maximize your ROI.</p>
-                    </div>
-                    <div class="timeline-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-number">03</div>
-                    <div class="timeline-content">
-                        <h3>Build Custom Systems</h3>
-                        <p>Develop tailored solutions using cutting-edge technology that fits your specific needs.</p>
-                    </div>
-                    <div class="timeline-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-number">04</div>
-                    <div class="timeline-content">
-                        <h3>Automate Operations</h3>
-                        <p>Implement intelligent automation that reduces manual work and eliminates human errors.</p>
-                    </div>
-                    <div class="timeline-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-number">05</div>
-                    <div class="timeline-content">
-                        <h3>Scale Business Faster</h3>
-                        <p>Monitor performance and continuously optimize systems for exponential growth.</p>
-                    </div>
-                    <div class="timeline-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                </div>
-            </div>
+<!-- HONEST SECTION -->
+<section class="honest">
+  <div class="honest-inner">
+    <div class="reveal">
+      <div class="section-label">Transparency</div>
+      <h2 class="honest-title">What we won't do.</h2>
+    </div>
+    <ul class="honest-list reveal">
+      <li><span class="x">×</span> We won't build you something you don't actually need.</li>
+      <li><span class="x">×</span> We won't disappear after the project goes live.</li>
+      <li><span class="x">×</span> We won't use buzzwords to confuse you into paying more.</li>
+      <li><span class="x">×</span> We won't give you a "discovery phase" that lasts 3 months.</li>
+      <li><span class="x">×</span> We won't hand over code with zero documentation or training.</li>
+      <li><span class="x">×</span> We won't promise what we can't deliver in the given timeline.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOUNDERS NOTE -->
+<section class="founders" id="about">
+  <div class="founders-inner">
+    <div class="founders-note reveal">
+      <div class="section-label">From the founders</div>
+      <div class="note-text">
+        We started AYP Tech because we watched <strong>good businesses fail at operations</strong>, not ideas. Smart founders, solid products — but drowning in WhatsApp chains, manual spreadsheets, and tools that didn't talk to each other.<br><br>
+        We believe Indian businesses deserve the same quality of tech infrastructure that funded startups take for granted. Not expensive enterprise software with 18-month onboarding. <strong>Fast, practical, built for how you actually work.</strong><br><br>
+        Every system we build, we build as if we were building it for our own company.
+      </div>
+      <div class="founders-sig">Aditya, Yash & Prashik</div>
+      <div class="founders-names-sub">Co-founders, AYP Tech · Based in Pune</div>
+    </div>
+    <div class="founders-visual reveal">
+      <div class="founder-card">
+        <div class="founder-avatar">AP</div>
+        <div class="founder-info">
+          <div class="name">Aditya Pawar</div>
+          <div class="role">Co-founder · Strategy & Systems</div>
         </div>
-    </section>
-
-    <!-- Our Solutions Section -->
-    <section id="solutions" class="section dark-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Solutions</h2>
-                <p class="section-subtitle">Powerful technology solutions that drive real results</p>
-            </div>
-            <div class="solutions-grid">
-                <div class="solution-card glass-card">
-                    <div class="solution-icon">
-                        <i class="fas fa-phone-volume"></i>
-                    </div>
-                    <h3>AI Telecalling Systems</h3>
-                    <p>Intelligent dialing with voice recognition, sentiment analysis, and automated follow-ups.</p>
-                    <div class="solution-features">
-                        <span class="feature-tag">Voice AI</span>
-                        <span class="feature-tag">Auto-Dialing</span>
-                        <span class="feature-tag">Lead Scoring</span>
-                    </div>
-                </div>
-                <div class="solution-card glass-card">
-                    <div class="solution-icon">
-                        <i class="fas fa-users-cog"></i>
-                    </div>
-                    <h3>Custom Business CRM</h3>
-                    <p>Tailored customer management with pipeline tracking, automated workflows, and analytics.</p>
-                    <div class="solution-features">
-                        <span class="feature-tag">Pipeline Management</span>
-                        <span class="feature-tag">Automation</span>
-                        <span class="feature-tag">Analytics</span>
-                    </div>
-                </div>
-                <div class="solution-card glass-card">
-                    <div class="solution-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h3>WhatsApp Campaign Automation</h3>
-                    <p>Automated messaging campaigns with personalization, scheduling, and response tracking.</p>
-                    <div class="solution-features">
-                        <span class="feature-tag">Bulk Messaging</span>
-                        <span class="feature-tag">Personalization</span>
-                        <span class="feature-tag">Analytics</span>
-                    </div>
-                </div>
-                <div class="solution-card glass-card">
-                    <div class="solution-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Sales Dashboards</h3>
-                    <p>Real-time sales analytics with KPI tracking, forecasting, and performance insights.</p>
-                    <div class="solution-features">
-                        <span class="feature-tag">Real-time Data</span>
-                        <span class="feature-tag">Forecasting</span>
-                        <span class="feature-tag">KPI Tracking</span>
-                    </div>
-                </div>
-                <div class="solution-card glass-card">
-                    <div class="solution-icon">
-                        <i class="fas fa-funnel-dollar"></i>
-                    </div>
-                    <h3>Lead Management Systems</h3>
-                    <p>Complete lead lifecycle management from capture to conversion with automated nurturing.</p>
-                    <div class="solution-features">
-                        <span class="feature-tag">Lead Capture</span>
-                        <span class="feature-tag">Nurturing</span>
-                        <span class="feature-tag">Conversion</span>
-                    </div>
-                </div>
-                <div class="solution-card glass-card">
-                    <div class="solution-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Data Automation Tools</h3>
-                    <p>Automated data processing, cleaning, and integration across multiple business systems.</p>
-                    <div class="solution-features">
-                        <span class="feature-tag">Data Processing</span>
-                        <span class="feature-tag">Integration</span>
-                        <span class="feature-tag">Automation</span>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar">YN</div>
+        <div class="founder-info">
+          <div class="name">Yash Niwane</div>
+          <div class="role">Co-founder · Engineering & AI</div>
         </div>
-    </section>
-
-    <!-- Case Studies Section -->
-    <section id="case-studies" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Success Stories</h2>
-                <p class="section-subtitle">Real results from real businesses</p>
-            </div>
-            <div class="case-studies-grid">
-                <div class="case-study-card">
-                    <div class="case-study-metric">
-                        <span class="metric-number">3x</span>
-                        <span class="metric-label">Productivity Increase</span>
-                    </div>
-                    <h3>Telecalling Company Transformation</h3>
-                    <p>Implemented AI-powered telecalling system with automated lead scoring and follow-ups, resulting in 300% productivity increase and 50% cost reduction.</p>
-                    <div class="case-study-tags">
-                        <span class="tag">AI Telecalling</span>
-                        <span class="tag">Lead Management</span>
-                        <span class="tag">Automation</span>
-                    </div>
-                </div>
-                <div class="case-study-card">
-                    <div class="case-study-metric">
-                        <span class="metric-number">80%</span>
-                        <span class="metric-label">Operations Automated</span>
-                    </div>
-                    <h3>Business Process Automation</h3>
-                    <p>Automated 80% of manual operations for a finance company, reducing processing time from days to hours and eliminating human errors.</p>
-                    <div class="case-study-tags">
-                        <span class="tag">Process Automation</span>
-                        <span class="tag">CRM Integration</span>
-                        <span class="tag">Workflow</span>
-                    </div>
-                </div>
-                <div class="case-study-card">
-                    <div class="case-study-metric">
-                        <span class="metric-number">14</span>
-                        <span class="metric-label">Days to Launch</span>
-                    </div>
-                    <h3>Startup Tech System Launch</h3>
-                    <p>Built and deployed a complete tech infrastructure for a startup in just 14 days, including CRM, website, and automation systems.</p>
-                    <div class="case-study-tags">
-                        <span class="tag">MVP Development</span>
-                        <span class="tag">Full Stack</span>
-                        <span class="tag">Rapid Deploy</span>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar">PM</div>
+        <div class="founder-info">
+          <div class="name">Prashik More</div>
+          <div class="role">Co-founder · Product & Design</div>
         </div>
-    </section>
+      </div>
+      <div style="padding:24px; background: var(--primary); border-radius: 16px; color: white;">
+        <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; margin-bottom: 6px;">47</div>
+        <div style="font-size: 14px; opacity: 0.8;">Businesses automated<br>since we started</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Why Choose AYP Tech Section -->
-    <section id="why-choose" class="section dark-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Why Choose AYP Tech</h2>
-                <p class="section-subtitle">Your complete technology transformation partner</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h3>Built for Founders</h3>
-                    <p>We speak your language, not tech jargon. Simple explanations, clear roadmaps, and business-focused solutions.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <h3>End-to-End Tech Solutions</h3>
-                    <p>From strategy to implementation to support - we handle everything so you can focus on growing your business.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-seedling"></i>
-                    </div>
-                    <h3>Startup Friendly</h3>
-                    <p>Flexible pricing, scalable solutions, and rapid implementation designed for growing businesses.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Automation Experts</h3>
-                    <p>Specialists in business process automation with proven track record of reducing costs and increasing efficiency.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Fast Implementation</h3>
-                    <p>Get up and running in weeks, not months. Our agile approach ensures quick time-to-value.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>24/7 Support</h3>
-                    <p>Ongoing support and maintenance to ensure your technology continues delivering results.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- TESTIMONIALS -->
+<section class="testi">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">What clients say</div>
+      <h2 class="section-h2">Built on trust.</h2>
+    </div>
+  </div>
+  <div class="testi-track reveal" id="testiTrack">
+    <div class="testi-card">
+      <span class="testi-quote-mark">"</span>
+      <p class="testi-text">We were sceptical about automation for our size. AYP Tech showed us a prototype in week one. By week three, it was live. We haven't looked at that Excel sheet since.</p>
+      <div class="testi-author">Rahul Sharma</div>
+      <div class="testi-role">Director, Operations</div>
+      <div class="testi-city">📍 Pune, Maharashtra</div>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote-mark">"</span>
+      <p class="testi-text">Other agencies gave us 40-page proposals. AYP Tech gave us a working system. The difference is they understand how Indian businesses actually operate — WhatsApp included.</p>
+      <div class="testi-author">Sneha Kulkarni</div>
+      <div class="testi-role">Founder, EdTech Startup</div>
+      <div class="testi-city">📍 Pune, Maharashtra</div>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote-mark">"</span>
+      <p class="testi-text">We recovered ₹3.2L in the first month alone just from automated invoice reconciliation. The ROI was visible before the project was even done.</p>
+      <div class="testi-author">Amit Deshmukh</div>
+      <div class="testi-role">CFO, Logistics Company</div>
+      <div class="testi-city">📍 Pune, Maharashtra</div>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote-mark">"</span>
+      <p class="testi-text">What I appreciate most is they pushed back when I asked for something unnecessary. They saved me ₹80K by suggesting a simpler solution. That's rare.</p>
+      <div class="testi-author">Priya Joshi</div>
+      <div class="testi-role">CEO, D2C Brand</div>
+      <div class="testi-city">📍 Mumbai, Maharashtra</div>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote-mark">"</span>
+      <p class="testi-text">Our onboarding time dropped from 3 weeks to 4 days after they built our internal knowledge system. New hires are productive almost immediately now.</p>
+      <div class="testi-author">Vikram Patil</div>
+      <div class="testi-role">Head of HR, Manufacturing SME</div>
+      <div class="testi-city">📍 Nashik, Maharashtra</div>
+    </div>
+  </div>
+</section>
 
-    <!-- CTA Section -->
-    <section id="cta" class="section cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Turn Your Business Into a <span class="gradient-text">Tech Company</span></h2>
-                <p class="cta-subtitle">Ready to transform your business with cutting-edge technology? Let's discuss your growth strategy.</p>
-                <div class="cta-buttons">
-                    <a href="contact.html" class="btn-primary large">
-                        <i class="fas fa-calendar-alt"></i>
-                        Book Free Strategy Call
-                    </a>
-                    <a href="tel:+919175362929" class="btn-secondary large">
-                        <i class="fas fa-phone"></i>
-                        Call Now
-                    </a>
-                </div>
-                <div class="cta-guarantee">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Free consultation • No commitment • 100% confidential</span>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- FINAL CTA -->
+<section class="final-cta" id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Ready?</div>
+      <h2 class="section-h2">30 minutes.<br>That's all it takes.</h2>
+      <p class="section-lead">One strategy call. We'll tell you exactly what to automate first and what it'll recover for you — no fluff, no sales pitch.</p>
+      <a href="contact.html" class="btn-primary" style="font-size: 16px; padding: 16px 36px;">Book Free Strategy Call ↗</a>
+      <div class="final-phone">Or call us directly: <strong>+91 91753 62929</strong></div>
+    </div>
+  </div>
+</section>
 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">AYP<span style="color:var(--primary)">.</span>Tech</div>
+      <div class="tagline">Automation, AI, and custom software for Indian startups and SMEs. Built in Pune, built for India.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Process Automation</a></li>
+        <li><a href="#services">AI Integration</a></li>
+        <li><a href="#services">Custom CRM</a></li>
+        <li><a href="#services">Web Applications</a></li>
+        <li><a href="#services">Analytics</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#work">Case Studies</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="contact.html">hello@ayptech.in</a></li>
+        <li><a href="tel:+919175362929">+91 91753 62929</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Twitter / X</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2024 AYP Tech Pvt. Ltd. All rights reserved.</div>
+    <div>Made in Pune 🇮🇳</div>
+  </div>
+</footer>
 
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a, button, input[type=range], .ba-wrap, .testi-track').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="logo.png" alt="AYP Tech" class="footer-logo">
-                    <p>Transforming non-tech businesses into tech-powered companies.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Services</h4>
-                        <ul>
-                            <li><a href="services.html">Business Automation</a></li>
-                            <li><a href="services.html">AI Solutions</a></li>
-                            <li><a href="services.html">CRM Systems</a></li>
-                            <li><a href="services.html">Telecalling Systems</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="#case-studies">Case Studies</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Industries</h4>
-                        <ul>
-                            <li><a href="services.html">Telecalling</a></li>
-                            <li><a href="services.html">Finance</a></li>
-                            <li><a href="services.html">Startups</a></li>
-                            <li><a href="services.html">Small Business</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 AYP Tech. All rights reserved.</p>
-                <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+// NAVBAR SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
 
-    <script src="script.js"></script>
+// MOBILE MENU
+const mobileToggle = document.querySelector('.mobile-menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+const mobileNav = document.getElementById('mobileNav');
+let mobileOpen = false;
+
+if (mobileToggle) {
+  mobileToggle.addEventListener('click', () => {
+    mobileOpen = !mobileOpen;
+    mobileToggle.classList.toggle('active', mobileOpen);
+    mobileNav.classList.toggle('open', mobileOpen);
+  });
+}
+
+function closeMobileNav() {
+  mobileOpen = false;
+  mobileNav.classList.remove('open');
+}
+
+// REVEAL ON SCROLL
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// PROBLEM ITEMS REVEAL
+const problemItems = document.querySelectorAll('.problem-item');
+const probObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const delay = parseInt(e.target.dataset.delay || 0);
+      setTimeout(() => {
+        e.target.classList.add('vis');
+        setTimeout(() => e.target.classList.add('solved'), 600);
+      }, delay);
+    }
+  });
+}, { threshold: 0.3 });
+problemItems.forEach(el => probObserver.observe(el));
+
+// COUNTER ANIMATION
+function animateCounter(el, target, suffix='', prefix='') {
+  let start = 0;
+  const duration = 1500;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = prefix + Math.floor(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const counterEls = document.querySelectorAll('[data-count]');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const target = parseInt(e.target.dataset.count);
+      const suffix = e.target.dataset.suffix || '';
+      animateCounter(e.target, target, suffix);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+counterEls.forEach(el => counterObserver.observe(el));
+
+// CALCULATOR
+const teamSlider = document.getElementById('teamSlider');
+const hoursSlider = document.getElementById('hoursSlider');
+const teamVal = document.getElementById('teamVal');
+const hoursVal = document.getElementById('hoursVal');
+const lossNum = document.getElementById('lossNum');
+
+function calcLoss() {
+  const team = parseInt(teamSlider.value);
+  const hours = parseInt(hoursSlider.value);
+  // Avg salary assumption: ₹35,000/month, 160 working hours
+  const hourlyRate = 35000 / 160;
+  const weeklyLoss = team * hours * hourlyRate;
+  const monthlyLoss = weeklyLoss * 4.33;
+  teamVal.textContent = team;
+  hoursVal.textContent = hours;
+  lossNum.textContent = '₹' + Math.round(monthlyLoss / 1000) + 'K';
+}
+teamSlider.addEventListener('input', calcLoss);
+hoursSlider.addEventListener('input', calcLoss);
+calcLoss();
+
+// BEFORE/AFTER SLIDER
+const baWrap = document.getElementById('baWrap');
+const baHandle = document.getElementById('baHandle');
+const baAfter = baWrap.querySelector('.ba-after');
+let isDragging = false;
+
+function setBAPosition(x) {
+  const rect = baWrap.getBoundingClientRect();
+  const pct = Math.max(5, Math.min(95, ((x - rect.left) / rect.width) * 100));
+  baHandle.style.left = pct + '%';
+  baAfter.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+}
+
+baHandle.addEventListener('mousedown', (e) => { isDragging = true; e.preventDefault(); });
+document.addEventListener('mousemove', (e) => { if (isDragging) setBAPosition(e.clientX); });
+document.addEventListener('mouseup', () => { isDragging = false; });
+baHandle.addEventListener('touchstart', (e) => { isDragging = true; }, { passive: true });
+document.addEventListener('touchmove', (e) => {
+  if (isDragging) setBAPosition(e.touches[0].clientX);
+}, { passive: true });
+document.addEventListener('touchend', () => { isDragging = false; });
+// Init
+setBAPosition(baWrap.getBoundingClientRect().left + baWrap.getBoundingClientRect().width * 0.5);
+
+// TESTIMONIALS DRAG SCROLL
+const track = document.getElementById('testiTrack');
+let isDown = false, startX, scrollLeft;
+track.addEventListener('mousedown', (e) => {
+  isDown = true; track.classList.add('grabbing');
+  startX = e.pageX - track.offsetLeft;
+  scrollLeft = track.scrollLeft;
+});
+track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('grabbing'); });
+track.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - track.offsetLeft;
+  track.scrollLeft = scrollLeft - (x - startX);
+});
+</script>
 </body>
 </html>

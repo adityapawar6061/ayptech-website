@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Studies - AYP Tech | Real Results from Real Businesses</title>
+    <meta name="description" content="See how AYP Tech has helped businesses automate operations, increase productivity, and drive growth through custom technology solutions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #FFF7D1;
+            --bg-warm: #FFECC8;
+            --bg-section: #FFD09B;
+            --bg-accent: #FFB0B0;
+            --primary: #4F46E5;
+            --primary-light: #EEF2FF;
+            --text: #0F0F0F;
+            --muted: #6B7280;
+            --line: #E5E7EB;
+            --highlight: #FDE68A;
+            --white: #ffffff;
+            --font-display: 'Bricolage Grotesque', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-signature: 'Playfair Display', serif;
+            --max-w: 1200px;
+            --section-pad: 120px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .cursor {
+            width: 10px; height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+            transform: translate(-50%, -50%);
+        }
+        .cursor.hover { width: 28px; height: 28px; background: rgba(79,70,229,0.3); }
+
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 20px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(255,247,209,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 1px 0 var(--line);
+            padding: 14px 40px;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo {
+            height: 32px;
+            width: auto;
+        }
+        .brand-text {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+        .nav-links {
+            display: flex; gap: 36px; list-style: none;
+        }
+        .nav-links a {
+            font-size: 14px; font-weight: 500;
+            color: var(--muted); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+        .nav-cta {
+            background: var(--primary);
+            color: white; border: none; padding: 10px 22px;
+            border-radius: 100px; font-size: 14px; font-weight: 500;
+            cursor: none; text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+            font-family: var(--font-body);
+        }
+        .nav-cta:hover { background: #3730a3; transform: translateY(-1px); }
+        .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
+        .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); display: block; transition: all 0.3s; }
+
+        .page-hero {
+            padding: 140px 40px 80px;
+            text-align: center;
+            background: var(--bg);
+        }
+        .page-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-subtitle {
+            font-size: 18px;
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: var(--section-pad) 40px;
+        }
+        .dark-section {
+            background: var(--bg-warm);
+        }
+        .container {
+            max-width: var(--max-w);
+            margin: 0 auto;
+        }
+
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+        }
+        .case-study-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+        .case-study-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+        .case-study-metric {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .metric-number {
+            font-family: var(--font-display);
+            font-size: 64px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+        .metric-label {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+        .case-study-card h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .case-study-card p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .case-study-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            cursor: none;
+        }
+        .btn-primary:hover {
+            background: #3730a3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79,70,229,0.25);
+        }
+
+        .cta-section {
+            background: var(--bg-section);
+            text-align: center;
+        }
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 5vw, 70px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+        .cta-subtitle {
+            font-size: 18px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .section { padding: 80px 24px; }
+            .navbar { padding: 16px 24px; }
+            .navbar.scrolled { padding: 12px 24px; }
+            .page-hero { padding: 120px 24px 60px; }
+            .nav-links { display: none; }
+            .mobile-menu-toggle { display: flex; }
+            .case-studies-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor" id="cursor"></div>
+    
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <img src="logo.png" alt="AYP Tech" class="logo">
+            <span class="brand-text">AYP Tech</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="casestudies.html" class="active">Case Studies</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Book a Call</a>
+        <div class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1 class="page-title">Real <span class="gradient-text">Results</span> from Real Businesses</h1>
+            <p class="page-subtitle">See how we've helped Indian businesses automate operations, increase productivity, and drive growth</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">3×</span>
+                        <span class="metric-label">Productivity Increase</span>
+                    </div>
+                    <h3>Pune Telecalling Company</h3>
+                    <p>Built AI-assisted CRM that auto-logs calls, transcribes summaries, and routes follow-ups. Tripled output without hiring a single person.</p>
+                    <div class="case-study-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">CRM</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">80%</span>
+                        <span class="metric-label">Operations Automated</span>
+                    </div>
+                    <h3>Logistics Company</h3>
+                    <p>Automated entire ops pipeline from purchase orders to payment confirmation. Reclaimed 6 man-hours per day.</p>
+                    <div class="case-study-tags">
+                        <span class="tag">Automation</span>
+                        <span class="tag">Dashboard</span>
+                        <span class="tag">Workflow</span>
+                    </div>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">14</span>
+                        <span class="metric-label">Days to Launch</span>
+                    </div>
+                    <h3>Startup MVP</h3>
+                    <p>Built and deployed complete tech infrastructure including CRM, website, and automation systems in just 14 days.</p>
+                    <div class="case-study-tags">
+                        <span class="tag">MVP</span>
+                        <span class="tag">Full Stack</span>
+                        <span class="tag">Rapid Deploy</span>
+                    </div>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">₹3.2L</span>
+                        <span class="metric-label">Monthly Recovery</span>
+                    </div>
+                    <h3>Finance Operations</h3>
+                    <p>Automated invoice reconciliation and approval workflows. Recovered ₹3.2L in the first month alone.</p>
+                    <div class="case-study-tags">
+                        <span class="tag">Finance</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">ROI</span>
+                    </div>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">95%</span>
+                        <span class="metric-label">Error Reduction</span>
+                    </div>
+                    <h3>Healthcare Data Management</h3>
+                    <p>Implemented automated patient data processing system that eliminated manual errors and improved compliance by 95%.</p>
+                    <div class="case-study-tags">
+                        <span class="tag">Healthcare</span>
+                        <span class="tag">Data Processing</span>
+                        <span class="tag">Compliance</span>
+                    </div>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">60%</span>
+                        <span class="metric-label">Cost Reduction</span>
+                    </div>
+                    <h3>E-commerce Automation</h3>
+                    <p>Built complete order processing automation for online retailer, reducing operational costs by 60% and improving delivery times.</p>
+                    <div class="case-study-tags">
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">Order Processing</span>
+                        <span class="tag">Cost Optimization</span>
+                    </div>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">5x</span>
+                        <span class="metric-label">Lead Conversion</span>
+                    </div>
+                    <h3>Real Estate CRM</h3>
+                    <p>Custom CRM with automated lead nurturing increased conversion rates by 500% for Mumbai real estate firm.</p>
+                    <div class="case-study-tags">
+                        <span class="tag">Real Estate</span>
+                        <span class="tag">Lead Management</span>
+                        <span class="tag">Conversion</span>
+                    </div>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">24/7</span>
+                        <span class="metric-label">Automated Support</span>
+                    </div>
+                    <h3>AI Customer Support</h3>
+                    <p>Deployed AI chatbot system that handles 80% of customer queries automatically, providing 24/7 support coverage.</p>
+                    <div class="case-study-tags">
+                        <span class="tag">AI Chatbot</span>
+                        <span class="tag">Customer Support</span>
+                        <span class="tag">24/7 Service</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section dark-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Industries We've Transformed</h2>
+                <p class="section-subtitle">From startups to established businesses, we've delivered results across various sectors</p>
+            </div>
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">12+</span>
+                        <span class="metric-label">Telecalling Companies</span>
+                    </div>
+                    <h3>Telecalling & Call Centers</h3>
+                    <p>AI-powered dialing systems, call analytics, lead management, and performance dashboards for maximum productivity.</p>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">8+</span>
+                        <span class="metric-label">Finance Companies</span>
+                    </div>
+                    <h3>Finance & Lending</h3>
+                    <p>Automated loan processing, risk assessment tools, compliance management, and customer onboarding systems.</p>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">15+</span>
+                        <span class="metric-label">Retail Businesses</span>
+                    </div>
+                    <h3>Retail & E-commerce</h3>
+                    <p>Inventory management, order processing automation, customer analytics, and omnichannel integration.</p>
+                </div>
+
+                <div class="case-study-card">
+                    <div class="case-study-metric">
+                        <span class="metric-number">20+</span>
+                        <span class="metric-label">Startups Launched</span>
+                    </div>
+                    <h3>Startups & SMEs</h3>
+                    <p>MVP development, scalable architecture, growth analytics, and complete tech infrastructure setup.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Be Our Next <span class="gradient-text">Success Story</span>?</h2>
+                <p class="cta-subtitle">Let's discuss how we can transform your business operations</p>
+                <a href="contact.html" class="btn-primary">Book Free Strategy Call</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, .case-study-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+        });
+    </script>
+</body>
+</html>

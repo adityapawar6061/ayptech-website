@@ -5,11 +5,560 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - AYP Tech | Get Your Free Technology Consultation</title>
     <meta name="description" content="Contact AYP Tech for your free technology consultation. Transform your business with our automation, AI, and digital solutions. Get started today!">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #FFF7D1;
+            --bg-warm: #FFECC8;
+            --bg-section: #FFD09B;
+            --bg-accent: #FFB0B0;
+            --primary: #4F46E5;
+            --primary-light: #EEF2FF;
+            --text: #0F0F0F;
+            --muted: #6B7280;
+            --line: #E5E7EB;
+            --highlight: #FDE68A;
+            --white: #ffffff;
+            --font-display: 'Bricolage Grotesque', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-signature: 'Playfair Display', serif;
+            --max-w: 1200px;
+            --section-pad: 120px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor {
+            width: 10px; height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+            transform: translate(-50%, -50%);
+        }
+        .cursor.hover { width: 28px; height: 28px; background: rgba(79,70,229,0.3); }
+
+        /* Include all the same navbar and basic styles */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 20px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(255,247,209,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 1px 0 var(--line);
+            padding: 14px 40px;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo {
+            height: 32px;
+            width: auto;
+        }
+        .brand-text {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+        .nav-links {
+            display: flex; gap: 36px; list-style: none;
+        }
+        .nav-links a {
+            font-size: 14px; font-weight: 500;
+            color: var(--muted); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+        .nav-cta {
+            background: var(--primary);
+            color: white; border: none; padding: 10px 22px;
+            border-radius: 100px; font-size: 14px; font-weight: 500;
+            cursor: none; text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+            font-family: var(--font-body);
+        }
+        .nav-cta:hover { background: #3730a3; transform: translateY(-1px); }
+        .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
+        .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); display: block; transition: all 0.3s; }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 140px 40px 80px;
+            text-align: center;
+            background: var(--bg);
+        }
+        .page-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-subtitle {
+            font-size: 18px;
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: var(--section-pad) 40px;
+        }
+        .dark-section {
+            background: var(--bg-warm);
+        }
+        .container {
+            max-width: var(--max-w);
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 4vw, 58px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--muted);
+            line-height: 1.65;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* CONTACT SPECIFIC STYLES */
+        .contact-main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+        .contact-intro {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text);
+            margin-bottom: 40px;
+        }
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .contact-method-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .contact-method-info h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        .contact-method-info p {
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .contact-method-info span {
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .consultation-benefits {
+            margin-top: 48px;
+        }
+        .consultation-benefits h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .benefits-list {
+            list-style: none;
+        }
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .benefits-list li i {
+            color: var(--primary);
+        }
+
+        /* FORM STYLES */
+        .contact-form-main {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 48px;
+        }
+        .contact-form-main h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .contact-form-main > p {
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: var(--font-body);
+            background: var(--white);
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            cursor: none;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            cursor: none;
+            border: none;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-primary:hover {
+            background: #3730a3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79,70,229,0.25);
+        }
+        .btn-primary.large {
+            padding: 16px 32px;
+            font-size: 16px;
+        }
+        .form-guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 16px;
+        }
+
+        /* QUICK CONTACT */
+        .quick-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        .quick-contact-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text);
+        }
+        .quick-contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+            text-decoration: none;
+            color: var(--text);
+        }
+        .quick-contact-icon {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .quick-contact-card h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .quick-contact-card p {
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+        .contact-detail {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* FAQ */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .faq-item {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 32px;
+        }
+        .faq-item h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+        .faq-item p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-warm);
+            padding: 80px 40px 40px;
+            border-top: 1px solid var(--line);
+        }
+        .footer-content {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .footer-logo {
+            height: 32px;
+            width: auto;
+        }
+        .footer-brand p {
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 280px;
+        }
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .footer-column h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        .footer-column ul li a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .footer-column ul li a:hover {
+            color: var(--text);
+        }
+        .footer-bottom {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--line);
+            font-size: 14px;
+            color: var(--muted);
+        }
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+        .footer-bottom-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom-links a:hover {
+            color: var(--text);
+        }
+
+        /* REVEAL ANIMATION */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .contact-main-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+        @media (max-width: 768px) {
+            :root { --section-pad: 80px; }
+            .section { padding: var(--section-pad) 24px; }
+            .navbar { padding: 16px 24px; }
+            .navbar.scrolled { padding: 12px 24px; }
+            .page-hero { padding: 120px 24px 60px; }
+            .nav-links { display: none; }
+            .mobile-menu-toggle { display: flex; }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .quick-contact-grid, .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- CURSOR -->
+    <div class="cursor" id="cursor"></div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -21,7 +570,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="index.html#case-studies">Case Studies</a></li>
+                <li><a href="casestudies.html">Case Studies</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
@@ -378,12 +927,66 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="google-sheets-integration.js"></script>
     <script>
+        // CURSOR
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, input, select, textarea, .contact-form-main, .quick-contact-card, .faq-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // NAVBAR SCROLL
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // REVEAL ON SCROLL
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => revealObserver.observe(el));
+
+        // MOBILE MENU
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        let mobileOpen = false;
+        
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                mobileOpen = !mobileOpen;
+                mobileToggle.classList.toggle('active', mobileOpen);
+                navLinks.classList.toggle('active', mobileOpen);
+            });
+        }
+
+        // SMOOTH SCROLLING
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
         function bookMeeting() {
             alert('Meeting booking system would be integrated here (Calendly, etc.)');
         }
     </script>
+    <script src="google-sheets-integration.js"></script>
 </body>
 </html>
