@@ -1,1049 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - AYP Tech | Complete Technology Solutions</title>
-    <meta name="description" content="Explore AYP Tech's comprehensive technology services including business automation, AI solutions, CRM systems, and digital transformation for non-tech businesses.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Services & AI Solutions — AYP Tech</title>
+  <meta name="description" content="Explore AYP Tech's end-to-end automation services: Autonomous AI agents, WhatsApp Cloud API workflows, Document OCR, and Custom CRM/ERP integrations.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 
-        :root {
-            --bg: #FFF7D1;
-            --bg-warm: #FFECC8;
-            --bg-section: #FFD09B;
-            --bg-accent: #FFB0B0;
-            --primary: #4F46E5;
-            --primary-light: #EEF2FF;
-            --text: #0F0F0F;
-            --muted: #6B7280;
-            --line: #E5E7EB;
-            --highlight: #FDE68A;
-            --white: #ffffff;
-            --font-display: 'Bricolage Grotesque', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-signature: 'Playfair Display', serif;
-            --max-w: 1200px;
-            --section-pad: 120px;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* CUSTOM CURSOR */
-        .cursor {
-            width: 10px; height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            top: 0; left: 0;
-            pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
-            transform: translate(-50%, -50%);
-        }
-        .cursor.hover { width: 28px; height: 28px; background: rgba(79,70,229,0.3); }
-
-        /* Include all the same styles from about.html for consistency */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 20px 40px;
-            display: flex; align-items: center; justify-content: space-between;
-            transition: all 0.3s ease;
-        }
-        .navbar.scrolled {
-            background: rgba(255,247,209,0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 1px 0 var(--line);
-            padding: 14px 40px;
-        }
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-        .logo {
-            height: 32px;
-            width: auto;
-        }
-        .brand-text {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 22px;
-            color: var(--text);
-            letter-spacing: -0.5px;
-        }
-        .nav-links {
-            display: flex; gap: 36px; list-style: none;
-        }
-        .nav-links a {
-            font-size: 14px; font-weight: 500;
-            color: var(--muted); text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--text); }
-        .nav-cta {
-            background: var(--primary);
-            color: white; border: none; padding: 10px 22px;
-            border-radius: 100px; font-size: 14px; font-weight: 500;
-            cursor: none; text-decoration: none;
-            transition: background 0.2s, transform 0.2s;
-            font-family: var(--font-body);
-        }
-        .nav-cta:hover { background: #3730a3; transform: translateY(-1px); }
-        .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
-        .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); display: block; transition: all 0.3s; }
-
-        /* PAGE HERO */
-        .page-hero {
-            padding: 140px 40px 80px;
-            text-align: center;
-            background: var(--bg);
-        }
-        .page-hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .page-title {
-            font-family: var(--font-display);
-            font-size: clamp(48px, 6vw, 72px);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            margin-bottom: 24px;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .page-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* SECTIONS */
-        .section {
-            padding: var(--section-pad) 40px;
-        }
-        .dark-section {
-            background: var(--bg-warm);
-        }
-        .container {
-            max-width: var(--max-w);
-            margin: 0 auto;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(36px, 4vw, 58px);
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            color: var(--text);
-            margin-bottom: 20px;
-        }
-        .section-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.65;
-            max-width: 560px;
-            margin: 0 auto;
-        }
-
-        /* SERVICE CARDS */
-        .services-overview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-        }
-        .service-overview-card {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .service-overview-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-        }
-        .service-overview-icon {
-            font-size: 48px;
-            color: var(--primary);
-            margin-bottom: 24px;
-        }
-        .service-overview-card h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 20px;
-            margin-bottom: 16px;
-            letter-spacing: -0.3px;
-        }
-        .service-overview-card p {
-            color: var(--muted);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .service-features {
-            list-style: none;
-            margin-bottom: 24px;
-        }
-        .service-features li {
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 8px;
-            padding-left: 16px;
-            position: relative;
-        }
-        .service-features li::before {
-            content: '•';
-            color: var(--primary);
-            position: absolute;
-            left: 0;
-        }
-        .service-price {
-            font-family: var(--font-display);
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        .btn-secondary {
-            color: var(--text);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: gap 0.2s;
-            cursor: none;
-            border: 1px solid var(--line);
-            padding: 10px 20px;
-            border-radius: 100px;
-            background: var(--white);
-        }
-        .btn-secondary:hover {
-            gap: 10px;
-            transform: translateY(-2px);
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            padding: 14px 28px;
-            border-radius: 100px;
-            font-size: 15px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            cursor: none;
-        }
-        .btn-primary:hover {
-            background: #3730a3;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(79,70,229,0.25);
-        }
-        .btn-primary.large, .btn-secondary.large {
-            padding: 16px 32px;
-            font-size: 16px;
-        }
-
-        /* PRICING CARDS */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-        }
-        .pricing-card {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .pricing-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-        }
-        .pricing-card.featured {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-        .pricing-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 6px 20px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .pricing-header h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 24px;
-            margin-bottom: 16px;
-        }
-        .price {
-            font-family: var(--font-display);
-            font-size: 48px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        .price span {
-            font-size: 16px;
-            color: var(--muted);
-        }
-        .pricing-header p {
-            color: var(--muted);
-            margin-bottom: 32px;
-        }
-        .pricing-features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 32px;
-        }
-        .pricing-features li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-        .pricing-features li i {
-            color: var(--primary);
-        }
-        .pricing-features li i.fa-times {
-            color: var(--muted);
-        }
-
-        /* CTA SECTION */
-        .cta-section {
-            background: var(--bg-section);
-            text-align: center;
-        }
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .cta-title {
-            font-family: var(--font-display);
-            font-size: clamp(40px, 5vw, 70px);
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-        }
-        .cta-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.6;
-            margin-bottom: 40px;
-        }
-        .cta-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-        .cta-guarantee {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--muted);
-        }
-
-        /* FOOTER */
-        .footer {
-            background: var(--bg-warm);
-            padding: 80px 40px 40px;
-            border-top: 1px solid var(--line);
-        }
-        .footer-content {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 48px;
-            margin-bottom: 48px;
-        }
-        .footer-brand {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .footer-logo {
-            height: 32px;
-            width: auto;
-        }
-        .footer-brand p {
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 280px;
-        }
-        .social-links {
-            display: flex;
-            gap: 16px;
-        }
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--muted);
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .footer-column h4 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .footer-column ul {
-            list-style: none;
-        }
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-        .footer-column ul li a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-        .footer-column ul li a:hover {
-            color: var(--text);
-        }
-        .footer-bottom {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 32px;
-            border-top: 1px solid var(--line);
-            font-size: 14px;
-            color: var(--muted);
-        }
-        .footer-bottom-links {
-            display: flex;
-            gap: 24px;
-        }
-        .footer-bottom-links a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-bottom-links a:hover {
-            color: var(--text);
-        }
-
-        /* REVEAL ANIMATION */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 32px;
-            }
-        }
-        @media (max-width: 768px) {
-            :root { --section-pad: 80px; }
-            .section { padding: var(--section-pad) 24px; }
-            .navbar { padding: 16px 24px; }
-            .navbar.scrolled { padding: 12px 24px; }
-            .page-hero { padding: 120px 24px 60px; }
-            .nav-links { display: none; }
-            .mobile-menu-toggle { display: flex; }
-            .services-overview-grid, .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+  <!-- Theme Early Detection (Matches device theme by default, prevents FOUT) -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ayp_theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        } else {
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
-    <!-- CURSOR -->
-    <div class="cursor" id="cursor"></div>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-brand">
-            <img src="logo.png" alt="AYP Tech" class="logo">
-            <span class="brand-text">AYP Tech</span>
+
+  <!-- Ambient Glow -->
+  <div class="bg-ambient-glow">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+  </div>
+  <div class="bg-grid-pattern"></div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileDrawer">
+    <button class="mobile-close-btn" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="casestudies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-primary btn-lg">Book Free Strategy Call ↗</a>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-wrap">
+          <img src="logo-white.png" alt="AYP Tech Logo" class="logo-dark">
+          <img src="logo.png" alt="AYP Tech Logo" class="logo-light">
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html" class="active">Services</a></li>
-            <li><a href="casestudies.html">Case Studies</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div class="nav-cta">
-            <a href="contact.html" class="btn-primary">Get Free Consultation</a>
-        </div>
-        <div class="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+        <span class="brand-name">AYP Tech</span>
+        <span class="brand-tag">Services</span>
+      </a>
 
-    <!-- Hero Section -->
-    <section class="page-hero">
-        <div class="page-hero-content reveal">
-            <h1 class="page-title">Our <span class="gradient-text">Services</span></h1>
-            <p class="page-subtitle">Complete technology solutions designed for non-tech businesses</p>
-        </div>
-    </section>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="services.html" class="nav-link active">Services</a></li>
+        <li><a href="casestudies.html" class="nav-link">Case Studies</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
 
-    <!-- Services Overview -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Transform Your Business Operations</h2>
-                <p class="section-subtitle">From automation to AI, we provide end-to-end technology solutions that drive real business results</p>
-            </div>
-            <div class="services-overview-grid">
-                <div class="service-overview-card glass-card">
-                    <div class="service-overview-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Business Automation</h3>
-                    <p>Streamline operations with intelligent automation systems</p>
-                    <ul class="service-features">
-                        <li>Process Automation</li>
-                        <li>Workflow Optimization</li>
-                        <li>Task Scheduling</li>
-                        <li>Data Integration</li>
-                    </ul>
-                    <div class="service-price">Starting at ₹25,000/month</div>
-                    <a href="#business-automation" class="btn-secondary">Learn More</a>
-                </div>
-                <div class="service-overview-card glass-card">
-                    <div class="service-overview-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI Solutions</h3>
-                    <p>Implement cutting-edge AI tools for smarter business decisions</p>
-                    <ul class="service-features">
-                        <li>Predictive Analytics</li>
-                        <li>Chatbots & Virtual Assistants</li>
-                        <li>Machine Learning Models</li>
-                        <li>Natural Language Processing</li>
-                    </ul>
-                    <div class="service-price">Starting at ₹40,000/month</div>
-                    <a href="#ai-solutions" class="btn-secondary">Learn More</a>
-                </div>
-                <div class="service-overview-card glass-card">
-                    <div class="service-overview-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>CRM & Dashboards</h3>
-                    <p>Custom customer management with real-time analytics</p>
-                    <ul class="service-features">
-                        <li>Customer Management</li>
-                        <li>Sales Pipeline Tracking</li>
-                        <li>Real-time Analytics</li>
-                        <li>Custom Reporting</li>
-                    </ul>
-                    <div class="service-price">Starting at ₹30,000/month</div>
-                    <a href="#crm-dashboards" class="btn-secondary">Learn More</a>
-                </div>
-                <div class="service-overview-card glass-card">
-                    <div class="service-overview-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <h3>Telecalling Systems</h3>
-                    <p>Advanced telecalling platforms with AI-powered features</p>
-                    <ul class="service-features">
-                        <li>Auto-dialing Systems</li>
-                        <li>Call Recording & Analysis</li>
-                        <li>Lead Management</li>
-                        <li>Performance Analytics</li>
-                    </ul>
-                    <div class="service-price">Starting at ₹35,000/month</div>
-                    <a href="#telecalling-systems" class="btn-secondary">Learn More</a>
-                </div>
-                <div class="service-overview-card glass-card">
-                    <div class="service-overview-icon">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h3>Marketing Automation</h3>
-                    <p>Automated marketing campaigns that drive conversions</p>
-                    <ul class="service-features">
-                        <li>Email Marketing</li>
-                        <li>Social Media Automation</li>
-                        <li>Lead Nurturing</li>
-                        <li>Campaign Analytics</li>
-                    </ul>
-                    <div class="service-price">Starting at ₹20,000/month</div>
-                    <a href="#marketing-automation" class="btn-secondary">Learn More</a>
-                </div>
-                <div class="service-overview-card glass-card">
-                    <div class="service-overview-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Technology Consulting</h3>
-                    <p>End-to-end digital transformation strategies and consulting</p>
-                    <ul class="service-features">
-                        <li>Digital Strategy</li>
-                        <li>Technology Roadmap</li>
-                        <li>Implementation Planning</li>
-                        <li>Growth Optimization</li>
-                    </ul>
-                    <div class="service-price">Starting at ₹15,000/month</div>
-                    <a href="#technology-consulting" class="btn-secondary">Learn More</a>
-                </div>
-            </div>
-        </div>
-    </section>
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+          <i class="fas fa-sun theme-icon-sun"></i>
+          <i class="fas fa-moon theme-icon-moon"></i>
+        </button>
 
-    <!-- Telecalling Systems -->
-    <section id="telecalling-systems" class="section">
-        <div class="container">
-            <div class="service-detail">
-                <div class="service-detail-content">
-                    <h2 class="section-title">Telecalling Systems</h2>
-                    <p class="service-description">Advanced telecalling platforms with AI-powered features for maximum productivity and conversion rates. Perfect for call centers, sales teams, and lead generation companies.</p>
-                    
-                    <div class="telecalling-features">
-                        <div class="telecalling-feature-card">
-                            <i class="fas fa-phone-volume"></i>
-                            <h4>Auto-Dialing Systems</h4>
-                            <p>Intelligent auto-dialing with predictive algorithms and call queue management</p>
-                        </div>
-                        <div class="telecalling-feature-card">
-                            <i class="fas fa-microphone"></i>
-                            <h4>Call Recording & Analysis</h4>
-                            <p>Automatic call recording with AI-powered sentiment analysis and performance insights</p>
-                        </div>
-                        <div class="telecalling-feature-card">
-                            <i class="fas fa-users-cog"></i>
-                            <h4>Lead Management</h4>
-                            <p>Integrated lead management with automated follow-ups and conversion tracking</p>
-                        </div>
-                        <div class="telecalling-feature-card">
-                            <i class="fas fa-chart-bar"></i>
-                            <h4>Performance Analytics</h4>
-                            <p>Real-time dashboards with call metrics, agent performance, and ROI tracking</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-detail-visual">
-                    <div class="telecalling-demo glass-card">
-                        <h4>Telecalling Dashboard</h4>
-                        <div class="telecalling-metrics">
-                            <div class="telecalling-metric">
-                                <span class="metric-label">Calls Today</span>
-                                <span class="metric-value">2,847</span>
-                            </div>
-                            <div class="telecalling-metric">
-                                <span class="metric-label">Connect Rate</span>
-                                <span class="metric-value">68%</span>
-                            </div>
-                            <div class="telecalling-metric">
-                                <span class="metric-label">Conversion</span>
-                                <span class="metric-value">12.3%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <a href="https://wa.me/919356965876?text=Hi%20AYP%20Tech,%20I'd%20like%20to%20discuss%20an%20automation%20project." target="_blank" class="btn btn-secondary btn-sm" rel="noopener">
+          <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp
+        </a>
+        <a href="contact.html" class="btn btn-primary btn-sm">Book Strategy Call ↗</a>
+        <button class="mobile-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars" style="font-size: 20px;"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Marketing Automation -->
-    <section id="marketing-automation" class="section dark-section">
-        <div class="container">
-            <div class="service-detail">
-                <div class="service-detail-visual">
-                    <div class="marketing-demo glass-card">
-                        <h4>Campaign Performance</h4>
-                        <div class="campaign-stats">
-                            <div class="campaign-stat">
-                                <div class="stat-icon"><i class="fas fa-envelope"></i></div>
-                                <div class="stat-value">15,247</div>
-                                <div class="stat-label">Emails Sent</div>
-                            </div>
-                            <div class="campaign-stat">
-                                <div class="stat-icon"><i class="fas fa-mouse-pointer"></i></div>
-                                <div class="stat-value">23.5%</div>
-                                <div class="stat-label">Open Rate</div>
-                            </div>
-                            <div class="campaign-stat">
-                                <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                                <div class="stat-value">₹2.4L</div>
-                                <div class="stat-label">Revenue Generated</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-detail-content">
-                    <h2 class="section-title">Marketing Automation</h2>
-                    <p class="service-description">Automated marketing campaigns that nurture leads and drive conversions 24/7. From email marketing to social media automation, we help you reach the right audience at the right time.</p>
-                    
-                    <div class="marketing-capabilities">
-                        <div class="marketing-capability">
-                            <i class="fas fa-envelope-open-text"></i>
-                            <div>
-                                <h4>Email Marketing</h4>
-                                <p>Automated email sequences, personalization, and A/B testing for maximum engagement</p>
-                            </div>
-                        </div>
-                        <div class="marketing-capability">
-                            <i class="fab fa-whatsapp"></i>
-                            <div>
-                                <h4>WhatsApp Automation</h4>
-                                <p>Bulk WhatsApp messaging with personalization and automated follow-ups</p>
-                            </div>
-                        </div>
-                        <div class="marketing-capability">
-                            <i class="fas fa-share-alt"></i>
-                            <div>
-                                <h4>Social Media Automation</h4>
-                                <p>Scheduled posts, automated responses, and social media monitoring</p>
-                            </div>
-                        </div>
-                        <div class="marketing-capability">
-                            <i class="fas fa-funnel-dollar"></i>
-                            <div>
-                                <h4>Lead Nurturing</h4>
-                                <p>Automated lead scoring, segmentation, and personalized nurturing campaigns</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Page Header -->
+  <header style="padding: 160px 0 60px; text-align: center; position: relative;">
+    <div class="container">
+      <div class="badge-pill">
+        <span class="badge-dot"></span> End-to-End Solutions
+      </div>
+      <h1 class="hero-headline" style="max-width: 860px; margin: 0 auto 20px;">
+        High-impact AI automation built for <span class="highlight-word">operational throughput.</span>
+      </h1>
+      <p class="hero-subhead" style="max-width: 640px; margin: 0 auto 36px;">
+        We don't sell generic templates. We build, deploy, and manage production-ready AI agents and deterministic pipelines designed specifically for your business logic.
+      </p>
+    </div>
+  </header>
 
-    <!-- Technology Consulting -->
-    <section id="technology-consulting" class="section">
-        <div class="container">
-            <div class="service-detail">
-                <div class="service-detail-content">
-                    <h2 class="section-title">Technology Consulting</h2>
-                    <p class="service-description">Strategic technology consulting and digital transformation guidance for businesses ready to scale. We help you navigate the complex world of technology with clear, actionable strategies.</p>
-                    
-                    <div class="consulting-services">
-                        <div class="consulting-service-card">
-                            <i class="fas fa-route"></i>
-                            <h4>Digital Strategy</h4>
-                            <p>Comprehensive digital transformation roadmap tailored to your business goals</p>
-                        </div>
-                        <div class="consulting-service-card">
-                            <i class="fas fa-map-marked-alt"></i>
-                            <h4>Technology Roadmap</h4>
-                            <p>Step-by-step implementation plan with timelines, budgets, and milestones</p>
-                        </div>
-                        <div class="consulting-service-card">
-                            <i class="fas fa-tasks"></i>
-                            <h4>Implementation Planning</h4>
-                            <p>Detailed project planning with risk assessment and resource allocation</p>
-                        </div>
-                        <div class="consulting-service-card">
-                            <i class="fas fa-chart-line"></i>
-                            <h4>Growth Optimization</h4>
-                            <p>Ongoing optimization strategies to maximize ROI and business growth</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-detail-visual">
-                    <div class="consulting-demo glass-card">
-                        <h4>Consulting Process</h4>
-                        <div class="consulting-process">
-                            <div class="process-step">
-                                <div class="step-icon"><i class="fas fa-search"></i></div>
-                                <span>Analyze</span>
-                            </div>
-                            <div class="process-arrow">→</div>
-                            <div class="process-step">
-                                <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
-                                <span>Strategize</span>
-                            </div>
-                            <div class="process-arrow">→</div>
-                            <div class="process-step">
-                                <div class="step-icon"><i class="fas fa-cogs"></i></div>
-                                <span>Implement</span>
-                            </div>
-                            <div class="process-arrow">→</div>
-                            <div class="process-step">
-                                <div class="step-icon"><i class="fas fa-chart-up"></i></div>
-                                <span>Optimize</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Transparent Pricing</h2>
-                <p class="section-subtitle">Choose the plan that fits your business needs and budget</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card glass-card">
-                    <div class="pricing-header">
-                        <h3>Starter</h3>
-                        <div class="price">₹15,000<span>/month</span></div>
-                        <p>Perfect for small businesses getting started with automation</p>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Basic Process Automation</li>
-                        <li><i class="fas fa-check"></i> Simple CRM System</li>
-                        <li><i class="fas fa-check"></i> Email Support</li>
-                        <li><i class="fas fa-check"></i> Monthly Reports</li>
-                        <li><i class="fas fa-times"></i> AI Features</li>
-                        <li><i class="fas fa-times"></i> Custom Integrations</li>
-                    </ul>
-                    <a href="contact.html" class="btn-secondary">Get Started</a>
-                </div>
-                <div class="pricing-card glass-card featured">
-                    <div class="pricing-badge">Most Popular</div>
-                    <div class="pricing-header">
-                        <h3>Professional</h3>
-                        <div class="price">₹35,000<span>/month</span></div>
-                        <p>Comprehensive solution for growing businesses</p>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Advanced Automation</li>
-                        <li><i class="fas fa-check"></i> Full CRM + Analytics</li>
-                        <li><i class="fas fa-check"></i> AI-Powered Insights</li>
-                        <li><i class="fas fa-check"></i> Priority Support</li>
-                        <li><i class="fas fa-check"></i> Custom Integrations</li>
-                        <li><i class="fas fa-check"></i> Mobile Apps</li>
-                    </ul>
-                    <a href="contact.html" class="btn-primary">Get Started</a>
-                </div>
-                <div class="pricing-card glass-card">
-                    <div class="pricing-header">
-                        <h3>Enterprise</h3>
-                        <div class="price">Custom<span>/month</span></div>
-                        <p>Tailored solutions for large-scale operations</p>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Everything in Professional</li>
-                        <li><i class="fas fa-check"></i> Custom AI Models</li>
-                        <li><i class="fas fa-check"></i> Dedicated Support Team</li>
-                        <li><i class="fas fa-check"></i> On-premise Deployment</li>
-                        <li><i class="fas fa-check"></i> Advanced Security</li>
-                        <li><i class="fas fa-check"></i> SLA Guarantee</li>
-                    </ul>
-                    <a href="contact.html" class="btn-secondary">Contact Sales</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Ready to <span class="gradient-text">Automate</span> Your Business?</h2>
-                <p class="cta-subtitle">Get a free consultation and discover how our technology solutions can transform your operations</p>
-                <div class="cta-buttons">
-                    <a href="contact.html" class="btn-primary large">
-                        <i class="fas fa-calendar-alt"></i>
-                        Book Free Consultation
-                    </a>
-                    <a href="case-studies.html" class="btn-secondary large">
-                        <i class="fas fa-chart-line"></i>
-                        View Success Stories
-                    </a>
-                </div>
-                <div class="cta-guarantee">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Free consultation • No commitment • 100% confidential</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="logo.png" alt="AYP Tech" class="footer-logo">
-                    <p>Transforming non-tech businesses into tech-powered companies.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Services</h4>
-                        <ul>
-                            <li><a href="#business-automation">Business Automation</a></li>
-                            <li><a href="#ai-solutions">AI Solutions</a></li>
-                            <li><a href="#crm-dashboards">CRM Systems</a></li>
-                            <li><a href="#telecalling-systems">Telecalling Systems</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="case-studies.html">Case Studies</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Industries</h4>
-                        <ul>
-                            <li><a href="#telecalling-systems">Telecalling</a></li>
-                            <li><a href="#ai-solutions">Finance</a></li>
-                            <li><a href="#business-automation">Startups</a></li>
-                            <li><a href="#technology-consulting">Consulting</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 AYP Tech. All rights reserved.</p>
-                <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // CURSOR
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        document.querySelectorAll('a, button, input, .service-overview-card, .pricing-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-
-        // NAVBAR SCROLL
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 40);
-        });
-
-        // REVEAL ON SCROLL
-        const revealEls = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.12 });
-        revealEls.forEach(el => revealObserver.observe(el));
-
-        // MOBILE MENU
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        let mobileOpen = false;
+  <!-- Services Grid -->
+  <section class="services-section" style="padding-top: 20px;">
+    <div class="container">
+      <div class="bento-grid">
         
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', () => {
-                mobileOpen = !mobileOpen;
-                mobileToggle.classList.toggle('active', mobileOpen);
-                navLinks.classList.toggle('active', mobileOpen);
-            });
-        }
+        <!-- Service 1: AI Agents -->
+        <div class="bento-card bento-span-6" id="agents">
+          <div class="bento-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3 class="bento-title">Autonomous AI Agents & Digital Workers</h3>
+          <p class="bento-desc">
+            Custom-trained agents that execute multi-step workflows. They research incoming leads, parse LinkedIn & company websites, draft tailored correspondence, and handle routine client follow-ups with human-like precision.
+          </p>
+          <div style="margin-bottom: 24px;">
+            <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Key Capabilities:</div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--text-secondary);">
+              <li><i class="fas fa-check" style="color: var(--accent-cyan); margin-right: 8px;"></i> Autonomous B2B SDR & Lead Scoring Agent</li>
+              <li><i class="fas fa-check" style="color: var(--accent-cyan); margin-right: 8px;"></i> Customer Support Agent with Vector Knowledge Base (RAG)</li>
+              <li><i class="fas fa-check" style="color: var(--accent-cyan); margin-right: 8px;"></i> Human-in-the-Loop Slack/WhatsApp Approval Triggers</li>
+            </ul>
+          </div>
+          <div class="bento-tags">
+            <span class="bento-tag">OpenAI GPT-4o</span>
+            <span class="bento-tag">Anthropic Claude 3.5</span>
+            <span class="bento-tag">LangChain</span>
+            <span class="bento-tag">LlamaIndex</span>
+          </div>
+        </div>
 
-        // SMOOTH SCROLLING
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+        <!-- Service 2: WhatsApp Automation -->
+        <div class="bento-card bento-span-6" id="whatsapp">
+          <div class="bento-icon" style="color: #25D366; background: rgba(37, 211, 102, 0.12); border-color: rgba(37, 211, 102, 0.25);">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3 class="bento-title">Official WhatsApp Cloud API Automation</h3>
+          <p class="bento-desc">
+            Transform WhatsApp from a chaotic messaging app into an automated sales and support engine. Instant 24/7 lead qualification, automated booking, catalog sync, and seamless human agent escalation.
+          </p>
+          <div style="margin-bottom: 24px;">
+            <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Key Capabilities:</div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--text-secondary);">
+              <li><i class="fas fa-check" style="color: #25D366; margin-right: 8px;"></i> Official Meta Cloud API (No phone bans / 99.9% uptime)</li>
+              <li><i class="fas fa-check" style="color: #25D366; margin-right: 8px;"></i> Dynamic razorpay payment link generator</li>
+              <li><i class="fas fa-check" style="color: #25D366; margin-right: 8px;"></i> Automated appointment confirmation & reminders</li>
+            </ul>
+          </div>
+          <div class="bento-tags">
+            <span class="bento-tag">Meta Cloud API</span>
+            <span class="bento-tag">Webhooks</span>
+            <span class="bento-tag">Razorpay</span>
+            <span class="bento-tag">Zoho Desk</span>
+          </div>
+        </div>
+
+        <!-- Service 3: Finance & Document AI -->
+        <div class="bento-card bento-span-6" id="finance">
+          <div class="bento-icon" style="color: var(--accent-cyan); background: rgba(6, 182, 212, 0.12); border-color: rgba(6, 182, 212, 0.25);">
+            <i class="fas fa-file-invoice-dollar"></i>
+          </div>
+          <h3 class="bento-title">Finance, Invoicing & Document Intelligence</h3>
+          <p class="bento-desc">
+            Eliminate manual bill entry. Our Vision AI pipelines read PDF invoices, bills of lading, and receipts, extract line-item details with 99.8% accuracy, validate GSTINs, and post directly into your accounting books.
+          </p>
+          <div style="margin-bottom: 24px;">
+            <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Key Capabilities:</div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--text-secondary);">
+              <li><i class="fas fa-check" style="color: var(--accent-cyan); margin-right: 8px;"></i> High-speed OCR with multimodal vision LLMs</li>
+              <li><i class="fas fa-check" style="color: var(--accent-cyan); margin-right: 8px;"></i> Automated Tally ERP & Zoho Books XML synchronization</li>
+              <li><i class="fas fa-check" style="color: var(--accent-cyan); margin-right: 8px;"></i> Reconciliation error alert & dead-letter queue</li>
+            </ul>
+          </div>
+          <div class="bento-tags">
+            <span class="bento-tag">Document AI</span>
+            <span class="bento-tag">Tally ERP</span>
+            <span class="bento-tag">Zoho Books</span>
+            <span class="bento-tag">GST Validation</span>
+          </div>
+        </div>
+
+        <!-- Service 4: Custom CRM & Internal Tools -->
+        <div class="bento-card bento-span-6" id="crm">
+          <div class="bento-icon" style="color: var(--accent-emerald); background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.25);">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <h3 class="bento-title">Custom CRM, ERP & Internal Dashboards</h3>
+          <p class="bento-desc">
+            When off-the-shelf software is too rigid or expensive, we build tailored operational portals. Custom telecalling dashboards, inventory tracking, role-based permissions, and automated status syncing.
+          </p>
+          <div style="margin-bottom: 24px;">
+            <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Key Capabilities:</div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--text-secondary);">
+              <li><i class="fas fa-check" style="color: var(--accent-emerald); margin-right: 8px;"></i> Tailored telecalling & sales pipeline tracking</li>
+              <li><i class="fas fa-check" style="color: var(--accent-emerald); margin-right: 8px;"></i> Role-based access control (RBAC) & audit logs</li>
+              <li><i class="fas fa-check" style="color: var(--accent-emerald); margin-right: 8px;"></i> Instant syncing with PostgreSQL, Supabase & Sheets</li>
+            </ul>
+          </div>
+          <div class="bento-tags">
+            <span class="bento-tag">PostgreSQL</span>
+            <span class="bento-tag">React / Next.js</span>
+            <span class="bento-tag">Supabase</span>
+            <span class="bento-tag">FastAPI</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How We Work (The 4-Step Process) -->
+  <section style="padding: 100px 0; border-top: 1px solid var(--line); background: rgba(14, 19, 31, 0.5);">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Process</div>
+        <h2 class="section-title">
+          From audit to live deployment in <span class="gradient-text">14 days.</span>
+        </h2>
+      </div>
+
+      <div class="process-steps-grid">
+        
+        <div class="bento-card" style="padding: 28px;">
+          <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 12px;">01</div>
+          <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Process Audit</h4>
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+            We shadow your team, map your existing manual workflows, and identify the highest ROI automation quick-wins.
+          </p>
+        </div>
+
+        <div class="bento-card" style="padding: 28px;">
+          <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 800; color: var(--accent-cyan); margin-bottom: 12px;">02</div>
+          <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Architecture Blueprint</h4>
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+            We design the node architecture, select optimal LLMs/APIs, and establish human-in-the-loop safety guardrails.
+          </p>
+        </div>
+
+        <div class="bento-card" style="padding: 28px;">
+          <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 800; color: var(--accent-emerald); margin-bottom: 12px;">03</div>
+          <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Build & Sandbox</h4>
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+            We build the pipeline in an isolated testing environment with historical sample data before going live.
+          </p>
+        </div>
+
+        <div class="bento-card" style="padding: 28px;">
+          <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 800; color: #F59E0B; margin-bottom: 12px;">04</div>
+          <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Live Deployment & SLAs</h4>
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+            We switch the workflow to production, train your team, and provide 24/7 telemetry monitoring and maintenance.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-banner-section">
+    <div class="container">
+      <div class="cta-banner-box">
+        <h2 class="cta-banner-title">
+          Ready to build your custom automation system?
+        </h2>
+        <p class="cta-banner-desc">
+          Tell us about your team's operational bottlenecks and get a free custom technical scope within 24 hours.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+          <a href="contact.html" class="btn btn-primary btn-lg">Book Free Strategy Call ↗</a>
+          <a href="casestudies.html" class="btn btn-secondary btn-lg">See Case Studies →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom-bar">
+        <div>© 2026 AYP Tech Solutions. All rights reserved.</div>
+        <div style="display: flex; gap: 24px;">
+          <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Home</a>
+          <a href="casestudies.html" style="color: var(--text-muted); text-decoration: none;">Case Studies</a>
+          <a href="contact.html" style="color: var(--text-muted); text-decoration: none;">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

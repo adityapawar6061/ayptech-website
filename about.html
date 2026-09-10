@@ -1,790 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - AYP Tech | Technology Transformation Experts</title>
-    <meta name="description" content="Learn about AYP Tech's mission to transform non-tech businesses into tech-powered companies. Meet our team of experts and discover our story.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>About AYP Tech — Engineers of Autonomous Systems</title>
+  <meta name="description" content="Meet the team behind AYP Tech. We build high-throughput AI automation systems, digital teammates, and bespoke internal tools for growing businesses.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 
-        :root {
-            --bg: #FFF7D1;
-            --bg-warm: #FFECC8;
-            --bg-section: #FFD09B;
-            --bg-accent: #FFB0B0;
-            --primary: #4F46E5;
-            --primary-light: #EEF2FF;
-            --text: #0F0F0F;
-            --muted: #6B7280;
-            --line: #E5E7EB;
-            --highlight: #FDE68A;
-            --white: #ffffff;
-            --font-display: 'Bricolage Grotesque', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-signature: 'Playfair Display', serif;
-            --max-w: 1200px;
-            --section-pad: 120px;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* CUSTOM CURSOR */
-        .cursor {
-            width: 10px; height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            top: 0; left: 0;
-            pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
-            transform: translate(-50%, -50%);
-        }
-        .cursor.hover { width: 28px; height: 28px; background: rgba(79,70,229,0.3); }
-
-        /* NAVBAR */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 20px 40px;
-            display: flex; align-items: center; justify-content: space-between;
-            transition: all 0.3s ease;
-        }
-        .navbar.scrolled {
-            background: rgba(255,247,209,0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 1px 0 var(--line);
-            padding: 14px 40px;
-        }
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-        .logo {
-            height: 32px;
-            width: auto;
-        }
-        .brand-text {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 22px;
-            color: var(--text);
-            letter-spacing: -0.5px;
-        }
-        .nav-links {
-            display: flex; gap: 36px; list-style: none;
-        }
-        .nav-links a {
-            font-size: 14px; font-weight: 500;
-            color: var(--muted); text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--text); }
-        .nav-cta {
-            background: var(--primary);
-            color: white; border: none; padding: 10px 22px;
-            border-radius: 100px; font-size: 14px; font-weight: 500;
-            cursor: none; text-decoration: none;
-            transition: background 0.2s, transform 0.2s;
-            font-family: var(--font-body);
-        }
-        .nav-cta:hover { background: #3730a3; transform: translateY(-1px); }
-        .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
-        .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); display: block; transition: all 0.3s; }
-
-        /* PAGE HERO */
-        .page-hero {
-            padding: 140px 40px 80px;
-            text-align: center;
-            background: var(--bg);
-        }
-        .page-hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .page-title {
-            font-family: var(--font-display);
-            font-size: clamp(48px, 6vw, 72px);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            margin-bottom: 24px;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .page-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* SECTIONS */
-        .section {
-            padding: var(--section-pad) 40px;
-        }
-        .dark-section {
-            background: var(--bg-warm);
-        }
-        .container {
-            max-width: var(--max-w);
-            margin: 0 auto;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(36px, 4vw, 58px);
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            color: var(--text);
-            margin-bottom: 20px;
-        }
-        .section-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.65;
-            max-width: 560px;
-            margin: 0 auto;
-        }
-
-        /* CONTENT GRID */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-        .content-text {
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text);
-        }
-        .content-text p {
-            margin-bottom: 24px;
-        }
-        .story-visual {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        .story-card {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .story-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-        }
-        .story-icon {
-            font-size: 36px;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-        .story-card h3 {
-            font-family: var(--font-display);
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        .story-card p {
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        /* MISSION VISION */
-        .mission-vision-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-        }
-        .mission-card, .vision-card {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 48px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .mission-card:hover, .vision-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-        }
-        .mv-icon {
-            font-size: 48px;
-            color: var(--primary);
-            margin-bottom: 24px;
-        }
-        .mission-card h3, .vision-card h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 24px;
-            margin-bottom: 16px;
-        }
-        .mission-card p, .vision-card p {
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        /* VALUES GRID */
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-        }
-        .value-card {
-            text-align: center;
-            padding: 32px;
-        }
-        .value-icon {
-            font-size: 48px;
-            color: var(--primary);
-            margin-bottom: 24px;
-        }
-        .value-card h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 20px;
-            margin-bottom: 16px;
-        }
-        .value-card p {
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        /* CTA SECTION */
-        .cta-section {
-            background: var(--bg-section);
-            text-align: center;
-        }
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .cta-title {
-            font-family: var(--font-display);
-            font-size: clamp(40px, 5vw, 70px);
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-        }
-        .cta-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.6;
-            margin-bottom: 40px;
-        }
-        .cta-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            padding: 14px 28px;
-            border-radius: 100px;
-            font-size: 15px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            cursor: none;
-        }
-        .btn-primary:hover {
-            background: #3730a3;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(79,70,229,0.25);
-        }
-        .btn-secondary {
-            color: var(--text);
-            font-size: 15px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: gap 0.2s;
-            cursor: none;
-            border: 1px solid var(--line);
-            padding: 14px 28px;
-            border-radius: 100px;
-            background: var(--white);
-        }
-        .btn-secondary:hover {
-            gap: 10px;
-            transform: translateY(-2px);
-        }
-        .btn-primary.large, .btn-secondary.large {
-            padding: 16px 32px;
-            font-size: 16px;
-        }
-
-        /* FOOTER */
-        .footer {
-            background: var(--bg-warm);
-            padding: 80px 40px 40px;
-            border-top: 1px solid var(--line);
-        }
-        .footer-content {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 48px;
-            margin-bottom: 48px;
-        }
-        .footer-brand {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .footer-logo {
-            height: 32px;
-            width: auto;
-        }
-        .footer-brand p {
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 280px;
-        }
-        .social-links {
-            display: flex;
-            gap: 16px;
-        }
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--muted);
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .footer-column h4 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .footer-column ul {
-            list-style: none;
-        }
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-        .footer-column ul li a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-        .footer-column ul li a:hover {
-            color: var(--text);
-        }
-        .footer-bottom {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 32px;
-            border-top: 1px solid var(--line);
-            font-size: 14px;
-            color: var(--muted);
-        }
-        .footer-bottom-links {
-            display: flex;
-            gap: 24px;
-        }
-        .footer-bottom-links a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-bottom-links a:hover {
-            color: var(--text);
-        }
-
-        /* REVEAL ANIMATION */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-                gap: 48px;
-            }
-            .mission-vision-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 32px;
-            }
-        }
-        @media (max-width: 768px) {
-            :root { --section-pad: 80px; }
-            .section { padding: var(--section-pad) 24px; }
-            .navbar { padding: 16px 24px; }
-            .navbar.scrolled { padding: 12px 24px; }
-            .page-hero { padding: 120px 24px 60px; }
-            .nav-links { display: none; }
-            .mobile-menu-toggle { display: flex; }
-            .values-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+  <!-- Theme Early Detection (Matches device theme by default, prevents FOUT) -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ayp_theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        } else {
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
-    <!-- CURSOR -->
-    <div class="cursor" id="cursor"></div>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-brand">
-            <img src="logo.png" alt="AYP Tech" class="logo">
-            <span class="brand-text">AYP Tech</span>
+
+  <div class="bg-ambient-glow">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+  <div class="bg-grid-pattern"></div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileDrawer">
+    <button class="mobile-close-btn" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="casestudies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-primary btn-lg">Book Free Strategy Call ↗</a>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-wrap">
+          <img src="logo-white.png" alt="AYP Tech Logo" class="logo-dark">
+          <img src="logo.png" alt="AYP Tech Logo" class="logo-light">
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html" class="active">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="casestudies.html">Case Studies</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div class="nav-cta">
-            <a href="contact.html" class="btn-primary">Get Free Consultation</a>
-        </div>
-        <div class="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+        <span class="brand-name">AYP Tech</span>
+        <span class="brand-tag">About</span>
+      </a>
 
-    <!-- Hero Section -->
-    <section class="page-hero">
-        <div class="page-hero-content reveal">
-            <h1 class="page-title">About <span class="gradient-text">AYP Tech</span></h1>
-            <p class="page-subtitle">We're on a mission to bridge the gap between traditional businesses and cutting-edge technology</p>
-        </div>
-    </section>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="casestudies.html" class="nav-link">Case Studies</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
 
-    <!-- Our Story Section -->
-    <section class="section">
-        <div class="container">
-            <div class="content-grid">
-                <div class="content-text">
-                    <h2 class="section-title">Our Story</h2>
-                    <p>Founded with a vision to democratize technology for businesses of all sizes, AYP Tech emerged from the recognition that many successful companies were being left behind in the digital revolution.</p>
-                    <p>Our founders, having worked with both Fortune 500 companies and small startups, noticed a critical gap: while large corporations had dedicated IT teams and unlimited budgets for digital transformation, smaller businesses and non-tech startups struggled to implement even basic automation.</p>
-                    <p>This insight led to the creation of AYP Tech - a company dedicated to making enterprise-level technology accessible, affordable, and implementable for businesses that don't have technical expertise in-house.</p>
-                </div>
-                <div class="story-visual">
-                    <div class="story-card">
-                        <div class="story-icon">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h3>2020</h3>
-                        <p>Company Founded</p>
-                    </div>
-                    <div class="story-card">
-                        <div class="story-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <h3>200+</h3>
-                        <p>Businesses Transformed</p>
-                    </div>
-                    <div class="story-card">
-                        <div class="story-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3>50+</h3>
-                        <p>Team Members</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+          <i class="fas fa-sun theme-icon-sun"></i>
+          <i class="fas fa-moon theme-icon-moon"></i>
+        </button>
 
-    <!-- Mission & Vision Section -->
-    <section class="section dark-section">
-        <div class="container">
-            <div class="mission-vision-grid">
-                <div class="mission-card glass-card">
-                    <div class="mv-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Our Mission</h3>
-                    <p>To empower non-technical businesses with cutting-edge technology solutions that drive growth, efficiency, and competitive advantage in the digital age.</p>
-                </div>
-                <div class="vision-card glass-card">
-                    <div class="mv-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h3>Our Vision</h3>
-                    <p>To become the leading technology transformation partner for small and medium businesses, making advanced technology accessible to every entrepreneur.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        <a href="https://wa.me/919356965876?text=Hi%20AYP%20Tech,%20I'd%20like%20to%20discuss%20an%20automation%20project." target="_blank" class="btn btn-secondary btn-sm" rel="noopener">
+          <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp
+        </a>
+        <a href="contact.html" class="btn btn-primary btn-sm">Book Strategy Call ↗</a>
+        <button class="mobile-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars" style="font-size: 20px;"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Our Values Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Values</h2>
-                <p class="section-subtitle">The principles that guide everything we do</p>
-            </div>
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Client-First Approach</h3>
-                    <p>Every decision we make is centered around delivering maximum value to our clients and their business goals.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Innovation Excellence</h3>
-                    <p>We stay at the forefront of technology trends to provide our clients with cutting-edge solutions.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Transparency & Trust</h3>
-                    <p>We believe in honest communication, clear pricing, and building long-term relationships based on trust.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-users-cog"></i>
-                    </div>
-                    <h3>Collaborative Partnership</h3>
-                    <p>We work as an extension of your team, not just a vendor, to ensure seamless integration and success.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Rapid Implementation</h3>
-                    <p>We understand that time is money, so we focus on quick deployment without compromising quality.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Continuous Learning</h3>
-                    <p>We invest in our team's growth and stay updated with the latest technologies and best practices.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Header -->
+  <header style="padding: 160px 0 60px; text-align: center; position: relative;">
+    <div class="container">
+      <div class="badge-pill">
+        <span class="badge-dot"></span> The Engineering Philosophy
+      </div>
+      <h1 class="hero-headline" style="max-width: 860px; margin: 0 auto 20px;">
+        Building the autonomous backbone for <span class="highlight-word">modern businesses.</span>
+      </h1>
+      <p class="hero-subhead" style="max-width: 640px; margin: 0 auto 36px;">
+        AYP Tech was founded on a simple realization: small and medium businesses don't need another software subscription. They need custom, autonomous systems that do real work.
+      </p>
+    </div>
+  </header>
 
-
-
-
-
-    <!-- CTA Section -->
-    <section class="section cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Ready to Transform Your Business?</h2>
-                <p class="cta-subtitle">Join 200+ businesses that have already transformed their operations with AYP Tech</p>
-                <div class="cta-buttons">
-                    <a href="contact.html" class="btn-primary large">
-                        <i class="fas fa-calendar-alt"></i>
-                        Schedule Free Consultation
-                    </a>
-                    <a href="case-studies.html" class="btn-secondary large">
-                        <i class="fas fa-chart-line"></i>
-                        View Success Stories
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="logo.png" alt="AYP Tech" class="footer-logo">
-                    <p>Transforming non-tech businesses into tech-powered companies.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Services</h4>
-                        <ul>
-                            <li><a href="services.html">Business Automation</a></li>
-                            <li><a href="services.html">AI Solutions</a></li>
-                            <li><a href="services.html">CRM Systems</a></li>
-                            <li><a href="services.html">Telecalling Systems</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="case-studies.html">Case Studies</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Industries</h4>
-                        <ul>
-                            <li><a href="services.html">Telecalling</a></li>
-                            <li><a href="services.html">Finance</a></li>
-                            <li><a href="services.html">Startups</a></li>
-                            <li><a href="services.html">Small Business</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 AYP Tech. All rights reserved.</p>
-                <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // CURSOR
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        document.querySelectorAll('a, button, input, .story-card, .mission-card, .vision-card, .value-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-
-        // NAVBAR SCROLL
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 40);
-        });
-
-        // REVEAL ON SCROLL
-        const revealEls = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.12 });
-        revealEls.forEach(el => revealObserver.observe(el));
-
-        // MOBILE MENU
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        let mobileOpen = false;
+  <!-- Founders & Story -->
+  <section style="padding: 60px 0;">
+    <div class="container">
+      <div class="bento-grid">
         
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', () => {
-                mobileOpen = !mobileOpen;
-                mobileToggle.classList.toggle('active', mobileOpen);
-                navLinks.classList.toggle('active', mobileOpen);
-            });
-        }
+        <div class="bento-card bento-span-8">
+          <div class="badge-pill" style="margin-bottom: 16px;">Our Story</div>
+          <h2 style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: #FFFFFF; margin-bottom: 16px;">
+            Why we started AYP Tech
+          </h2>
+          <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">
+            In traditional IT consulting, agencies charge exorbitant hourly fees to build bloated, static websites or sell complex ERPs that take 9 months to configure. Meanwhile, the actual business team is still drowning in WhatsApp messages, manual invoice typing, and copying rows across Google Sheets.
+          </p>
+          <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.7;">
+            We do things fundamentally differently. We act as your specialized AI Automation & Engineering team. We deploy functional, tested, deterministic workflows in 14 days or less—focusing relentlessly on measurable ROI: hours recovered and revenue unlocked.
+          </p>
+        </div>
 
-        // SMOOTH SCROLLING
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+        <div class="bento-card bento-span-4" style="justify-content: center; text-align: center;">
+          <div style="font-family: var(--font-display); font-size: 64px; font-weight: 800; color: var(--accent-cyan); line-height: 1;">
+            40+
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #FFFFFF; margin: 12px 0 6px;">
+            Deployments Completed
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary);">
+            Across telecalling agencies, healthcare clinics, logistics hubs, and e-commerce brands in India.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Engineering Principles -->
+  <section style="padding: 80px 0; border-top: 1px solid var(--line); background: rgba(14, 19, 31, 0.4);">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Core Tenets</div>
+        <h2 class="section-title">
+          The four laws of <span class="gradient-text">our engineering.</span>
+        </h2>
+      </div>
+
+      <div class="principles-grid">
+        
+        <div class="bento-card">
+          <div class="bento-icon"><i class="fas fa-bullseye"></i></div>
+          <h3 class="bento-title">1. Determinism Over Fluff</h3>
+          <p class="bento-desc">
+            We never deploy AI for the sake of buzzwords. If a simple webhook or database trigger does the job better and cheaper than an LLM prompt, we build the deterministic trigger.
+          </p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon" style="color: var(--accent-cyan);"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="bento-title">2. Absolute Data Sovereignty</h3>
+          <p class="bento-desc">
+            Your proprietary business numbers and customer leads never train third-party public models. We enforce zero-retention enterprise API endpoints and strict token-level isolation.
+          </p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon" style="color: var(--accent-emerald);"><i class="fas fa-clock"></i></div>
+          <h3 class="bento-title">3. Extreme Time-to-Value</h3>
+          <p class="bento-desc">
+            No 6-month enterprise scoping marathons. Our average project goes from initial workflow audit to production deployment in 14 days or less.
+          </p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-icon" style="color: #F59E0B;"><i class="fas fa-user-shield"></i></div>
+          <h3 class="bento-title">4. Human-in-the-Loop Safeguards</h3>
+          <p class="bento-desc">
+            AI agents handle the cognitive grunt work, but critical high-stakes triggers always include human approval buttons on Slack or WhatsApp.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner-section">
+    <div class="container">
+      <div class="cta-banner-box">
+        <h2 class="cta-banner-title">
+          Partner with our engineering studio.
+        </h2>
+        <p class="cta-banner-desc">
+          Ready to eliminate manual drag from your business operations? Book a 15-minute scoping conversation with our technical team.
+        </p>
+        <a href="contact.html" class="btn btn-primary btn-lg">Book Free Strategy Call ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom-bar">
+        <div>© 2026 AYP Tech Solutions. All rights reserved.</div>
+        <div style="display: flex; gap: 24px;">
+          <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Home</a>
+          <a href="services.html" style="color: var(--text-muted); text-decoration: none;">Services</a>
+          <a href="contact.html" style="color: var(--text-muted); text-decoration: none;">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

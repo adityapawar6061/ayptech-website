@@ -1,992 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - AYP Tech | Get Your Free Technology Consultation</title>
-    <meta name="description" content="Contact AYP Tech for your free technology consultation. Transform your business with our automation, AI, and digital solutions. Get started today!">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Contact & Book Consultation — AYP Tech</title>
+  <meta name="description" content="Book a free 15-minute technical discovery session with AYP Tech. We will evaluate your workflow bottlenecks and map out a custom automation blueprint.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 
-        :root {
-            --bg: #FFF7D1;
-            --bg-warm: #FFECC8;
-            --bg-section: #FFD09B;
-            --bg-accent: #FFB0B0;
-            --primary: #4F46E5;
-            --primary-light: #EEF2FF;
-            --text: #0F0F0F;
-            --muted: #6B7280;
-            --line: #E5E7EB;
-            --highlight: #FDE68A;
-            --white: #ffffff;
-            --font-display: 'Bricolage Grotesque', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-signature: 'Playfair Display', serif;
-            --max-w: 1200px;
-            --section-pad: 120px;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* CUSTOM CURSOR */
-        .cursor {
-            width: 10px; height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            top: 0; left: 0;
-            pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
-            transform: translate(-50%, -50%);
-        }
-        .cursor.hover { width: 28px; height: 28px; background: rgba(79,70,229,0.3); }
-
-        /* Include all the same navbar and basic styles */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 20px 40px;
-            display: flex; align-items: center; justify-content: space-between;
-            transition: all 0.3s ease;
-        }
-        .navbar.scrolled {
-            background: rgba(255,247,209,0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 1px 0 var(--line);
-            padding: 14px 40px;
-        }
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-        .logo {
-            height: 32px;
-            width: auto;
-        }
-        .brand-text {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 22px;
-            color: var(--text);
-            letter-spacing: -0.5px;
-        }
-        .nav-links {
-            display: flex; gap: 36px; list-style: none;
-        }
-        .nav-links a {
-            font-size: 14px; font-weight: 500;
-            color: var(--muted); text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--text); }
-        .nav-cta {
-            background: var(--primary);
-            color: white; border: none; padding: 10px 22px;
-            border-radius: 100px; font-size: 14px; font-weight: 500;
-            cursor: none; text-decoration: none;
-            transition: background 0.2s, transform 0.2s;
-            font-family: var(--font-body);
-        }
-        .nav-cta:hover { background: #3730a3; transform: translateY(-1px); }
-        .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
-        .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); display: block; transition: all 0.3s; }
-
-        /* PAGE HERO */
-        .page-hero {
-            padding: 140px 40px 80px;
-            text-align: center;
-            background: var(--bg);
-        }
-        .page-hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .page-title {
-            font-family: var(--font-display);
-            font-size: clamp(48px, 6vw, 72px);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            margin-bottom: 24px;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .page-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* SECTIONS */
-        .section {
-            padding: var(--section-pad) 40px;
-        }
-        .dark-section {
-            background: var(--bg-warm);
-        }
-        .container {
-            max-width: var(--max-w);
-            margin: 0 auto;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(36px, 4vw, 58px);
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            color: var(--text);
-            margin-bottom: 20px;
-        }
-        .section-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.65;
-            max-width: 560px;
-            margin: 0 auto;
-        }
-
-        /* CONTACT SPECIFIC STYLES */
-        .contact-main-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: start;
-        }
-        .contact-intro {
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text);
-            margin-bottom: 40px;
-        }
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-        .contact-method {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .contact-method-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: var(--primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-        .contact-method-info h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 4px;
-        }
-        .contact-method-info p {
-            color: var(--text);
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-        .contact-method-info span {
-            color: var(--muted);
-            font-size: 14px;
-        }
-        .consultation-benefits {
-            margin-top: 48px;
-        }
-        .consultation-benefits h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-        .benefits-list {
-            list-style: none;
-        }
-        .benefits-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-        .benefits-list li i {
-            color: var(--primary);
-        }
-
-        /* FORM STYLES */
-        .contact-form-main {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 48px;
-        }
-        .contact-form-main h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-        .contact-form-main > p {
-            color: var(--muted);
-            margin-bottom: 32px;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .form-group {
-            margin-bottom: 24px;
-        }
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: var(--font-body);
-            background: var(--white);
-            transition: border-color 0.2s;
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            cursor: none;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            padding: 14px 28px;
-            border-radius: 100px;
-            font-size: 15px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            cursor: none;
-            border: none;
-            width: 100%;
-            justify-content: center;
-        }
-        .btn-primary:hover {
-            background: #3730a3;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(79,70,229,0.25);
-        }
-        .btn-primary.large {
-            padding: 16px 32px;
-            font-size: 16px;
-        }
-        .form-guarantee {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 16px;
-        }
-
-        /* QUICK CONTACT */
-        .quick-contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-        }
-        .quick-contact-card {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: var(--text);
-        }
-        .quick-contact-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-            text-decoration: none;
-            color: var(--text);
-        }
-        .quick-contact-icon {
-            font-size: 36px;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        .quick-contact-card h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-        .quick-contact-card p {
-            color: var(--muted);
-            margin-bottom: 12px;
-        }
-        .contact-detail {
-            font-size: 14px;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        /* FAQ */
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-        .faq-item {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 32px;
-        }
-        .faq-item h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 12px;
-        }
-        .faq-item p {
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        /* FOOTER */
-        .footer {
-            background: var(--bg-warm);
-            padding: 80px 40px 40px;
-            border-top: 1px solid var(--line);
-        }
-        .footer-content {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 48px;
-            margin-bottom: 48px;
-        }
-        .footer-brand {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .footer-logo {
-            height: 32px;
-            width: auto;
-        }
-        .footer-brand p {
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 280px;
-        }
-        .social-links {
-            display: flex;
-            gap: 16px;
-        }
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--muted);
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .footer-column h4 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .footer-column ul {
-            list-style: none;
-        }
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-        .footer-column ul li a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-        .footer-column ul li a:hover {
-            color: var(--text);
-        }
-        .footer-bottom {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 32px;
-            border-top: 1px solid var(--line);
-            font-size: 14px;
-            color: var(--muted);
-        }
-        .footer-bottom-links {
-            display: flex;
-            gap: 24px;
-        }
-        .footer-bottom-links a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-bottom-links a:hover {
-            color: var(--text);
-        }
-
-        /* REVEAL ANIMATION */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .contact-main-grid {
-                grid-template-columns: 1fr;
-                gap: 48px;
-            }
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 32px;
-            }
-        }
-        @media (max-width: 768px) {
-            :root { --section-pad: 80px; }
-            .section { padding: var(--section-pad) 24px; }
-            .navbar { padding: 16px 24px; }
-            .navbar.scrolled { padding: 12px 24px; }
-            .page-hero { padding: 120px 24px 60px; }
-            .nav-links { display: none; }
-            .mobile-menu-toggle { display: flex; }
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            .quick-contact-grid, .faq-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-        }
-    </style>
+  <!-- Theme Early Detection (Matches device theme by default, prevents FOUT) -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ayp_theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        } else {
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
-    <!-- CURSOR -->
-    <div class="cursor" id="cursor"></div>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <img src="logo.png" alt="AYP Tech" class="logo">
-                <span class="brand-text">AYP Tech</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="casestudies.html">Case Studies</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-            </ul>
-            <div class="nav-cta">
-                <a href="tel:+919175362929" class="btn-primary">Call Now</a>
-            </div>
-            <div class="mobile-menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+
+  <div class="bg-ambient-glow">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+  </div>
+  <div class="bg-grid-pattern"></div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileDrawer">
+    <button class="mobile-close-btn" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="casestudies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-wrap">
+          <img src="logo-white.png" alt="AYP Tech Logo" class="logo-dark">
+          <img src="logo.png" alt="AYP Tech Logo" class="logo-light">
         </div>
-    </nav>
+        <span class="brand-name">AYP Tech</span>
+        <span class="brand-tag">Contact</span>
+      </a>
 
-    <!-- Hero Section -->
-    <section class="page-hero">
-        <div class="hero-bg">
-            <div class="tech-grid"></div>
-        </div>
-        <div class="container">
-            <div class="page-hero-content">
-                <h1 class="page-title">Get Your <span class="gradient-text">Free Consultation</span></h1>
-                <p class="page-subtitle">Ready to transform your business? Let's discuss your technology needs and growth goals</p>
-            </div>
-        </div>
-    </section>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="casestudies.html" class="nav-link">Case Studies</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      </ul>
 
-    <!-- Contact Section -->
-    <section class="section">
-        <div class="container">
-            <div class="contact-main-grid">
-                <div class="contact-info-section">
-                    <h2 class="section-title">Let's Talk Business</h2>
-                    <p class="contact-intro">We're here to help you transform your business with cutting-edge technology. Get in touch for a free consultation and discover how we can accelerate your growth.</p>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="contact-method-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-method-info">
-                                <h3>Phone</h3>
-                                <p>+91 91753 62929</p>
-                                <span>Mon-Fri 9AM-7PM IST</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-method-info">
-                                <h3>Email</h3>
-                                <p>contact@ayptech.com</p>
-                                <span>We respond within 2 hours</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-method-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-method-info">
-                                <h3>Office</h3>
-                                <p>Pune, Maharashtra</p>
-                                <span>India</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-method-icon">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
-                            <div class="contact-method-info">
-                                <h3>WhatsApp</h3>
-                                <p>+91 91753 62929</p>
-                                <span>Quick responses</span>
-                            </div>
-                        </div>
-                    </div>
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+          <i class="fas fa-sun theme-icon-sun"></i>
+          <i class="fas fa-moon theme-icon-moon"></i>
+        </button>
 
-                    <div class="consultation-benefits">
-                        <h3>What You'll Get in Your Free Consultation:</h3>
-                        <ul class="benefits-list">
-                            <li><i class="fas fa-check-circle"></i> Business process analysis</li>
-                            <li><i class="fas fa-check-circle"></i> Technology roadmap</li>
-                            <li><i class="fas fa-check-circle"></i> ROI projections</li>
-                            <li><i class="fas fa-check-circle"></i> Implementation timeline</li>
-                            <li><i class="fas fa-check-circle"></i> Custom solution recommendations</li>
-                        </ul>
-                    </div>
-                </div>
+        <a href="https://wa.me/919356965876?text=Hi%20AYP%20Tech,%20I'd%20like%20to%20discuss%20an%20automation%20project." target="_blank" class="btn btn-secondary btn-sm" rel="noopener">
+          <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp
+        </a>
+        <button class="mobile-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars" style="font-size: 20px;"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-                <div class="contact-form-section">
-                    <form class="contact-form-main glass-card">
-                        <h3>Start Your Digital Transformation</h3>
-                        <p>Fill out the form below and we'll get back to you within 2 hours</p>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="firstName">First Name *</label>
-                                <input type="text" id="firstName" name="firstName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name *</label>
-                                <input type="text" id="lastName" name="lastName" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="company">Company Name</label>
-                            <input type="text" id="company" name="company">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="industry">Industry *</label>
-                            <select id="industry" name="industry" required>
-                                <option value="">Select Your Industry</option>
-                                <option value="telecalling">Telecalling / Call Center</option>
-                                <option value="finance">Finance / Lending</option>
-                                <option value="retail">Retail / E-commerce</option>
-                                <option value="healthcare">Healthcare</option>
-                                <option value="education">Education</option>
-                                <option value="real-estate">Real Estate</option>
-                                <option value="manufacturing">Manufacturing</option>
-                                <option value="consulting">Consulting</option>
-                                <option value="startup">Startup</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="service">Primary Interest *</label>
-                            <select id="service" name="service" required>
-                                <option value="">What interests you most?</option>
-                                <option value="business-automation">Business Process Automation</option>
-                                <option value="ai-solutions">AI Solutions & Analytics</option>
-                                <option value="crm-systems">CRM & Customer Management</option>
-                                <option value="telecalling-systems">Telecalling Systems</option>
-                                <option value="marketing-automation">Marketing Automation</option>
-                                <option value="web-development">Website & App Development</option>
-                                <option value="digital-transformation">Complete Digital Transformation</option>
-                                <option value="consultation">Just Need Consultation</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="teamSize">Team Size</label>
-                            <select id="teamSize" name="teamSize">
-                                <option value="">Select Team Size</option>
-                                <option value="1-10">1-10 employees</option>
-                                <option value="11-50">11-50 employees</option>
-                                <option value="51-200">51-200 employees</option>
-                                <option value="200+">200+ employees</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="budget">Monthly Budget Range</label>
-                            <select id="budget" name="budget">
-                                <option value="">Select Budget Range</option>
-                                <option value="under-25k">Under ₹25,000</option>
-                                <option value="25k-50k">₹25,000 - ₹50,000</option>
-                                <option value="50k-100k">₹50,000 - ₹1,00,000</option>
-                                <option value="100k+">₹1,00,000+</option>
-                                <option value="discuss">Let's Discuss</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="timeline">When do you want to start?</label>
-                            <select id="timeline" name="timeline">
-                                <option value="">Select Timeline</option>
-                                <option value="immediately">Immediately</option>
-                                <option value="1-month">Within 1 month</option>
-                                <option value="3-months">Within 3 months</option>
-                                <option value="6-months">Within 6 months</option>
-                                <option value="planning">Just planning ahead</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Tell us about your business goals and challenges *</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Describe your current processes, pain points, and what you hope to achieve with technology..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="newsletter" value="yes">
-                                <span class="checkmark"></span>
-                                Subscribe to our newsletter for technology tips and industry insights
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary large">
-                            <i class="fas fa-paper-plane"></i>
-                            Send Message & Get Free Consultation
-                        </button>
-                        
-                        <div class="form-guarantee">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>100% confidential • No spam • Free consultation</span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Page Header -->
+  <header style="padding: 160px 0 40px; text-align: center; position: relative;">
+    <div class="container">
+      <div class="badge-pill">
+        <span class="badge-dot"></span> Get Started
+      </div>
+      <h1 class="hero-headline" style="max-width: 800px; margin: 0 auto 16px;">
+        Let's eliminate manual drag from your <span class="highlight-word">business.</span>
+      </h1>
+      <p class="hero-subhead" style="max-width: 600px; margin: 0 auto;">
+        Tell us about your operations. We'll respond within 4 business hours with a clear automation scope and estimated ROI.
+      </p>
+    </div>
+  </header>
 
-    <!-- Quick Contact Options -->
-    <section class="section dark-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Prefer to Talk Directly?</h2>
-                <p class="section-subtitle">Choose the communication method that works best for you</p>
-            </div>
-            <div class="quick-contact-grid">
-                <a href="tel:+919175362929" class="quick-contact-card glass-card">
-                    <div class="quick-contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <h3>Call Now</h3>
-                    <p>Speak directly with our experts</p>
-                    <span class="contact-detail">+91 91753 62929</span>
-                </a>
-                
-                <a href="https://wa.me/919175362929" class="quick-contact-card glass-card">
-                    <div class="quick-contact-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h3>WhatsApp</h3>
-                    <p>Quick chat for immediate queries</p>
-                    <span class="contact-detail">Message us instantly</span>
-                </a>
-                
-                <a href="mailto:contact@ayptech.com" class="quick-contact-card glass-card">
-                    <div class="quick-contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3>Email</h3>
-                    <p>Detailed project discussions</p>
-                    <span class="contact-detail">contact@ayptech.com</span>
-                </a>
-                
-                <a href="#" class="quick-contact-card glass-card" onclick="bookMeeting()">
-                    <div class="quick-contact-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3>Schedule Meeting</h3>
-                    <p>Book a video consultation</p>
-                    <span class="contact-detail">Choose your time</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-subtitle">Quick answers to common questions about our services</p>
-            </div>
-            <div class="faq-grid">
-                <div class="faq-item glass-card">
-                    <h3>How quickly can you implement solutions?</h3>
-                    <p>Most of our solutions can be implemented within 2-4 weeks. Complex enterprise solutions may take 6-8 weeks. We provide a detailed timeline during your free consultation.</p>
-                </div>
-                <div class="faq-item glass-card">
-                    <h3>Do you work with small businesses?</h3>
-                    <p>Absolutely! We specialize in helping small and medium businesses. Our solutions are designed to be affordable and scalable, perfect for growing companies.</p>
-                </div>
-                <div class="faq-item glass-card">
-                    <h3>What if I'm not tech-savvy?</h3>
-                    <p>That's exactly who we serve! We explain everything in business terms, provide comprehensive training, and offer ongoing support to ensure you're comfortable with the technology.</p>
-                </div>
-                <div class="faq-item glass-card">
-                    <h3>Do you provide ongoing support?</h3>
-                    <p>Yes, we provide 24/7 support, regular maintenance, updates, and optimization to ensure your systems continue delivering maximum value.</p>
-                </div>
-                <div class="faq-item glass-card">
-                    <h3>What industries do you serve?</h3>
-                    <p>We work with telecalling companies, finance/lending, retail, healthcare, education, real estate, manufacturing, consulting, and startups across various industries.</p>
-                </div>
-                <div class="faq-item glass-card">
-                    <h3>How much do your services cost?</h3>
-                    <p>Our solutions start from ₹15,000/month. Pricing depends on your specific needs, company size, and complexity. We provide transparent pricing during your consultation.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="logo.png" alt="AYP Tech" class="footer-logo">
-                    <p>Transforming non-tech businesses into tech-powered companies.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Services</h4>
-                        <ul>
-                            <li><a href="services.html">Business Automation</a></li>
-                            <li><a href="services.html">AI Solutions</a></li>
-                            <li><a href="services.html">CRM Systems</a></li>
-                            <li><a href="services.html">Telecalling Systems</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="case-studies.html">Case Studies</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="tel:+919175362929">Call Support</a></li>
-                            <li><a href="mailto:contact@ayptech.com">Email Support</a></li>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Documentation</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 AYP Tech. All rights reserved.</p>
-                <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // CURSOR
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        document.querySelectorAll('a, button, input, select, textarea, .contact-form-main, .quick-contact-card, .faq-item').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-
-        // NAVBAR SCROLL
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 40);
-        });
-
-        // REVEAL ON SCROLL
-        const revealEls = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.12 });
-        revealEls.forEach(el => revealObserver.observe(el));
-
-        // MOBILE MENU
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        let mobileOpen = false;
+  <!-- Main Contact Section -->
+  <section style="padding: 40px 0 100px;">
+    <div class="container">
+      <div class="contact-layout-grid">
         
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', () => {
-                mobileOpen = !mobileOpen;
-                mobileToggle.classList.toggle('active', mobileOpen);
-                navLinks.classList.toggle('active', mobileOpen);
-            });
-        }
+        <!-- Contact Form Card -->
+        <div class="contact-form-card" style="max-width: 100%;">
+          <div style="margin-bottom: 24px;">
+            <h3 style="font-size: 22px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">Request Your Automation Blueprint</h3>
+            <p style="font-size: 14px; color: var(--text-secondary);">No sales pressure. Direct engineering evaluation.</p>
+          </div>
 
-        // SMOOTH SCROLLING
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+          <form class="contact-form-main" id="contactPageForm">
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label class="form-label" for="contactFirstName">First Name *</label>
+                <input type="text" id="contactFirstName" name="firstName" class="form-control" placeholder="Aditya" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactLastName">Last Name *</label>
+                <input type="text" id="contactLastName" name="lastName" class="form-control" placeholder="Pawar" required>
+              </div>
+            </div>
 
-        function bookMeeting() {
-            alert('Meeting booking system would be integrated here (Calendly, etc.)');
-        }
-    </script>
-    <script src="google-sheets-integration.js"></script>
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label class="form-label" for="contactEmail">Work Email *</label>
+                <input type="email" id="contactEmail" name="email" class="form-control" placeholder="aditya@company.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactPhone">Phone / WhatsApp *</label>
+                <input type="tel" id="contactPhone" name="phone" class="form-control" placeholder="+91 98765 43210" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactCompany">Company & Website</label>
+              <input type="text" id="contactCompany" name="company" class="form-control" placeholder="Company Name & URL">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactService">What area needs the most automation?</label>
+              <select id="contactService" name="service" class="form-control" style="background: #0E131F; color: #FFFFFF;">
+                <option value="Lead Qualification & Sales CRM">Lead Qualification & Sales CRM</option>
+                <option value="WhatsApp Cloud API Automation">WhatsApp Cloud API Automation</option>
+                <option value="Finance, Invoice & Document AI">Finance, Invoice & Document AI</option>
+                <option value="Custom Internal Portals / Retool">Custom Internal Portals / Retool</option>
+                <option value="Complete Operational Overhaul">Complete Operational Overhaul</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactMessage">Describe your existing manual process or bottleneck</label>
+              <textarea id="contactMessage" name="message" class="form-control" placeholder="e.g. We spend 2 hours a day manually matching order receipts to customer WhatsApp numbers and entering them in Zoho..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+              Submit & Request Automation Blueprint ↗
+            </button>
+            <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 14px;">
+              <i class="fas fa-lock"></i> Under strict NDA. Your information is never shared or sold.
+            </p>
+          </form>
+        </div>
+
+        <!-- Right Side: Fast Channels & FAQ -->
+        <div>
+          
+          <!-- Instant WhatsApp Channel -->
+          <div class="bento-card" style="margin-bottom: 24px; padding: 28px; border-color: rgba(37, 211, 102, 0.3);">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 14px;">
+              <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(37, 211, 102, 0.15); display: flex; align-items: center; justify-content: center; font-size: 24px; color: #25D366;">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+              <div>
+                <h4 style="font-size: 17px; font-weight: 700; color: #FFFFFF;">Prefer WhatsApp?</h4>
+                <p style="font-size: 13px; color: var(--text-secondary);">Direct access to our engineering leads</p>
+              </div>
+            </div>
+            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">
+              Skip the form. Drop us a message with a quick voice note or description of your workflow bottleneck.
+            </p>
+            <a href="https://wa.me/919356965876?text=Hi%20AYP%20Tech,%20I'd%20like%20to%20discuss%20an%20automation%20project." target="_blank" class="btn btn-sm" style="background: #25D366; color: #FFFFFF; font-weight: 700;" rel="noopener">
+              <i class="fab fa-whatsapp"></i> Chat with Us on WhatsApp
+            </a>
+          </div>
+
+          <!-- Direct Contacts -->
+          <div class="bento-card" style="margin-bottom: 24px; padding: 28px;">
+            <h4 style="font-size: 16px; font-weight: 700; color: #FFFFFF; margin-bottom: 16px;">Contact Information</h4>
+            <div style="display: flex; flex-direction: column; gap: 14px; font-size: 14px; color: var(--text-secondary);">
+              <div><i class="fab fa-whatsapp" style="color: #25D366; width: 24px;"></i> <a href="https://wa.me/919356965876" target="_blank" style="color: inherit; text-decoration: none;">Direct WhatsApp Chat</a></div>
+              <div><i class="fas fa-envelope" style="color: var(--primary); width: 24px;"></i> contact@ayptech.com</div>
+              <div><i class="fas fa-map-marker-alt" style="color: var(--accent-cyan); width: 24px;"></i> Pune / Mumbai, Maharashtra, India</div>
+              <div><i class="fas fa-clock" style="color: var(--accent-emerald); width: 24px;"></i> Mon – Sat, 9:00 AM – 7:00 PM IST</div>
+            </div>
+          </div>
+
+          <!-- FAQ Accordion -->
+          <div class="bento-card" style="padding: 28px;">
+            <h4 style="font-size: 16px; font-weight: 700; color: #FFFFFF; margin-bottom: 16px;">Frequently Asked Questions</h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">
+                  How long does a typical automation take to deploy?
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                  Most targeted workflows (e.g. WhatsApp lead sync, invoice OCR, or calendar booking) launch in 7 to 14 days.
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">
+                  Will our business data be safe?
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                  Yes. We enforce Zero-Data Retention contracts. Your customer information and financials are never used to train public AI models.
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">
+                  Do we have to replace our existing software?
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                  No. We connect directly into your existing Google Sheets, Tally, Zoho, Slack, WhatsApp, and CRMs.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom-bar">
+        <div>© 2026 AYP Tech Solutions. All rights reserved.</div>
+        <div style="display: flex; gap: 24px;">
+          <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Home</a>
+          <a href="services.html" style="color: var(--text-muted); text-decoration: none;">Services</a>
+          <a href="casestudies.html" style="color: var(--text-muted); text-decoration: none;">Case Studies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="google-sheets-integration.js"></script>
 </body>
 </html>

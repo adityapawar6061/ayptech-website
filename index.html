@@ -1,1434 +1,762 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AYP Tech — Automation & AI for Indian Businesses</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AYP Tech — Enterprise AI Automation & Autonomous Workflows</title>
+  <meta name="description" content="Stop wasting hundreds of hours on manual work. AYP Tech builds custom AI agents, automated workflows, and enterprise systems to 3x your team's output.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
 
-  :root {
-    --bg: #FFF7D1;
-    --bg-warm: #FFECC8;
-    --bg-founder: #FFD09B;
-    --primary: #4F46E5;
-    --primary-light: #EEF2FF;
-    --text: #0F0F0F;
-    --muted: #6B7280;
-    --line: #E5E7EB;
-    --highlight: #FDE68A;
-    --white: #ffffff;
-    --font-display: 'Bricolage Grotesque', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    --font-signature: 'Playfair Display', serif;
-    --max-w: 1200px;
-    --section-pad: 120px;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--font-body);
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* CUSTOM CURSOR */
-  .cursor {
-    width: 10px; height: 10px;
-    background: var(--primary);
-    border-radius: 50%;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 10000;
-    transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
-    transform: translate(-50%, -50%);
-  }
-  .cursor.hover { width: 28px; height: 28px; background: rgba(79,70,229,0.3); }
-
-  /* NAVBAR */
-  .navbar {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    padding: 20px 40px;
-    display: flex; align-items: center; justify-content: space-between;
-    transition: all 0.3s ease;
-  }
-  .navbar.scrolled {
-    background: rgba(255,247,209,0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 1px 0 var(--line);
-    padding: 14px 40px;
-  }
-  .nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-  }
-  .logo {
-    height: 32px;
-    width: auto;
-  }
-  .brand-text {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 22px;
-    color: var(--text);
-    letter-spacing: -0.5px;
-  }
-  .nav-links {
-    display: flex; gap: 36px; list-style: none;
-  }
-  .nav-links a {
-    font-size: 14px; font-weight: 500;
-    color: var(--muted); text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--text); }
-  .nav-cta {
-    background: var(--primary);
-    color: white; border: none; padding: 10px 22px;
-    border-radius: 100px; font-size: 14px; font-weight: 500;
-    cursor: none; text-decoration: none;
-    transition: background 0.2s, transform 0.2s;
-    font-family: var(--font-body);
-  }
-  .nav-cta:hover { background: #3730a3; transform: translateY(-1px); }
-  .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
-  .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); display: block; transition: all 0.3s; }
-
-  /* MOBILE NAV OVERLAY */
-  .mobile-nav {
-    position: fixed; inset: 0; background: var(--bg);
-    z-index: 999; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 32px;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .mobile-nav.open { opacity: 1; pointer-events: all; }
-  .mobile-nav a {
-    font-family: var(--font-display); font-size: 36px; font-weight: 700;
-    color: var(--text); text-decoration: none;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 120px 40px 80px;
-    position: relative; overflow: hidden;
-  }
-  .hero-inner {
-    max-width: var(--max-w);
-    margin: 0 auto; width: 100%;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-  }
-  .hero-content { position: relative; z-index: 2; }
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--primary-light); color: var(--primary);
-    padding: 6px 14px; border-radius: 100px;
-    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    margin-bottom: 28px;
-    opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s;
-  }
-  .eyebrow-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: pulse 2s infinite; }
-  .hero-h1 {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 6vw, 88px);
-    font-weight: 800; line-height: 1.05;
-    letter-spacing: -2.5px; color: var(--text);
-    margin-bottom: 24px;
-    opacity: 0; animation: fadeUp 0.7s ease forwards 0.25s;
-  }
-  .hero-h1 .word-highlight {
-    position: relative; display: inline-block;
-    color: var(--text);
-  }
-  .hero-h1 .word-highlight svg.underline {
-    position: absolute; bottom: -6px; left: 0; width: 100%;
-    overflow: visible;
-  }
-  .hero-h1 .word-highlight svg.underline path {
-    stroke: var(--highlight); stroke-width: 8;
-    fill: none; stroke-linecap: round;
-    stroke-dasharray: 300;
-    stroke-dashoffset: 300;
-    animation: drawLine 0.8s ease forwards 1s;
-  }
-  .hero-sub {
-    font-size: 18px; color: var(--muted); line-height: 1.6;
-    max-width: 440px; margin-bottom: 36px;
-    opacity: 0; animation: fadeUp 0.7s ease forwards 0.4s;
-  }
-  .hero-ctarow {
-    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp 0.7s ease forwards 0.55s;
-  }
-  .btn-primary {
-    background: var(--primary); color: white;
-    padding: 14px 28px; border-radius: 100px;
-    font-size: 15px; font-weight: 500;
-    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-    transition: all 0.2s; cursor: none;
-  }
-  .btn-primary:hover { background: #3730a3; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,70,229,0.25); }
-  .btn-ghost {
-    color: var(--text); font-size: 15px; font-weight: 500;
-    text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
-    transition: gap 0.2s; cursor: none;
-  }
-  .btn-ghost:hover { gap: 10px; }
-  .hero-scroll-hint {
-    font-size: 13px; color: var(--muted); margin-top: 48px;
-    display: flex; align-items: center; gap: 8px;
-    opacity: 0; animation: fadeUp 0.7s ease forwards 0.7s;
-    cursor: none;
-  }
-  .hero-scroll-hint span { color: var(--primary); font-weight: 500; }
-
-  /* HERO VISUAL */
-  .hero-visual {
-    position: relative; height: 480px; display: flex; align-items: center; justify-content: center;
-    opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s;
-  }
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
-    opacity: 0.6;
-  }
-  .shape-ring {
-    width: 280px; height: 280px;
-    border: 2px solid var(--primary);
-    border-radius: 50%;
-    position: relative;
-    animation: rotateSlow 20s linear infinite;
-  }
-  .shape-ring::before {
-    content: '';
-    width: 200px; height: 200px;
-    border: 1.5px dashed var(--line);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%; left: 50%; transform: translate(-50%, -50%);
-    animation: rotateSlow 12s linear infinite reverse;
-  }
-  .shape-dot {
-    width: 12px; height: 12px; background: var(--primary);
-    border-radius: 50%;
-    position: absolute;
-  }
-  .shape-dot:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
-  .shape-dot:nth-child(2) { bottom: 0; left: 50%; transform: translateX(-50%); }
-  .shape-dot:nth-child(3) { left: 0; top: 50%; transform: translateY(-50%); }
-  .shape-dot:nth-child(4) { right: 0; top: 50%; transform: translateY(-50%); }
-  .shape-center {
-    position: absolute;
-    width: 80px; height: 80px;
-    background: var(--primary);
-    border-radius: 20px;
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-family: var(--font-display); font-weight: 800; font-size: 22px;
-    box-shadow: 0 20px 60px rgba(79,70,229,0.35);
-    animation: floatY 3s ease-in-out infinite;
-  }
-  .metric-float {
-    position: absolute;
-    background: white; border-radius: 12px;
-    padding: 12px 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    font-size: 13px; font-weight: 500;
-    white-space: nowrap;
-  }
-  .metric-float .val { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--primary); display: block; }
-  .mf1 { top: 60px; right: 40px; animation: floatY 4s ease-in-out infinite 0.5s; }
-  .mf2 { bottom: 80px; left: 20px; animation: floatY 3.5s ease-in-out infinite 1s; }
-  .mf3 { bottom: 40px; right: 60px; animation: floatY 4.5s ease-in-out infinite; }
-
-  /* TICKER */
-  .ticker-wrap {
-    background: var(--text); overflow: hidden;
-    padding: 14px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    opacity: 0; animation: fadeUp 0.5s ease forwards 0.9s;
-  }
-  .ticker-track {
-    display: flex; gap: 0;
-    animation: tickerScroll 35s linear infinite;
-    width: max-content;
-  }
-  .ticker-item {
-    color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 400;
-    padding: 0 40px;
-    white-space: nowrap; display: flex; align-items: center; gap: 10px;
-  }
-  .ticker-item .up { color: #4ade80; font-weight: 600; }
-  .ticker-sep { color: rgba(255,255,255,0.2); }
-
-  /* SECTION COMMONS */
-  section { padding: var(--section-pad) 40px; }
-  .container { max-width: var(--max-w); margin: 0 auto; }
-  .section-label {
-    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--primary); font-weight: 600; margin-bottom: 16px;
-  }
-  .section-h2 {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 4vw, 58px);
-    font-weight: 800; letter-spacing: -1.5px; line-height: 1.1;
-    color: var(--text); margin-bottom: 20px;
-  }
-  .section-lead {
-    font-size: 18px; color: var(--muted); line-height: 1.65;
-    max-width: 560px;
-  }
-
-  /* REVEAL ANIMATION */
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* PROBLEM SECTION */
-  .problem {
-    background: var(--bg-warm);
-    padding: var(--section-pad) 40px;
-  }
-  .problem-grid {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px; margin-top: 64px;
-  }
-  .pain-card {
-    padding: 40px 36px;
-    background: var(--bg-warm);
-    border: 1px solid rgba(0,0,0,0.06);
-    position: relative; overflow: hidden;
-  }
-  .pain-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: var(--primary); transform: scaleX(0);
-    transform-origin: left; transition: transform 0.4s ease;
-  }
-  .pain-card:hover::before { transform: scaleX(1); }
-  .pain-loss {
-    font-family: var(--font-display); font-size: 52px; font-weight: 800;
-    color: var(--primary); letter-spacing: -2px; display: block; margin-bottom: 12px;
-  }
-  .pain-title { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
-  .pain-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
-  .problem-cta {
-    margin-top: 60px; display: flex; align-items: center; gap: 16px;
-  }
-  .problem-stat {
-    background: white; border-radius: 12px;
-    padding: 20px 28px;
-    display: flex; align-items: center; gap: 16px;
-  }
-  .problem-stat .big { font-family: var(--font-display); font-weight: 800; font-size: 32px; color: var(--primary); }
-  .problem-stat .sm { font-size: 13px; color: var(--muted); line-height: 1.5; }
-
-  /* SERVICES */
-  .services-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1px; background: var(--line);
-    border: 1px solid var(--line);
-    border-radius: 16px; overflow: hidden;
-    margin-top: 64px;
-  }
-  .svc-card {
-    padding: 48px 44px;
-    background: var(--bg);
-    transition: all 0.25s;
-    position: relative;
-  }
-  .svc-card:hover { background: var(--white); }
-  .svc-card:hover .svc-arrow { opacity: 1; transform: translateX(0); }
-  .svc-icon {
-    width: 44px; height: 44px; margin-bottom: 24px;
-    color: var(--primary);
-  }
-  .svc-title {
-    font-family: var(--font-display); font-weight: 700;
-    font-size: 20px; margin-bottom: 12px; letter-spacing: -0.3px;
-  }
-  .svc-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
-  .svc-arrow {
-    font-size: 13px; color: var(--primary); font-weight: 500;
-    display: flex; align-items: center; gap: 6px;
-    opacity: 0; transform: translateX(-8px); transition: all 0.25s;
-    cursor: none;
-  }
-
-  /* PROCESS */
-  .process { overflow: hidden; }
-  .process-header { margin-bottom: 72px; }
-  .process-track {
-    display: flex; gap: 0; position: relative;
-    padding-bottom: 40px;
-  }
-  .process-line-svg {
-    position: absolute; top: 28px; left: 0; width: 100%; height: 2px; pointer-events: none;
-  }
-  .process-step {
-    flex: 1; padding: 0 24px; position: relative;
-    min-width: 200px;
-  }
-  .step-num {
-    width: 56px; height: 56px; border-radius: 50%;
-    background: var(--primary); color: white;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-weight: 800; font-size: 18px;
-    margin-bottom: 24px; position: relative; z-index: 1;
-    flex-shrink: 0;
-  }
-  .step-title {
-    font-family: var(--font-display); font-weight: 700;
-    font-size: 16px; margin-bottom: 10px; letter-spacing: -0.2px;
-  }
-  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
-
-  /* CASE STUDIES */
-  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 64px; }
-  .case-card {
-    border: 1px solid var(--line); border-radius: 20px;
-    overflow: hidden; background: white;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .case-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
-  .case-card-body { padding: 44px; }
-  .case-tags { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-  .tag {
-    background: var(--primary-light); color: var(--primary);
-    padding: 4px 12px; border-radius: 100px;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-  }
-  .case-result {
-    font-family: var(--font-display); font-size: 64px; font-weight: 800;
-    color: var(--primary); letter-spacing: -3px; line-height: 1;
-    margin-bottom: 8px;
-  }
-  .case-result-label { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
-  .case-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin-bottom: 12px; letter-spacing: -0.3px; }
-  .case-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
-  .case-divider { height: 1px; background: var(--line); margin: 28px 0; }
-  .case-company { font-size: 13px; color: var(--muted); font-weight: 500; }
-
-  /* BEFORE/AFTER SLIDER */
-  .ba-wrap {
-    position: relative; width: 100%; height: 340px;
-    background: var(--bg); overflow: hidden; cursor: col-resize;
-    border-top: 1px solid var(--line);
-  }
-  .ba-side {
-    position: absolute; top: 0; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    padding: 32px; overflow: hidden;
-  }
-  .ba-before { left: 0; background: #FEF2F2; width: 100%; }
-  .ba-after { right: 0; background: #F0FDF4; width: 100%; clip-path: inset(0 100% 0 0); transition: clip-path 0s; }
-  .ba-handle {
-    position: absolute; top: 0; height: 100%; width: 2px;
-    background: var(--primary); left: 50%;
-    cursor: col-resize; z-index: 10;
-  }
-  .ba-handle::before {
-    content: '◀▶';
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--primary); color: white;
-    padding: 8px 12px; border-radius: 100px;
-    font-size: 11px; white-space: nowrap; letter-spacing: 2px;
-  }
-  .ba-label {
-    position: absolute; top: 16px; font-size: 11px; font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 4px 10px; border-radius: 4px;
-  }
-  .ba-before-lbl { left: 16px; background: #FCA5A5; color: #7f1d1d; }
-  .ba-after-lbl { right: 16px; background: #86efac; color: #14532d; }
-  .ba-flow {
-    display: flex; align-items: center; gap: 12px;
-    font-family: var(--font-mono); font-size: 11px;
-    flex-wrap: wrap; justify-content: center;
-  }
-  .flow-box {
-    padding: 8px 14px; border-radius: 8px; font-weight: 500;
-    border: 1.5px solid; white-space: nowrap;
-  }
-  .before-box { border-color: #f87171; color: #ef4444; background: white; }
-  .after-box { border-color: #4ade80; color: #16a34a; background: white; }
-  .flow-arr-bad { color: #f87171; font-size: 16px; }
-  .flow-arr-good { color: #4ade80; font-size: 16px; }
-
-  /* CALCULATOR */
-  .calc-section { background: var(--primary); padding: var(--section-pad) 40px; }
-  .calc-inner {
-    max-width: 780px; margin: 0 auto;
-    text-align: center;
-  }
-  .calc-inner .section-label { color: rgba(255,255,255,0.6); }
-  .calc-inner .section-h2 { color: white; }
-  .calc-card {
-    background: white; border-radius: 24px;
-    padding: 48px; margin-top: 48px;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.2);
-  }
-  .calc-sliders { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-  .calc-slider-group label {
-    display: flex; justify-content: space-between;
-    font-size: 14px; font-weight: 600; margin-bottom: 12px;
-  }
-  .calc-slider-group label span { color: var(--primary); }
-  input[type=range] {
-    width: 100%; height: 4px;
-    -webkit-appearance: none; appearance: none;
-    background: var(--line); border-radius: 2px; outline: none;
-    cursor: none;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none; appearance: none;
-    width: 20px; height: 20px;
-    border-radius: 50%; background: var(--primary);
-    cursor: none; box-shadow: 0 2px 8px rgba(79,70,229,0.3);
-  }
-  .calc-output { text-align: center; padding: 32px; background: var(--bg); border-radius: 16px; }
-  .calc-output .loss-label { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
-  .calc-output .loss-num {
-    font-family: var(--font-display); font-size: 56px; font-weight: 800;
-    color: var(--primary); letter-spacing: -2px;
-  }
-  .calc-output .loss-sub { font-size: 14px; color: var(--muted); margin-top: 8px; }
-  .calc-cta { margin-top: 32px; }
-  .calc-cta-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
-
-  /* HONEST SECTION */
-  .honest {
-    padding: var(--section-pad) 40px;
-    text-align: center;
-  }
-  .honest-inner { max-width: 640px; margin: 0 auto; }
-  .honest-title {
-    font-family: var(--font-display); font-size: 40px;
-    font-weight: 800; letter-spacing: -1px; margin-bottom: 40px;
-  }
-  .honest-list {
-    list-style: none; text-align: left;
-    border: 1px solid var(--line); border-radius: 16px;
-    overflow: hidden;
-  }
-  .honest-list li {
-    padding: 20px 28px;
-    font-family: var(--font-mono); font-size: 14px;
-    border-bottom: 1px solid var(--line);
-    display: flex; align-items: center; gap: 14px;
-    line-height: 1.5;
-  }
-  .honest-list li:last-child { border-bottom: none; }
-  .honest-list li .x { color: var(--primary); font-weight: 700; font-size: 16px; }
-
-  /* SCROLL REVEAL PROBLEMS */
-  .problems-reveal { background: var(--bg-warm); padding: var(--section-pad) 40px; }
-  .problem-list { max-width: 720px; margin: 48px auto 0; }
-  .problem-item {
-    padding: 24px 0; border-bottom: 1px solid var(--line);
-    display: flex; align-items: center; gap: 20px;
-    opacity: 0; transform: translateX(-20px);
-    transition: all 0.5s ease;
-  }
-  .problem-item.vis { opacity: 1; transform: translateX(0); }
-  .problem-item.solved .prob-text { text-decoration: line-through; color: var(--muted); }
-  .prob-icon { font-size: 20px; flex-shrink: 0; }
-  .prob-text { font-size: 18px; font-weight: 500; transition: all 0.4s; }
-  .prob-solution { margin-left: auto; font-size: 13px; color: #16a34a; font-weight: 600; opacity: 0; transition: opacity 0.4s 0.3s; }
-  .problem-item.solved .prob-solution { opacity: 1; }
-
-  /* FOUNDERS */
-  .founders { background: var(--bg-founder); padding: var(--section-pad) 40px; }
-  .founders-inner {
-    max-width: var(--max-w); margin: 0 auto;
-    display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center;
-  }
-  .founders-note .note-text {
-    font-size: 19px; line-height: 1.75; color: var(--text);
-    margin-bottom: 32px;
-  }
-  .founders-note .note-text strong { color: var(--primary); }
-  .founders-sig {
-    font-family: var(--font-signature); font-style: italic;
-    font-size: 26px; color: var(--text); margin-bottom: 8px;
-  }
-  .founders-names-sub { font-size: 13px; color: var(--muted); }
-  .founders-visual {
-    display: flex; flex-direction: column; gap: 20px;
-  }
-  .founder-card {
-    background: white; border-radius: 16px; padding: 24px;
-    display: flex; align-items: center; gap: 20px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-  }
-  .founder-avatar {
-    width: 56px; height: 56px; border-radius: 50%;
-    background: var(--primary-light); display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-weight: 800; font-size: 18px; color: var(--primary);
-    flex-shrink: 0;
-  }
-  .founder-info .name { font-weight: 700; font-size: 15px; }
-  .founder-info .role { font-size: 13px; color: var(--muted); }
-
-  /* TESTIMONIALS */
-  .testi { padding: var(--section-pad) 40px; }
-  .testi-track {
-    display: flex; gap: 24px;
-    overflow-x: auto; padding: 24px 0;
-    scrollbar-width: none; cursor: grab;
-    -webkit-overflow-scrolling: touch;
-  }
-  .testi-track::-webkit-scrollbar { display: none; }
-  .testi-track.grabbing { cursor: grabbing; }
-  .testi-card {
-    min-width: 380px; max-width: 380px;
-    border: 1px solid var(--line); border-radius: 20px;
-    padding: 36px; background: white; flex-shrink: 0;
-    transition: transform 0.2s;
-  }
-  .testi-card:hover { transform: translateY(-4px); }
-  .testi-quote-mark {
-    font-family: var(--font-display); font-size: 80px; font-weight: 800;
-    color: var(--primary-light); line-height: 0.7; margin-bottom: 20px;
-    display: block;
-  }
-  .testi-text { font-size: 16px; line-height: 1.7; color: var(--text); margin-bottom: 28px; }
-  .testi-author { font-weight: 700; font-size: 14px; }
-  .testi-role { font-size: 13px; color: var(--muted); }
-  .testi-city { font-size: 12px; color: var(--primary); font-weight: 500; margin-top: 4px; }
-
-  /* FINAL CTA */
-  .final-cta {
-    padding: 160px 40px;
-    text-align: center;
-    position: relative; overflow: hidden;
-  }
-  .final-cta::before {
-    content: '';
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(ellipse, rgba(79,70,229,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .final-cta .section-h2 { font-size: clamp(40px, 5vw, 70px); margin-bottom: 16px; }
-  .final-cta .section-lead { margin: 0 auto 48px; text-align: center; max-width: 480px; }
-  .final-phone { font-size: 15px; color: var(--muted); margin-top: 20px; }
-
-  /* FOOTER */
-  footer {
-    padding: 60px 40px 40px;
-    border-top: 1px solid var(--line);
-  }
-  .footer-inner {
-    max-width: var(--max-w); margin: 0 auto;
-    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    gap: 48px; margin-bottom: 48px;
-  }
-  .footer-brand .logo { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--text); margin-bottom: 12px; }
-  .footer-brand .logo span { color: var(--primary); }
-  .footer-brand .tagline { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 240px; }
-  .footer-col h4 { font-size: 13px; font-weight: 700; margin-bottom: 16px; letter-spacing: 0.05em; text-transform: uppercase; }
-  .footer-col ul { list-style: none; }
-  .footer-col ul li { margin-bottom: 10px; }
-  .footer-col ul li a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .footer-col ul li a:hover { color: var(--text); }
-  .footer-bottom {
-    max-width: var(--max-w); margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 24px; border-top: 1px solid var(--line);
-    font-size: 13px; color: var(--muted);
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes rotateSlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @keyframes floatY {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-  @keyframes drawLine {
-    to { stroke-dashoffset: 0; }
-  }
-  @keyframes tickerScroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  @keyframes counterUp {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 1024px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-visual { display: none; }
-    .problem-grid { grid-template-columns: 1fr; }
-    .case-grid { grid-template-columns: 1fr; }
-    .founders-inner { grid-template-columns: 1fr; gap: 48px; }
-    .footer-inner { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 768px) {
-    :root { --section-pad: 72px; }
-    .navbar { padding: 16px 24px; }
-    .navbar.scrolled { padding: 12px 24px; }
-    .hero { padding: 100px 24px 60px; }
-    .nav-links { display: none; }
-    .mobile-menu-toggle { display: flex; }
-    .services-grid { grid-template-columns: 1fr; }
-    .calc-sliders { grid-template-columns: 1fr; gap: 28px; }
-    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-    .process-track { overflow-x: auto; padding-bottom: 20px; }
-    .testi-card { min-width: 300px; }
-  }
-</style>
+  <!-- Theme Early Detection (Matches device theme by default, prevents FOUT) -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ayp_theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        } else {
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
 
-<!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
-
-<!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobileNav">
-  <a href="services.html" onclick="closeMobileNav()">Services</a>
-  <a href="casestudies.html" onclick="closeMobileNav()">Case Studies</a>
-  <a href="#process" onclick="closeMobileNav()">Process</a>
-  <a href="#about" onclick="closeMobileNav()">About</a>
-  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
-  <a href="contact.html" class="btn-primary" onclick="closeMobileNav()">Book a Call</a>
-</div>
-
-<!-- NAVBAR -->
-<nav class="navbar" id="navbar">
-  <div class="nav-brand">
-    <img src="logo.png" alt="AYP Tech" class="logo">
-    <span class="brand-text">AYP Tech</span>
+  <!-- Ambient Glow Elements -->
+  <div class="bg-ambient-glow">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
   </div>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="casestudies.html">Case Studies</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-  <a href="contact.html" class="nav-cta">Book a Call</a>
-  <div class="mobile-menu-toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</nav>
+  <div class="bg-grid-pattern"></div>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="eyebrow-dot"></span>
-        3x productivity for a Pune telecalling company
-      </div>
-      <h1 class="hero-h1">
-        We automate<br>the work that's<br><span class="word-highlight">killing<svg class="underline" viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M4,14 Q50,4 100,12 Q150,20 196,10" /></svg></span> your team
-      </h1>
-      <p class="hero-sub">
-        AYP Tech builds custom automation, AI systems, and software for Indian startups and SMEs — so you can focus on what actually matters.
-      </p>
-      <div class="hero-ctarow">
-        <a href="contact.html" class="btn-primary">Book Free Strategy Call ↗</a>
-        <a href="#work" class="btn-ghost">See our work <span>→</span></a>
-      </div>
-      <div class="hero-scroll-hint">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        <span>Scroll to see</span> what we built for a Pune company last month →
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-grid"></div>
-      <div class="shape-ring">
-        <span class="shape-dot"></span>
-        <span class="shape-dot"></span>
-        <span class="shape-dot"></span>
-        <span class="shape-dot"></span>
-        <div class="shape-center">AI</div>
-      </div>
-      <div class="metric-float mf1">
-        <span class="val" data-count="47">0</span>
-        Businesses automated in 2024
-      </div>
-      <div class="metric-float mf2">
-        <span class="val" data-count="83" data-suffix="%">0%</span>
-        Avg ops efficiency gain
-      </div>
-      <div class="metric-float mf3">
-        <span class="val" data-count="14">0</span>
-        Days avg. project launch
-      </div>
-    </div>
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileDrawer">
+    <button class="mobile-close-btn" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="Agents/index.html" style="color: #0d9488; font-weight: 600;"><i class="fas fa-headset"></i> Voice AI Agents (New)</a>
+    <a href="services.html">Services</a>
+    <a href="casestudies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-primary btn-lg">Book Free Strategy Call ↗</a>
   </div>
-</section>
 
-<!-- LIVE TICKER -->
-<div class="ticker-wrap reveal">
-  <div class="ticker-track" id="ticker">
-    <div class="ticker-item">Telecalling CRM &nbsp;·&nbsp; <span class="up">3× productivity ↑</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">Finance ops automation &nbsp;·&nbsp; <span class="up">80% manual work eliminated ↑</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">Startup MVP launch &nbsp;·&nbsp; <span class="up">14 days ✓</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">Pune logistics firm &nbsp;·&nbsp; <span class="up">₹3.2L/month recovered ↑</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">Healthcare data pipeline &nbsp;·&nbsp; <span class="up">6 hrs/day saved ✓</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">E-commerce backend &nbsp;·&nbsp; <span class="up">Built in 3 weeks ✓</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <!-- duplicate for seamless loop -->
-    <div class="ticker-item">Telecalling CRM &nbsp;·&nbsp; <span class="up">3× productivity ↑</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">Finance ops automation &nbsp;·&nbsp; <span class="up">80% manual work eliminated ↑</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">Startup MVP launch &nbsp;·&nbsp; <span class="up">14 days ✓</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">Pune logistics firm &nbsp;·&nbsp; <span class="up">₹3.2L/month recovered ↑</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">Healthcare data pipeline &nbsp;·&nbsp; <span class="up">6 hrs/day saved ✓</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-    <div class="ticker-item">E-commerce backend &nbsp;·&nbsp; <span class="up">Built in 3 weeks ✓</span></div>
-    <div class="ticker-item ticker-sep">|</div>
-  </div>
-</div>
-
-<!-- PROBLEM SECTION -->
-<section class="problem">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">The real cost of doing nothing</div>
-      <h2 class="section-h2">Every month you wait,<br>it costs you.</h2>
-      <p class="section-lead">The average Indian SME loses ₹2.4L/month to manual processes. Most don't even know it.</p>
-    </div>
-    <div class="problem-grid reveal">
-      <div class="pain-card">
-        <span class="pain-loss">₹84K</span>
-        <div class="pain-title">Lost to repetitive data entry</div>
-        <p class="pain-desc">Your team spends 3–4 hours daily copying data between spreadsheets, email, and WhatsApp. That's 80 hours of salary — gone.</p>
-      </div>
-      <div class="pain-card">
-        <span class="pain-loss">₹1.1L</span>
-        <div class="pain-title">Leads that fall through the cracks</div>
-        <p class="pain-desc">No system = no follow-up. Every inquiry that doesn't get a response in 4 hours is a lead you've already lost to a faster competitor.</p>
-      </div>
-      <div class="pain-card">
-        <span class="pain-loss">₹62K</span>
-        <div class="pain-title">Ops delays and miscommunication</div>
-        <p class="pain-desc">Without automated workflows, approvals get stuck, invoices get delayed, and your team wastes hours chasing status updates.</p>
-      </div>
-    </div>
-    <div class="problem-cta reveal">
-      <div class="problem-stat">
-        <div class="big">₹2.4L</div>
-        <div class="sm">Avg monthly loss<br>for Indian SMEs</div>
-      </div>
-      <a href="contact.html" class="btn-primary">Here's what we do about it →</a>
-    </div>
-  </div>
-</section>
-
-<!-- SCROLL REVEAL PROBLEMS → SOLUTIONS -->
-<section class="problems-reveal" id="scroll-problems">
-  <div class="container">
-    <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto;">
-      <div class="section-label">Sound familiar?</div>
-      <h2 class="section-h2">We eliminate your problems.</h2>
-    </div>
-    <div class="problem-list">
-      <div class="problem-item" data-delay="0">
-        <span class="prob-icon">📋</span>
-        <span class="prob-text">Manual data entry eating your team's day</span>
-        <span class="prob-solution">✓ Automated</span>
-      </div>
-      <div class="problem-item" data-delay="150">
-        <span class="prob-icon">📞</span>
-        <span class="prob-text">Leads slipping through with no follow-up system</span>
-        <span class="prob-solution">✓ CRM Built</span>
-      </div>
-      <div class="problem-item" data-delay="300">
-        <span class="prob-icon">🔀</span>
-        <span class="prob-text">Siloed tools that don't talk to each other</span>
-        <span class="prob-solution">✓ Integrated</span>
-      </div>
-      <div class="problem-item" data-delay="450">
-        <span class="prob-icon">📊</span>
-        <span class="prob-text">No visibility into what's actually happening</span>
-        <span class="prob-solution">✓ Dashboard Live</span>
-      </div>
-      <div class="problem-item" data-delay="600">
-        <span class="prob-icon">🤝</span>
-        <span class="prob-text">Vendors who disappear after delivery</span>
-        <span class="prob-solution">✓ We Don't</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">What we build</div>
-      <h2 class="section-h2">Built for Indian founders.<br>Designed for how your business actually works.</h2>
-    </div>
-    <div class="services-grid reveal">
-      <div class="svc-card">
-        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="8" y="8" width="12" height="12" rx="2"/>
-          <rect x="24" y="8" width="12" height="12" rx="2"/>
-          <rect x="8" y="24" width="12" height="12" rx="2"/>
-          <rect x="24" y="24" width="12" height="12" rx="2"/>
-          <path d="M14 20v4M30 20v4M20 14h4M20 30h4"/>
-        </svg>
-        <div class="svc-title">Business Process Automation</div>
-        <p class="svc-desc">We map your ops and eliminate the repetitive parts. Lead routing, invoice generation, report creation, data sync — automated end-to-end.</p>
-        <div class="svc-arrow">Learn more <span>→</span></div>
-      </div>
-      <div class="svc-card">
-        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="22" cy="22" r="12"/>
-          <path d="M22 10V8M22 36v-2M34 22h2M8 22h2"/>
-          <circle cx="22" cy="22" r="4"/>
-          <path d="M26.5 17.5l1.5-1.5M16 28l1.5-1.5M26.5 26.5l1.5 1.5M16 16l1.5 1.5"/>
-        </svg>
-        <div class="svc-title">AI Integration & Custom AI Agents</div>
-        <p class="svc-desc">From AI-powered WhatsApp bots to intelligent document processors — we build AI that works inside your existing workflow, not beside it.</p>
-        <div class="svc-arrow">Learn more <span>→</span></div>
-      </div>
-      <div class="svc-card">
-        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="6" y="10" width="32" height="22" rx="3"/>
-          <path d="M14 32h16M22 32v4"/>
-          <path d="M12 18h8M12 22h12M12 26h6"/>
-        </svg>
-        <div class="svc-title">CRM & Lead Management Systems</div>
-        <p class="svc-desc">Custom CRMs that track every touchpoint, auto-assign follow-ups, and give your sales team visibility that off-the-shelf tools never can.</p>
-        <div class="svc-arrow">Learn more <span>→</span></div>
-      </div>
-      <div class="svc-card">
-        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="10" y="6" width="18" height="26" rx="2"/>
-          <rect x="16" y="30" width="18" height="8" rx="2"/>
-          <path d="M14 12h10M14 16h10M14 20h6"/>
-          <path d="M20 30v-2"/>
-        </svg>
-        <div class="svc-title">Custom Software & Web Apps</div>
-        <p class="svc-desc">Full-stack web apps, internal tools, and client-facing portals — built fast, built clean, with long-term maintainability in mind.</p>
-        <div class="svc-arrow">Learn more <span>→</span></div>
-      </div>
-      <div class="svc-card">
-        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M8 30 L16 22 L22 28 L30 18 L36 24"/>
-          <rect x="6" y="8" width="32" height="28" rx="3"/>
-        </svg>
-        <div class="svc-title">Analytics & Business Intelligence</div>
-        <p class="svc-desc">Live dashboards that pull from all your tools — Google Sheets, WhatsApp, Tally, your CRM — into one place your team can actually use.</p>
-        <div class="svc-arrow">Learn more <span>→</span></div>
-      </div>
-      <div class="svc-card">
-        <svg class="svc-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="14" cy="14" r="6"/>
-          <circle cx="30" cy="14" r="6"/>
-          <circle cx="22" cy="32" r="6"/>
-          <path d="M20 14h-0M24 14h-0"/>
-          <path d="M16.5 19 L19 26M27.5 19 L25 26"/>
-        </svg>
-        <div class="svc-title">Team Onboarding & Training Systems</div>
-        <p class="svc-desc">Internal wikis, onboarding flows, and knowledge bases that make new hires productive in days, not months — built to your processes.</p>
-        <div class="svc-arrow">Learn more <span>→</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process" id="process">
-  <div class="container">
-    <div class="process-header reveal">
-      <div class="section-label">How we work</div>
-      <h2 class="section-h2">From first call<br>to live system.</h2>
-      <p class="section-lead">We move fast. Our average project goes from strategy call to deployed product in under 3 weeks.</p>
-    </div>
-    <div class="process-track reveal">
-      <svg class="process-line-svg" id="processLine">
-        <line x1="28" y1="28" x2="100%" y2="28" stroke="#E5E7EB" stroke-width="2" stroke-dasharray="8 6"/>
-      </svg>
-      <div class="process-step">
-        <div class="step-num">01</div>
-        <div class="step-title">Discovery Call</div>
-        <p class="step-desc">30-min strategy session. We diagnose your ops bottlenecks and identify the highest-ROI automation first.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">02</div>
-        <div class="step-title">Audit & Proposal</div>
-        <p class="step-desc">We map your current workflow and send a detailed scope, timeline, and fixed-price quote. No surprises.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">03</div>
-        <div class="step-title">Build Sprint</div>
-        <p class="step-desc">Agile development with weekly check-ins. You see progress every 5 days — never waiting months for a "big reveal."</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">04</div>
-        <div class="step-title">Launch & Train</div>
-        <p class="step-desc">Live deployment + team training. We don't hand over a ZIP file — we walk your team through every feature.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">05</div>
-        <div class="step-title">Support & Grow</div>
-        <p class="step-desc">3 months of included support post-launch. Then a retainer if you want us to keep building with you.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CASE STUDIES -->
-<section id="work">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">Real results, real businesses</div>
-      <h2 class="section-h2">One real thing beats<br>ten vague claims.</h2>
-    </div>
-    <div class="case-grid reveal">
-      <div class="case-card">
-        <div class="case-card-body">
-          <div class="case-tags"><span class="tag">AI</span><span class="tag">CRM</span><span class="tag">Automation</span></div>
-          <div class="case-result">3×</div>
-          <div class="case-result-label">Telecaller productivity — same team, same hours</div>
-          <div class="case-title">Pune Telecalling Company</div>
-          <p class="case-desc">The client had 12 agents manually logging calls in Excel. We built an AI-assisted CRM that auto-logs calls, transcribes summaries, and routes follow-ups. In 6 weeks, they tripled output without hiring a single person.</p>
-          <div class="case-divider"></div>
-          <div class="case-company">📍 Pune, Maharashtra — Finance Sector</div>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-wrap">
+          <img src="logo-white.png" alt="AYP Tech Logo" class="logo-dark">
+          <img src="logo.png" alt="AYP Tech Logo" class="logo-light">
         </div>
-        <!-- BEFORE/AFTER SLIDER -->
-        <div class="ba-wrap" id="baWrap">
-          <div class="ba-side ba-before">
-            <span class="ba-label ba-before-lbl">BEFORE</span>
-            <div class="ba-flow">
-              <div class="flow-box before-box">Call ends</div>
-              <span class="flow-arr-bad">→</span>
-              <div class="flow-box before-box">Agent types notes</div>
-              <span class="flow-arr-bad">→</span>
-              <div class="flow-box before-box">Copy to Excel</div>
-              <span class="flow-arr-bad">→</span>
-              <div class="flow-box before-box">Manager reviews manually</div>
-              <span class="flow-arr-bad">→</span>
-              <div class="flow-box before-box">Follow-up missed</div>
+        <span class="brand-name">AYP Tech</span>
+        <span class="brand-tag">AI Studio</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="Agents/index.html" class="nav-link" style="color: #0d9488; font-weight: 600;"><i class="fas fa-headset"></i> Voice AI Agents <span style="font-size: 10px; background: #ccfbf1; color: #0f766e; padding: 2px 6px; border-radius: 9999px; margin-left: 2px;">Live</span></a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="casestudies.html" class="nav-link">Case Studies</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+          <i class="fas fa-sun theme-icon-sun"></i>
+          <i class="fas fa-moon theme-icon-moon"></i>
+        </button>
+
+        <a href="https://wa.me/919356965876?text=Hi%20AYP%20Tech,%20I%20want%20to%20automate%20my%20business" target="_blank" class="btn btn-secondary btn-sm" rel="noopener">
+          <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp
+        </a>
+        <a href="contact.html" class="btn btn-primary btn-sm">Book Strategy Call ↗</a>
+        <button class="mobile-toggle" aria-label="Toggle navigation">
+          <i class="fas fa-bars" style="font-size: 20px;"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Hero Left: Value Proposition -->
+        <div class="hero-content">
+          <div class="badge-pill">
+            <span class="badge-dot"></span>
+            Agentic AI & Custom Business Automation
+          </div>
+
+          <h1 class="hero-headline">
+            Stop wasting 100s of hours on manual work. 
+            <span class="highlight-word">Scale with AI Agents</span> & Autonomous Systems.
+          </h1>
+
+          <p class="hero-subhead">
+            AYP Tech engineers custom AI agents, automated pipelines, and intelligent software for growing businesses. Eliminate repetitive data entry, cut lead response times to seconds, and 3x your team's operational output.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="contact.html" class="btn btn-primary btn-lg">
+              Book Free Strategy Session ↗
+            </a>
+            <a href="#calculator" class="btn btn-secondary btn-lg">
+              <i class="fas fa-calculator"></i> Calculate Your ROI
+            </a>
+          </div>
+
+          <div class="hero-guarantee-row">
+            <div class="guarantee-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>14-Day Fast Deployment</span>
+            </div>
+            <div class="guarantee-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Zero Data-Retention Guarantee</span>
+            </div>
+            <div class="guarantee-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Human-in-the-Loop Safe</span>
             </div>
           </div>
-          <div class="ba-side ba-after">
-            <span class="ba-label ba-after-lbl">AFTER</span>
-            <div class="ba-flow">
-              <div class="flow-box after-box">Call ends</div>
-              <span class="flow-arr-good">→</span>
-              <div class="flow-box after-box">AI transcribes</div>
-              <span class="flow-arr-good">→</span>
-              <div class="flow-box after-box">CRM auto-logs</div>
-              <span class="flow-arr-good">→</span>
-              <div class="flow-box after-box">Follow-up scheduled</div>
-              <span class="flow-arr-good">→</span>
-              <div class="flow-box after-box">Deal closed</div>
+        </div>
+
+        <!-- Hero Right: Interactive Workflow Canvas (Make / Retool Style) -->
+        <div class="hero-visual-canvas">
+          <div class="interactive-canvas-container">
+            
+            <div class="canvas-topbar">
+              <div class="canvas-status-badge">
+                <span class="badge-dot"></span>
+                <span id="canvasBadge">SCENARIO 1: REVENUE OPS</span>
+              </div>
+              <div class="canvas-tabs">
+                <button class="canvas-tab-btn active" data-scenario="leads">Leads & CRM</button>
+                <button class="canvas-tab-btn" data-scenario="finance">Finance Ops</button>
+                <button class="canvas-tab-btn" data-scenario="support">Support AI</button>
+              </div>
+            </div>
+
+            <div class="canvas-stage">
+              <div class="canvas-nodes-flow" id="canvasNodesFlow">
+                <div class="canvas-connector-line">
+                  <span class="canvas-packet" id="canvasPacket"></span>
+                </div>
+                <!-- Initial Scenario 1: Revenue Ops Nodes (rendered immediately, dynamically updated by JS) -->
+                <div class="canvas-node active-node">
+                  <div class="node-icon-wrap icon-trigger">⚡</div>
+                  <div class="node-info">
+                    <div class="node-type-label">TRIGGER</div>
+                    <div class="node-name">New Lead Submitted</div>
+                    <div class="node-meta">WhatsApp Cloud API / Website Form</div>
+                  </div>
+                  <span class="node-status-pill">200 OK</span>
+                </div>
+                <div class="canvas-node">
+                  <div class="node-icon-wrap icon-ai">🤖</div>
+                  <div class="node-info">
+                    <div class="node-type-label">AI AGENT</div>
+                    <div class="node-name">Autonomous Research &amp; Scoring</div>
+                    <div class="node-meta">Analyzes LinkedIn, company revenue, fits ICP</div>
+                  </div>
+                  <span class="node-status-pill">Score: 94/100</span>
+                </div>
+                <div class="canvas-node">
+                  <div class="node-icon-wrap icon-guardrail">🛡️</div>
+                  <div class="node-info">
+                    <div class="node-type-label">GUARDRAIL</div>
+                    <div class="node-name">Confidence &amp; Approval Check</div>
+                    <div class="node-meta">Confidence &gt; 90% (Self-routed to calendar)</div>
+                  </div>
+                  <span class="node-status-pill">Deterministic Pass</span>
+                </div>
+                <div class="canvas-node">
+                  <div class="node-icon-wrap icon-action">🚀</div>
+                  <div class="node-info">
+                    <div class="node-type-label">ACTION</div>
+                    <div class="node-name">Auto-Book Call &amp; Sync CRM</div>
+                    <div class="node-meta">Google Calendar invite + HubSpot/Zoho created</div>
+                  </div>
+                  <span class="node-status-pill">Completed (1.2s)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="canvas-footer">
+              <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">
+                <i class="fas fa-lock" style="color: var(--accent-emerald);"></i> 100% Encrypted & Monitored
+              </span>
+              <button class="simulation-trigger-btn" id="simTriggerBtn">
+                <i class="fas fa-play"></i> Run Simulation
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Quantified Proof & Metrics Banner -->
+  <section class="proof-stats-banner">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item-card">
+          <div class="stat-number"><span class="stat-highlight">40</span>+</div>
+          <div class="stat-label">End-to-End Automations Live</div>
+        </div>
+        <div class="stat-item-card">
+          <div class="stat-number"><span class="stat-highlight">83</span>%</div>
+          <div class="stat-label">Average Manual Work Eliminated</div>
+        </div>
+        <div class="stat-item-card">
+          <div class="stat-number">₹<span class="stat-highlight">3.2</span>L+</div>
+          <div class="stat-label">Average Monthly Cost Recovered</div>
+        </div>
+        <div class="stat-item-card">
+          <div class="stat-number"><span class="stat-highlight">14</span> Days</div>
+          <div class="stat-label">Average Time from Audit to Production</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid: Core Solutions -->
+  <section class="services-section" id="solutions">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Autonomous Capabilities</div>
+        <h2 class="section-title">
+          Engineered for speed, accuracy, and <span class="gradient-text">scale.</span>
+        </h2>
+        <p class="section-desc">
+          We combine cutting-edge large language models, deterministic APIs, and enterprise iPaaS to automate critical business functions.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        
+        <!-- Bento Card 1: AI Agents (Span 8) -->
+        <div class="bento-card bento-span-8">
+          <div class="bento-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3 class="bento-title">Autonomous AI Agents & Digital Teammates</h3>
+          <p class="bento-desc">
+            Deploy specialized AI agents that act like tireless full-time employees. From lead qualification and prospect research to vendor follow-ups and complex scheduling, our agents execute multi-step business logic 24/7 without manual intervention.
+          </p>
+          <div class="bento-tags">
+            <span class="bento-tag">Lead Qualification</span>
+            <span class="bento-tag">Prospect Intelligence</span>
+            <span class="bento-tag">Human-in-the-Loop Safeguards</span>
+            <span class="bento-tag">OpenAI & Claude 3.5</span>
+          </div>
+        </div>
+
+        <!-- Bento Card 2: WhatsApp & Conversational AI (Span 4) -->
+        <div class="bento-card bento-span-4">
+          <div class="bento-icon" style="color: #25D366; background: rgba(37, 211, 102, 0.12); border-color: rgba(37, 211, 102, 0.25);">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3 class="bento-title">WhatsApp & Omnichannel Automation</h3>
+          <p class="bento-desc">
+            Turn WhatsApp into an automated revenue engine. Instant AI replies, catalog browsing, payment link delivery, and instant human escalation.
+          </p>
+          <div class="bento-tags">
+            <span class="bento-tag">Official Cloud API</span>
+            <span class="bento-tag">Razorpay Sync</span>
+            <span class="bento-tag">Multi-Agent Chat</span>
+          </div>
+        </div>
+
+        <!-- Bento Card 3: Finance & Invoicing (Span 4) -->
+        <div class="bento-card bento-span-4">
+          <div class="bento-icon" style="color: var(--accent-cyan); background: rgba(6, 182, 212, 0.12); border-color: rgba(6, 182, 212, 0.25);">
+            <i class="fas fa-file-invoice-dollar"></i>
+          </div>
+          <h3 class="bento-title">Finance & Document Intelligence</h3>
+          <p class="bento-desc">
+            Never type an invoice again. Extract line items, GSTIN, and order numbers from PDFs with 99.8% precision, auto-matching purchase orders directly into Tally and Zoho Books.
+          </p>
+          <div class="bento-tags">
+            <span class="bento-tag">OCR Document AI</span>
+            <span class="bento-tag">Tally ERP Sync</span>
+            <span class="bento-tag">GST Validation</span>
+          </div>
+        </div>
+
+        <!-- Bento Card 4: Custom Internal Tools & Workflows (Span 8) -->
+        <div class="bento-card bento-span-8">
+          <div class="bento-icon" style="color: var(--accent-emerald); background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.25);">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <h3 class="bento-title">Enterprise Workflow Orchestration & Internal Portals</h3>
+          <p class="bento-desc">
+            Replace chaotic Google Sheets and fragmented WhatsApp groups with robust, custom-built internal portals and automated pipelines. Connect your databases, CRMs, and third-party APIs into one unified operational dashboard with role-based access.
+          </p>
+          <div class="bento-tags">
+            <span class="bento-tag">Custom CRM/ERP</span>
+            <span class="bento-tag">Make / Zapier Architecture</span>
+            <span class="bento-tag">Real-time Telemetry</span>
+            <span class="bento-tag">SOC 2 Compliant</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Ecosystem & Recipe Finder (Zapier Model) -->
+  <section class="ecosystem-section" id="ecosystem">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Connected Stack</div>
+        <h2 class="section-title">
+          Connects with your <span class="gradient-text">existing software.</span>
+        </h2>
+        <p class="section-desc">
+          No need to replace what already works. We layer custom AI automation directly on top of your current tools.
+        </p>
+      </div>
+
+      <div class="stack-selector-wrap">
+        <div class="stack-selector-title">
+          Click your tools below to see custom automations we deploy in 7–14 days:
+        </div>
+        
+        <div class="stack-chips-grid">
+          <div class="stack-chip active" data-app="whatsapp"><i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp</div>
+          <div class="stack-chip active" data-app="sheets"><i class="fas fa-table" style="color: #34A853;"></i> Google Sheets</div>
+          <div class="stack-chip active" data-app="slack"><i class="fab fa-slack" style="color: #ECB22E;"></i> Slack</div>
+          <div class="stack-chip" data-app="gmail"><i class="fas fa-envelope" style="color: #EA4335;"></i> Gmail</div>
+          <div class="stack-chip" data-app="hubspot"><i class="fas fa-bullseye" style="color: #FF7A59;"></i> HubSpot</div>
+          <div class="stack-chip" data-app="zoho"><i class="fas fa-briefcase" style="color: #E42528;"></i> Zoho CRM</div>
+          <div class="stack-chip" data-app="razorpay"><i class="fas fa-credit-card" style="color: #0C2340;"></i> Razorpay</div>
+          <div class="stack-chip" data-app="notion"><i class="fas fa-book" style="color: #FFFFFF;"></i> Notion</div>
+          <div class="stack-chip" data-app="tally"><i class="fas fa-calculator" style="color: #0084FF;"></i> Tally ERP</div>
+          <div class="stack-chip" data-app="openai"><i class="fas fa-brain" style="color: #10A37F;"></i> OpenAI LLMs</div>
+        </div>
+
+        <div class="recipes-display-grid" id="recipesGrid">
+          <!-- Dynamically populated by assets/js/main.js -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive ROI & Savings Calculator -->
+  <section class="calculator-section" id="calculator">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Quantified Proof</div>
+        <h2 class="section-title">
+          Calculate your <span class="gradient-text">automation ROI.</span>
+        </h2>
+        <p class="section-desc">
+          See exactly how many work hours and how much payroll capital your business will recover each year.
+        </p>
+      </div>
+
+      <div class="calc-glass-box">
+        
+        <!-- Controls Column -->
+        <div class="calc-controls">
+          
+          <div class="calc-slider-group">
+            <label>
+              <span>Team Size (Operations / Sales / Support)</span>
+              <span class="calc-slider-val" id="teamSizeVal">10 people</span>
+            </label>
+            <input type="range" class="calc-slider" id="teamSizeSlider" min="2" max="80" value="10">
+          </div>
+
+          <div class="calc-slider-group">
+            <label>
+              <span>Hours spent per person/week on repetitive manual tasks</span>
+              <span class="calc-slider-val" id="hoursVal">12 hrs/week</span>
+            </label>
+            <input type="range" class="calc-slider" id="hoursSlider" min="3" max="30" value="12">
+          </div>
+
+          <div class="calc-slider-group">
+            <label>
+              <span>Average monthly cost per employee</span>
+              <span class="calc-slider-val" id="salaryVal">₹45k/mo</span>
+            </label>
+            <input type="range" class="calc-slider" id="salarySlider" min="20000" max="150000" step="5000" value="45000">
+          </div>
+
+        </div>
+
+        <!-- Live Output Card -->
+        <div class="calc-results-card">
+          <div class="result-badge">Projected Annual Savings</div>
+          <div class="result-big-num" id="calcTotalSavedYear">₹12.2 Lakhs</div>
+          <div class="result-subtext">Estimated capital recovered from eliminated manual drag</div>
+
+          <div class="calc-metrics-row">
+            <div class="calc-metric-box">
+              <div class="calc-metric-lbl">Monthly Hours Saved</div>
+              <div class="calc-metric-val" id="calcHoursSavedMonth">378 hrs</div>
+            </div>
+            <div class="calc-metric-box">
+              <div class="calc-metric-lbl">Estimated ROI</div>
+              <div class="calc-metric-val" id="calcRoiMultiplier">4.8x ROI</div>
             </div>
           </div>
-          <div class="ba-handle" id="baHandle"></div>
+
+          <a href="contact.html" class="btn btn-cyan btn-lg" style="width: 100%;">
+            Claim Your Free Custom Automation Blueprint ↗
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Enterprise Trust & Governance Architecture -->
+  <section class="trust-section" id="trust">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Enterprise Trust & Security</div>
+        <h2 class="section-title">
+          Built with institutional <span class="gradient-text">security & guardrails.</span>
+        </h2>
+        <p class="section-desc">
+          We understand that automating core business functions requires uncompromising security, absolute data privacy, and zero hallucination risks.
+        </p>
+      </div>
+
+      <div class="trust-pillars-grid">
+        
+        <div class="trust-card">
+          <div class="trust-icon-box">
+            <i class="fas fa-shield-halved"></i>
+          </div>
+          <h4 class="trust-card-title">Zero Data-Retention Guarantee</h4>
+          <p class="trust-card-desc">
+            Your proprietary business data, customer contacts, and financials are NEVER used to train public AI models. Dedicated VPC and isolated tenant environments.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon-box">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <h4 class="trust-card-title">Human-in-the-Loop Safeguards</h4>
+          <p class="trust-card-desc">
+            Critical decisions (e.g. payments above thresholds, high-stakes client communications) require 1-click human Slack/WhatsApp approval before execution.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon-box">
+            <i class="fas fa-key"></i>
+          </div>
+          <h4 class="trust-card-title">Bank-Grade Encryption</h4>
+          <p class="trust-card-desc">
+            All API payloads and data in-transit are encrypted using TLS 1.3, with AES-256 encryption at rest. Full compliance with Indian DPDP Act and GDPR frameworks.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon-box">
+            <i class="fas fa-history"></i>
+          </div>
+          <h4 class="trust-card-title">Deterministic Audit Trails</h4>
+          <p class="trust-card-desc">
+            Every automated trigger, LLM reasoning step, and API payload is recorded with timestamps. Instant rollbacks and fault-tolerant dead-letter queues.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Before vs After Comparison -->
+  <section class="comparison-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Operational Shift</div>
+        <h2 class="section-title">
+          The difference is <span class="gradient-text">night and day.</span>
+        </h2>
+      </div>
+
+      <div class="comparison-grid">
+        
+        <!-- Old Manual Way -->
+        <div class="comp-box comp-bad">
+          <div class="comp-header">
+            <h3 style="font-size: 20px; font-weight: 700; color: #FCA5A5;">Without AYP Tech</h3>
+            <span class="comp-pill pill-bad">Manual Drag</span>
+          </div>
+          <ul class="comp-items-list">
+            <li class="comp-item">
+              <i class="fas fa-times" style="color: #EF4444;"></i>
+              <span>Leads wait 4+ hours for a reply; 60% fall through the cracks to competitors</span>
+            </li>
+            <li class="comp-item">
+              <i class="fas fa-times" style="color: #EF4444;"></i>
+              <span>Staff spends 3–4 hours daily copying data between Excel, Gmail, and WhatsApp</span>
+            </li>
+            <li class="comp-item">
+              <i class="fas fa-times" style="color: #EF4444;"></i>
+              <span>Billing discrepancies and missed invoice reconciliations drain profits</span>
+            </li>
+            <li class="comp-item">
+              <i class="fas fa-times" style="color: #EF4444;"></i>
+              <span>Founders spend weekends fixing broken spreadsheets instead of expanding sales</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Modern Automated Way -->
+        <div class="comp-box comp-good">
+          <div class="comp-header">
+            <h3 style="font-size: 20px; font-weight: 700; color: #86EFAC;">With AYP Tech Systems</h3>
+            <span class="comp-pill pill-good">Autonomous Velocity</span>
+          </div>
+          <ul class="comp-items-list">
+            <li class="comp-item">
+              <i class="fas fa-check" style="color: #10B981;"></i>
+              <span>Inbound leads researched, scored, and booked on your calendar in 45 seconds</span>
+            </li>
+            <li class="comp-item">
+              <i class="fas fa-check" style="color: #10B981;"></i>
+              <span>80%+ of repetitive data tasks automated end-to-end with zero manual touchpoints</span>
+            </li>
+            <li class="comp-item">
+              <i class="fas fa-check" style="color: #10B981;"></i>
+              <span>Invoices OCR-extracted and reconciled into Tally/Zoho automatically</span>
+            </li>
+            <li class="comp-item">
+              <i class="fas fa-check" style="color: #10B981;"></i>
+              <span>Executive daily pulse digest delivered to Slack/WhatsApp every morning at 8 AM</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Case Studies Spotlight -->
+  <section class="cases-section" id="cases">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Proven Case Studies</div>
+        <h2 class="section-title">
+          Real results for <span class="gradient-text">ambitious businesses.</span>
+        </h2>
+        <p class="section-desc">
+          Here is how we helped real Indian operations cut costs and scale throughput.
+        </p>
+      </div>
+
+      <div class="cases-grid">
+        
+        <!-- Case 1 -->
+        <div class="case-card">
+          <div class="case-client-tag">TELECALLING & SALES AGENCY · PUNE</div>
+          <h3 class="case-headline">Automated Calling Pipeline & Custom CRM</h3>
+          <div class="case-stat-badge">
+            <span class="case-stat-val">3x</span>
+            <span class="case-stat-lbl">Productivity Increase</span>
+          </div>
+          <p class="case-details-text">
+            Replaced manual dialing sheets with an intelligent CRM pipeline that auto-distributes incoming leads, logs call recordings, and schedules follow-ups automatically.
+          </p>
+          <a href="casestudies.html" class="btn btn-secondary btn-sm" style="margin-top: auto;">
+            Read Full Case Study →
+          </a>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="case-card">
+          <div class="case-client-tag">LOGISTICS & SUPPLY CHAIN · MUMBAI</div>
+          <h3 class="case-headline">Finance Ops & Waybill Document AI</h3>
+          <div class="case-stat-badge">
+            <span class="case-stat-val">₹3.2L</span>
+            <span class="case-stat-lbl">Recovered Monthly</span>
+          </div>
+          <p class="case-details-text">
+            Automated the extraction and matching of 2,000+ monthly delivery receipts and vendor invoices, eliminating billing leakage and human data entry mistakes.
+          </p>
+          <a href="casestudies.html" class="btn btn-secondary btn-sm" style="margin-top: auto;">
+            Read Full Case Study →
+          </a>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="case-card">
+          <div class="case-client-tag">HEALTHCARE SERVICES · BANGALORE</div>
+          <h3 class="case-headline">Patient Intake & WhatsApp AI Triage</h3>
+          <div class="case-stat-badge">
+            <span class="case-stat-val">6 hrs</span>
+            <span class="case-stat-lbl">Saved Daily per Clinic</span>
+          </div>
+          <p class="case-details-text">
+            Implemented a WhatsApp conversational intake bot that collects medical history, confirms appointments, and syncs patient records into their internal EHR.
+          </p>
+          <a href="casestudies.html" class="btn btn-secondary btn-sm" style="margin-top: auto;">
+            Read Full Case Study →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA & Fast Booking Banner -->
+  <section class="cta-banner-section" id="book">
+    <div class="container">
+      <div class="cta-banner-box">
+        <div class="badge-pill" style="margin-bottom: 16px;">
+          <span class="badge-dot"></span> Free 15-Minute Technical Discovery
+        </div>
+        <h2 class="cta-banner-title">
+          Ready to put your business operations on <span class="gradient-text">autopilot?</span>
+        </h2>
+        <p class="cta-banner-desc">
+          Schedule a no-pressure, 15-minute consultation. We'll map out your existing workflow bottlenecks and present a free step-by-step automation blueprint.
+        </p>
+
+        <!-- Lead Capture Form (Compatible with google-sheets-integration.js) -->
+        <div class="contact-form-card">
+          <form class="contact-form-main" id="homepageLeadForm">
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label class="form-label" for="leadName">Your Name *</label>
+                <input type="text" id="leadName" name="name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="leadCompany">Company Name *</label>
+                <input type="text" id="leadCompany" name="company" class="form-control" placeholder="e.g. Apex Logistics" required>
+              </div>
+            </div>
+
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label class="form-label" for="leadEmail">Work Email *</label>
+                <input type="email" id="leadEmail" name="email" class="form-control" placeholder="rahul@company.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="leadPhone">Phone / WhatsApp *</label>
+                <input type="tel" id="leadPhone" name="phone" class="form-control" placeholder="+91 98765 43210" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="leadDetails">What manual process is slowing your team down?</label>
+              <textarea id="leadDetails" name="message" class="form-control" placeholder="e.g. We spend 15 hours a week copying WhatsApp leads to Excel and manually following up..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+              Get Free Automation Blueprint & Strategy Call ↗
+            </button>
+            <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px;">
+              <i class="fas fa-lock"></i> 100% Confidential. No spam. You'll hear back within 4 business hours.
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        
+        <div class="footer-brand-col">
+          <div class="nav-brand">
+            <div class="brand-logo-wrap">
+              <img src="logo-white.png" alt="AYP Tech" class="logo-dark">
+              <img src="logo.png" alt="AYP Tech" class="logo-light">
+            </div>
+            <span class="brand-name">AYP Tech</span>
+          </div>
+          <p class="footer-brand-summary">
+            Next-generation AI agents, enterprise workflow automation, and custom software for high-velocity Indian businesses.
+          </p>
+          <div style="display: flex; gap: 12px; margin-top: 20px;">
+            <a href="https://wa.me/919356965876?text=Hi%20AYP%20Tech,%20I'd%20like%20to%20chat%20about%20automation." target="_blank" class="stack-chip" style="padding: 6px 14px; font-size: 13px;" rel="noopener">
+              <i class="fab fa-whatsapp" style="color: #25D366;"></i> Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Solutions</h4>
+          <ul class="footer-links-list">
+            <li><a href="services.html#agents">AI Digital Agents</a></li>
+            <li><a href="services.html#whatsapp">WhatsApp Automation</a></li>
+            <li><a href="services.html#finance">Finance & Invoice AI</a></li>
+            <li><a href="services.html#crm">Custom CRM & Portals</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links-list">
+            <li><a href="about.html">About AYP Tech</a></li>
+            <li><a href="casestudies.html">Case Studies</a></li>
+            <li><a href="blog.html">Automation Insights</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Security & Trust</h4>
+          <ul class="footer-links-list">
+            <li><span style="color: var(--text-secondary); font-size: 13px;"><i class="fas fa-shield-alt" style="color: var(--accent-emerald);"></i> Zero Data Retention</span></li>
+            <li><span style="color: var(--text-secondary); font-size: 13px;"><i class="fas fa-lock" style="color: var(--accent-cyan);"></i> TLS 1.3 & AES-256</span></li>
+            <li><span style="color: var(--text-secondary); font-size: 13px;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> Human-in-the-Loop</span></li>
+            <li><span style="color: var(--text-secondary); font-size: 13px;"><i class="fas fa-file-contract"></i> DPDP & GDPR Ready</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>© 2026 AYP Tech Solutions. All rights reserved.</div>
+        <div style="display: flex; gap: 24px;">
+          <a href="privacy.html" style="color: var(--text-muted); text-decoration: none;">Privacy Policy</a>
+          <a href="terms.html" style="color: var(--text-muted); text-decoration: none;">Terms of Service</a>
+          <a href="contact.html" style="color: var(--text-muted); text-decoration: none;">Security Whitepaper</a>
         </div>
       </div>
-      <div class="case-card">
-        <div class="case-card-body">
-          <div class="case-tags"><span class="tag">Automation</span><span class="tag">Dashboard</span></div>
-          <div class="case-result">80%</div>
-          <div class="case-result-label">Manual operations eliminated</div>
-          <div class="case-title">Logistics & Finance Ops Automation</div>
-          <p class="case-desc">A Pune logistics firm was drowning in manual invoice reconciliation, approval chains over WhatsApp, and no real-time visibility. We automated the entire ops pipeline — from purchase orders to payment confirmation. 6 man-hours per day, reclaimed.</p>
-          <div class="case-divider"></div>
-          <div class="case-company">📍 Pune, Maharashtra — Logistics</div>
-        </div>
-      </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- COST CALCULATOR -->
-<section class="calc-section" id="calculator">
-  <div class="calc-inner">
-    <div class="section-label reveal" style="color:rgba(255,255,255,0.6)">Interactive</div>
-    <h2 class="section-h2 reveal" style="color:white;">How much is manual<br>work costing you?</h2>
-    <div class="calc-card reveal">
-      <div class="calc-sliders">
-        <div class="calc-slider-group">
-          <label>Team size <span id="teamVal">10</span> people</label>
-          <input type="range" id="teamSlider" min="2" max="100" value="10">
-        </div>
-        <div class="calc-slider-group">
-          <label>Manual hours/week <span id="hoursVal">15</span> hrs</label>
-          <input type="range" id="hoursSlider" min="2" max="60" value="15">
-        </div>
-      </div>
-      <div class="calc-output">
-        <div class="loss-label">You're losing approximately</div>
-        <div class="loss-num" id="lossNum">₹0</div>
-        <div class="loss-sub">per month in staff time spent on automatable tasks</div>
-      </div>
-      <div class="calc-cta">
-        <a href="contact.html" class="btn-primary" style="display:inline-flex;">We can recover most of that. Let's talk. →</a>
-        <div class="calc-cta-note">Free 30-minute strategy call. No commitment.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HONEST SECTION -->
-<section class="honest">
-  <div class="honest-inner">
-    <div class="reveal">
-      <div class="section-label">Transparency</div>
-      <h2 class="honest-title">What we won't do.</h2>
-    </div>
-    <ul class="honest-list reveal">
-      <li><span class="x">×</span> We won't build you something you don't actually need.</li>
-      <li><span class="x">×</span> We won't disappear after the project goes live.</li>
-      <li><span class="x">×</span> We won't use buzzwords to confuse you into paying more.</li>
-      <li><span class="x">×</span> We won't give you a "discovery phase" that lasts 3 months.</li>
-      <li><span class="x">×</span> We won't hand over code with zero documentation or training.</li>
-      <li><span class="x">×</span> We won't promise what we can't deliver in the given timeline.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- FOUNDERS NOTE -->
-<section class="founders" id="about">
-  <div class="founders-inner">
-    <div class="founders-note reveal">
-      <div class="section-label">From the founders</div>
-      <div class="note-text">
-        We started AYP Tech because we watched <strong>good businesses fail at operations</strong>, not ideas. Smart founders, solid products — but drowning in WhatsApp chains, manual spreadsheets, and tools that didn't talk to each other.<br><br>
-        We believe Indian businesses deserve the same quality of tech infrastructure that funded startups take for granted. Not expensive enterprise software with 18-month onboarding. <strong>Fast, practical, built for how you actually work.</strong><br><br>
-        Every system we build, we build as if we were building it for our own company.
-      </div>
-      <div class="founders-sig">Aditya, Yash & Prashik</div>
-      <div class="founders-names-sub">Co-founders, AYP Tech · Based in Pune</div>
-    </div>
-    <div class="founders-visual reveal">
-      <div class="founder-card">
-        <div class="founder-avatar">AP</div>
-        <div class="founder-info">
-          <div class="name">Aditya Pawar</div>
-          <div class="role">Co-founder · Strategy & Systems</div>
-        </div>
-      </div>
-      <div class="founder-card">
-        <div class="founder-avatar">YN</div>
-        <div class="founder-info">
-          <div class="name">Yash Niwane</div>
-          <div class="role">Co-founder · Engineering & AI</div>
-        </div>
-      </div>
-      <div class="founder-card">
-        <div class="founder-avatar">PM</div>
-        <div class="founder-info">
-          <div class="name">Prashik More</div>
-          <div class="role">Co-founder · Product & Design</div>
-        </div>
-      </div>
-      <div style="padding:24px; background: var(--primary); border-radius: 16px; color: white;">
-        <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; margin-bottom: 6px;">47</div>
-        <div style="font-size: 14px; opacity: 0.8;">Businesses automated<br>since we started</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testi">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">What clients say</div>
-      <h2 class="section-h2">Built on trust.</h2>
-    </div>
-  </div>
-  <div class="testi-track reveal" id="testiTrack">
-    <div class="testi-card">
-      <span class="testi-quote-mark">"</span>
-      <p class="testi-text">We were sceptical about automation for our size. AYP Tech showed us a prototype in week one. By week three, it was live. We haven't looked at that Excel sheet since.</p>
-      <div class="testi-author">Rahul Sharma</div>
-      <div class="testi-role">Director, Operations</div>
-      <div class="testi-city">📍 Pune, Maharashtra</div>
-    </div>
-    <div class="testi-card">
-      <span class="testi-quote-mark">"</span>
-      <p class="testi-text">Other agencies gave us 40-page proposals. AYP Tech gave us a working system. The difference is they understand how Indian businesses actually operate — WhatsApp included.</p>
-      <div class="testi-author">Sneha Kulkarni</div>
-      <div class="testi-role">Founder, EdTech Startup</div>
-      <div class="testi-city">📍 Pune, Maharashtra</div>
-    </div>
-    <div class="testi-card">
-      <span class="testi-quote-mark">"</span>
-      <p class="testi-text">We recovered ₹3.2L in the first month alone just from automated invoice reconciliation. The ROI was visible before the project was even done.</p>
-      <div class="testi-author">Amit Deshmukh</div>
-      <div class="testi-role">CFO, Logistics Company</div>
-      <div class="testi-city">📍 Pune, Maharashtra</div>
-    </div>
-    <div class="testi-card">
-      <span class="testi-quote-mark">"</span>
-      <p class="testi-text">What I appreciate most is they pushed back when I asked for something unnecessary. They saved me ₹80K by suggesting a simpler solution. That's rare.</p>
-      <div class="testi-author">Priya Joshi</div>
-      <div class="testi-role">CEO, D2C Brand</div>
-      <div class="testi-city">📍 Mumbai, Maharashtra</div>
-    </div>
-    <div class="testi-card">
-      <span class="testi-quote-mark">"</span>
-      <p class="testi-text">Our onboarding time dropped from 3 weeks to 4 days after they built our internal knowledge system. New hires are productive almost immediately now.</p>
-      <div class="testi-author">Vikram Patil</div>
-      <div class="testi-role">Head of HR, Manufacturing SME</div>
-      <div class="testi-city">📍 Nashik, Maharashtra</div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta" id="contact">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">Ready?</div>
-      <h2 class="section-h2">30 minutes.<br>That's all it takes.</h2>
-      <p class="section-lead">One strategy call. We'll tell you exactly what to automate first and what it'll recover for you — no fluff, no sales pitch.</p>
-      <a href="contact.html" class="btn-primary" style="font-size: 16px; padding: 16px 36px;">Book Free Strategy Call ↗</a>
-      <div class="final-phone">Or call us directly: <strong>+91 91753 62929</strong></div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo">AYP<span style="color:var(--primary)">.</span>Tech</div>
-      <div class="tagline">Automation, AI, and custom software for Indian startups and SMEs. Built in Pune, built for India.</div>
-    </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul>
-        <li><a href="#services">Process Automation</a></li>
-        <li><a href="#services">AI Integration</a></li>
-        <li><a href="#services">Custom CRM</a></li>
-        <li><a href="#services">Web Applications</a></li>
-        <li><a href="#services">Analytics</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#work">Case Studies</a></li>
-        <li><a href="#process">Our Process</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="contact.html">hello@ayptech.in</a></li>
-        <li><a href="tel:+919175362929">+91 91753 62929</a></li>
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">Twitter / X</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div>© 2024 AYP Tech Pvt. Ltd. All rights reserved.</div>
-    <div>Made in Pune 🇮🇳</div>
-  </div>
-</footer>
-
-<script>
-// CURSOR
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
-document.querySelectorAll('a, button, input[type=range], .ba-wrap, .testi-track').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
-
-// NAVBAR SCROLL
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 40);
-});
-
-// MOBILE MENU
-const mobileToggle = document.querySelector('.mobile-menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-const mobileNav = document.getElementById('mobileNav');
-let mobileOpen = false;
-
-if (mobileToggle) {
-  mobileToggle.addEventListener('click', () => {
-    mobileOpen = !mobileOpen;
-    mobileToggle.classList.toggle('active', mobileOpen);
-    mobileNav.classList.toggle('open', mobileOpen);
-  });
-}
-
-function closeMobileNav() {
-  mobileOpen = false;
-  mobileNav.classList.remove('open');
-}
-
-// REVEAL ON SCROLL
-const revealEls = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.12 });
-revealEls.forEach(el => revealObserver.observe(el));
-
-// PROBLEM ITEMS REVEAL
-const problemItems = document.querySelectorAll('.problem-item');
-const probObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const delay = parseInt(e.target.dataset.delay || 0);
-      setTimeout(() => {
-        e.target.classList.add('vis');
-        setTimeout(() => e.target.classList.add('solved'), 600);
-      }, delay);
-    }
-  });
-}, { threshold: 0.3 });
-problemItems.forEach(el => probObserver.observe(el));
-
-// COUNTER ANIMATION
-function animateCounter(el, target, suffix='', prefix='') {
-  let start = 0;
-  const duration = 1500;
-  const step = (timestamp) => {
-    if (!start) start = timestamp;
-    const progress = Math.min((timestamp - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = prefix + Math.floor(eased * target) + suffix;
-    if (progress < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-}
-const counterEls = document.querySelectorAll('[data-count]');
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const target = parseInt(e.target.dataset.count);
-      const suffix = e.target.dataset.suffix || '';
-      animateCounter(e.target, target, suffix);
-      counterObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.5 });
-counterEls.forEach(el => counterObserver.observe(el));
-
-// CALCULATOR
-const teamSlider = document.getElementById('teamSlider');
-const hoursSlider = document.getElementById('hoursSlider');
-const teamVal = document.getElementById('teamVal');
-const hoursVal = document.getElementById('hoursVal');
-const lossNum = document.getElementById('lossNum');
-
-function calcLoss() {
-  const team = parseInt(teamSlider.value);
-  const hours = parseInt(hoursSlider.value);
-  // Avg salary assumption: ₹35,000/month, 160 working hours
-  const hourlyRate = 35000 / 160;
-  const weeklyLoss = team * hours * hourlyRate;
-  const monthlyLoss = weeklyLoss * 4.33;
-  teamVal.textContent = team;
-  hoursVal.textContent = hours;
-  lossNum.textContent = '₹' + Math.round(monthlyLoss / 1000) + 'K';
-}
-teamSlider.addEventListener('input', calcLoss);
-hoursSlider.addEventListener('input', calcLoss);
-calcLoss();
-
-// BEFORE/AFTER SLIDER
-const baWrap = document.getElementById('baWrap');
-const baHandle = document.getElementById('baHandle');
-const baAfter = baWrap.querySelector('.ba-after');
-let isDragging = false;
-
-function setBAPosition(x) {
-  const rect = baWrap.getBoundingClientRect();
-  const pct = Math.max(5, Math.min(95, ((x - rect.left) / rect.width) * 100));
-  baHandle.style.left = pct + '%';
-  baAfter.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-}
-
-baHandle.addEventListener('mousedown', (e) => { isDragging = true; e.preventDefault(); });
-document.addEventListener('mousemove', (e) => { if (isDragging) setBAPosition(e.clientX); });
-document.addEventListener('mouseup', () => { isDragging = false; });
-baHandle.addEventListener('touchstart', (e) => { isDragging = true; }, { passive: true });
-document.addEventListener('touchmove', (e) => {
-  if (isDragging) setBAPosition(e.touches[0].clientX);
-}, { passive: true });
-document.addEventListener('touchend', () => { isDragging = false; });
-// Init
-setBAPosition(baWrap.getBoundingClientRect().left + baWrap.getBoundingClientRect().width * 0.5);
-
-// TESTIMONIALS DRAG SCROLL
-const track = document.getElementById('testiTrack');
-let isDown = false, startX, scrollLeft;
-track.addEventListener('mousedown', (e) => {
-  isDown = true; track.classList.add('grabbing');
-  startX = e.pageX - track.offsetLeft;
-  scrollLeft = track.scrollLeft;
-});
-track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
-track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('grabbing'); });
-track.addEventListener('mousemove', (e) => {
-  if (!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - track.offsetLeft;
-  track.scrollLeft = scrollLeft - (x - startX);
-});
-</script>
+  <!-- Scripts -->
+  <script src="assets/js/main.js"></script>
+  <script src="google-sheets-integration.js"></script>
 </body>
 </html>
