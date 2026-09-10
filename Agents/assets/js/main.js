@@ -116,9 +116,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const prefillPhone = urlParams.get('phone');
     const prefillAgent = urlParams.get('agent');
     const prefillVolume = urlParams.get('volume');
+    const prefillPlan = urlParams.get('plan');
 
-    if (prefillName || prefillPhone || prefillAgent) {
+    if (prefillName || prefillPhone || prefillAgent || prefillPlan) {
       const formCard = document.querySelector('.rounded-3xl.border.border-zinc-200.bg-white') || document.querySelector('form');
+      let planTitle = '';
+      if (prefillPlan === 'growth_3rs') planTitle = 'Growth Plan (₹3/min)';
+      if (prefillPlan === 'pro_4rs') planTitle = 'Enterprise Pro + Niwan AI Suite (₹4/min)';
+
       if (formCard) {
         const banner = document.createElement('div');
         banner.className = 'mb-6 p-4 rounded-2xl bg-teal-50 border border-teal-200 text-teal-900 text-sm flex items-start gap-3 shadow-xs';
@@ -126,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
           <div class="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center shrink-0 font-bold"><i class="ri-check-line text-lg"></i></div>
           <div>
             <div class="font-bold text-teal-950">Pre-filled Demo Request</div>
-            <div class="text-xs text-teal-800 mt-0.5">We have prefilled your request for <strong>${prefillAgent || 'Voice AI Agent'}</strong>. Please verify and confirm below to book your demo slot.</div>
+            <div class="text-xs text-teal-800 mt-0.5">We have prefilled your request for <strong>${planTitle || prefillAgent || 'Voice AI Agent'}</strong>. Please verify and confirm below to book your demo slot.</div>
           </div>
         `;
         formCard.insertBefore(banner, formCard.firstChild);
@@ -142,9 +147,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const messageInput = document.getElementById('demo-message');
       if (messageInput) {
         let msgNotes = [];
+        if (planTitle) msgNotes.push(`• Selected Pricing Tier: ${planTitle}`);
         if (prefillAgent) msgNotes.push(`• Selected Agent: ${prefillAgent}`);
         if (prefillVolume) msgNotes.push(`• Monthly Volume: ${prefillVolume}`);
-        messageInput.value = `Hi AYP Tech Team,\nI would like to schedule a 1-on-1 walkthrough for Voice AI.\n` + msgNotes.join('\n');
+        messageInput.value = `Hi AYP Tech Team,\nI would like to get started with Voice AI.\n` + msgNotes.join('\n');
       }
 
       // Update use case button text if present
