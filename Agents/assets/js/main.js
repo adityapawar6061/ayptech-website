@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
       let planTitle = '';
       if (prefillPlan === 'growth_3rs') planTitle = 'Growth Plan (₹3/min)';
       if (prefillPlan === 'pro_4rs') planTitle = 'Enterprise Pro + Niwan AI Suite (₹4/min)';
+      if (prefillPlan === 'onprem_lifetime') planTitle = 'Self-Hosted Enterprise (One-Time Setup • ₹0/mo)';
 
       if (formCard) {
         const banner = document.createElement('div');
