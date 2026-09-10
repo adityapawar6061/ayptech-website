@@ -1,0 +1,10 @@
+<svg viewBox="0 0 48 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="meta-mark" x1="2" y1="14" x2="46" y2="14" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0064E0"/>
+      <stop offset="1" stop-color="#0082FB"/>
+    </linearGradient>
+  </defs>
+  <path d="M24 18.6C20.9 9.2 16.6 3.5 10.6 3.5 5.2 3.5 1.8 8.4 1.8 14.2 1.8 19.3 4.7 24.5 9.5 24.5c4.1 0 7.2-4.1 9.9-9.6M24 18.6c3.1-9.4 7.4-15.1 13.4-15.1 5.4 0 8.8 4.9 8.8 10.7 0 5.1-2.9 10.3-7.7 10.3-4.1 0-7.2-4.1-9.9-9.6"
+    stroke="url(#meta-mark)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
