@@ -190,3 +190,42 @@ body {
 .faq-item.open .faq-chevron {
   transform: rotate(180deg);
 }
+
+/* 4. On-Premise Self-Hosted Pricing Card Contrast Fix */
+.onprem-card {
+  background-color: #0c1816 !important;
+  background-image: none !important;
+  border: 1.5px solid rgba(45, 212, 191, 0.35) !important;
+  color: #ffffff !important;
+}
+
+.onprem-card h2,
+.onprem-card h3,
+.onprem-card strong {
+  color: #ffffff !important;
+}
+
+.onprem-card p {
+  color: #cbd5e1 !important;
+}
+
+.onprem-card li {
+  color: #f1f5f9 !important;
+}
+
+.onprem-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border: none !important;
+  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4) !important;
+}
+
+.onprem-btn:hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+  color: #000000 !important;
+}
+
+.onprem-btn * {
+  color: #000000 !important;
+}
